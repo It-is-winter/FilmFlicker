@@ -2,6 +2,8 @@ package service;
 
 import java.util.List;
 
+import exception.InsertException;
+import exception.SearchException;
 import management.DTO.MovieDTO;
 
 public interface MovieService {
@@ -12,7 +14,8 @@ public interface MovieService {
 	/**
 	 * 영화 등록
 	 */
-	public int insertMovie(String movieGenre, String movieName, String movieDerector, String releaseDate) /*throws InsertException*/;
+	public int insertMovie(String movieName, String movieDirecter, String releaseDate, List<String> leadActor,
+			List<String> supportActor) throws InsertException;
 	
 	/**
 	 * 장르로 영화 검색
@@ -32,6 +35,6 @@ public interface MovieService {
 	/**
 	 * 이름으로 영화 검색
 	 */
-	public MovieDTO selectMovieByName(String movieName) /*throws SearchException*/;
+	public MovieDTO selectMovieByName(String movieName) throws SearchException;
 
 }

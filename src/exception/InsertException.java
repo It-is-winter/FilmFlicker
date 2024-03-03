@@ -1,5 +1,15 @@
 package exception;
 
-public interface InsertException {
+public class InsertException extends Exception{
 
+	public InsertException() {
+		
+	}
+
+	public InsertException(String message) {
+		super(message);
+	
+	}
+
+	
 }
