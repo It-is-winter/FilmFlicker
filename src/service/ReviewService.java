@@ -1,7 +1,9 @@
 package service;
 
+import exception.InsertException;
 import management.DTO.MovieDTO;
 import management.DTO.ReviewDTO;
+import management.DTO.UsersDTO;
 
 public interface ReviewService {
 	/*
@@ -11,7 +13,7 @@ public interface ReviewService {
 	/**
 	 * 리뷰 등록
 	 */
-	public int insertReview(MovieDTO movie) /*throws InsertException*/;
+	public int insertReview(String movieName, String review, int movieScore,UsersDTO user) throws InsertException;
 	
 	/**
 	 * 리뷰 수정

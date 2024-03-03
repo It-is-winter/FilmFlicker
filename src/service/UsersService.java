@@ -1,5 +1,6 @@
 package service;
 
+import exception.SearchException;
 import management.DTO.UsersDTO;
 
 public interface UsersService {
@@ -11,7 +12,7 @@ public interface UsersService {
 	 * 로그인
 	 * @return UsersDTO
 	 */
-	public void login(String userID, String userPassword) /*throws SearchException*/;
+	public UsersDTO login(String userID, String userPassword) throws SearchException;
 	
 	/**
 	 * 회원가입
