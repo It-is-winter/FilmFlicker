@@ -4,6 +4,8 @@ public class ReviewDTO {
 	private int review_seq;
 	private int score;
 	private String review;
+	MovieDTO movie = new MovieDTO();
+	UsersDTO user = new UsersDTO();	
 	
 	public ReviewDTO(int review_seq, int score, String review) {
 		super();
@@ -41,6 +43,5 @@ public class ReviewDTO {
 		return "ReviewDTO [review_seq=" + review_seq + ", score=" + score + ", review=" + review + "]";
 	}
 	
-	
-	
+
 }
