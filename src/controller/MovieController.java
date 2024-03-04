@@ -28,7 +28,8 @@ public class MovieController {
 			List<String> supportActor) {
 		
 		try {
-			service.insertMovie(movieName, movieDirecter, releaseDate, leadActor, supportActor);
+			int result =service.insertMovie(movieName, movieDirecter, releaseDate, leadActor, supportActor);
+			if(result ==1)
 			SuccessView.successMessage("등록에 성공했습니다.");
 		}catch (InsertException e) {
 			e.printStackTrace();
@@ -47,7 +48,7 @@ public class MovieController {
 			MovieDTO movie =  service.selectMovieByName(movieName);
 			SuccessView.successMovie(movie);
 		}catch (SQLException e) {
-			e.printStackTrace();
+		//	e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
 		}
 	}

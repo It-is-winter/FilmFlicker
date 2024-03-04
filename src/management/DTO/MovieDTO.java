@@ -14,13 +14,14 @@ public class MovieDTO {
 	
 	public MovieDTO() {};
 	
-	public MovieDTO(int movie_seq, String movieName, String movieDirecter, String releaseDate
-			,List<ActorDTO> supportActorList,List<ActorDTO> leadAcotrList
+	public MovieDTO(int movie_seq, String movieName, String movieDirecter, String releaseDate,
+			List<ActorDTO> leadAcotrList,List<ActorDTO> supportActorList
 			) {
 		super();
 		this.movie_seq = movie_seq;
 		this.movieName = movieName;
 		this.movieDirecter = movieDirecter;
+		
 		this.releaseDate = releaseDate;
 		this.supportActorList = supportActorList;
 		this.leadAcotrList = leadAcotrList;
@@ -68,8 +69,8 @@ public class MovieDTO {
 
 	@Override
 	public String toString() {
-		return "MovieDTO [movie_seq=" + movie_seq + ", movieName=" + movieName + ", movieDirecter=" + movieDirecter
-				+ ", releaseDate=" + releaseDate + ", supportActorList=" + supportActorList + ", leadAcotrList="
-				+ leadAcotrList + "]";
+		return  "영화 제목 = " + movieName + ", 감독 =" + movieDirecter
+				+ ", 개봉일 =" + releaseDate + ", 주연배우 = " +leadAcotrList  + ", 조연배우 = "
+				+ supportActorList;
 	}
 }

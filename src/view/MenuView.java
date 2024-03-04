@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -51,6 +52,9 @@ public class MenuView {
 			break;
 		case 4 :
 			MenuView.printSelectMovie();
+			break;
+		case 5 :	
+			MenuView.printInsertMovie();
 			break;
 		case 9 : 
 			System.exit(0);
@@ -198,6 +202,7 @@ public class MenuView {
 	}
 
 
+
 	private static void printInsertMovie() {
 		
 		String movieName = null;
@@ -205,25 +210,23 @@ public class MenuView {
 		String releaseDate = null;
 		List<String> leadActor = new ArrayList<String>();
 		List<String> supportActor = new ArrayList<String>();
-		
+	
 		try{
-			bf = new BufferedReader(new InputStreamReader(System.in));
-			st = new StringTokenizer(bf.readLine());
-			System.out.println("=== 실마리 영화 등록 ===");
-			System.out.print("영화 이름	=>	");
-			movieName = st.nextToken();
-			System.out.print("영화 감독	=>	");
-			movieDirecter = st.nextToken();
-			System.out.print("개봉 날짜	=>	");
-			releaseDate = st.nextToken();
-			System.out.print("주연 배우(공백 구분)	=>	");
-			while(st.nextToken() != null) {
-				leadActor.add(st.nextToken());
-			}
-			System.out.print("조연 배우(공백 구분)	=>	");
-			while(st.nextToken() != null) {
-				supportActor.add(st.nextToken());
-			}
+			 bf = new BufferedReader(new InputStreamReader(System.in));
+		        System.out.println("=== 실마리 영화 등록 ===");
+		        System.out.print("영화 이름    =>  ");
+		        movieName = bf.readLine();
+		        System.out.print("영화 감독    =>  ");
+		        movieDirecter = bf.readLine();
+		        System.out.print("개봉 날짜    =>  ");
+		        releaseDate = bf.readLine();
+		     
+		        System.out.print("주연 배우(공백 구분)   =>  ");
+		        String leadActorsInput = bf.readLine();
+		        leadActor.addAll(Arrays.asList(leadActorsInput.split(" ")));
+		        System.out.print("조연 배우(공백 구분)   =>  ");
+		        String supportActorsInput = bf.readLine();
+		        supportActor.addAll(Arrays.asList(supportActorsInput.split(" ")));
 			
 		} catch (IOException e) {
 			e.printStackTrace();

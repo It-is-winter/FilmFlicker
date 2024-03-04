@@ -3,13 +3,16 @@ package management.DAO.interfaces;
 import java.sql.SQLException;
 import java.util.List;
 
+import exception.InsertException;
 import management.DTO.MovieDTO;
 
 public interface MovieDAO {
 	/**
 	 * 영화 등록
+	 * 
 	 */
-	public int insertMovie(String movieGenre, String movieName, String movieDerector, String releaseDate);
+	public int insertMovie( String movieName, String movieDerector, String releaseDate ,List<String> leadActor,
+			List<String> supportActor) throws InsertException;
 	
 	/**
 	 * 장르로 영화 검색

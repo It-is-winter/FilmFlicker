@@ -45,7 +45,7 @@ public class ActorDTO {
 
 	@Override
 	public String toString() {
-		return "ActorDTO [name=" + name + ", role=" + role + "]";
+		return name;
 	}
 
 	
