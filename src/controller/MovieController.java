@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import exception.InsertException;
@@ -45,10 +46,16 @@ public class MovieController {
 		try {
 			MovieDTO movie =  service.selectMovieByName(movieName);
 			SuccessView.successMovie(movie);
-		}catch (SearchException e) {
+		}catch (SQLException e) {
 			e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
 		}
 	}
+	
+		
+	
+	
+	
+	
 
 }

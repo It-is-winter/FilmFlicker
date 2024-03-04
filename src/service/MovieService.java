@@ -1,5 +1,6 @@
 package service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import exception.InsertException;
@@ -34,7 +35,8 @@ public interface MovieService {
 	
 	/**
 	 * 이름으로 영화 검색
+	 * @throws SQLException 
 	 */
-	public MovieDTO selectMovieByName(String movieName) throws SearchException;
+	public MovieDTO selectMovieByName(String movieName) throws SQLException;
 
 }

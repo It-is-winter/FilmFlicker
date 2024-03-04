@@ -1,14 +1,17 @@
 package service.Impl;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import exception.InsertException;
 import exception.SearchException;
+import management.DAO.Impl.MovieDAOImpl;
+import management.DAO.interfaces.MovieDAO;
 import management.DTO.MovieDTO;
 import service.MovieService;
 
 public class MovieServiceImpl implements MovieService {
-
+	MovieDAO moviedao = new MovieDAOImpl();
 
 	@Override
 	public int insertMovie(String movieName, String movieDirecter, String releaseDate, List<String> leadActor,
@@ -36,9 +39,17 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public MovieDTO selectMovieByName(String movieName) throws SearchException {
-		// TODO Auto-generated method stub
-		return null;
+	public MovieDTO selectMovieByName(String movieName) throws SQLException{
+		
+		MovieDTO moviedto = moviedao.selectMovieByName(movieName);
+	//	if(moviedto ==null) throw new SearchException("찾는 영화가 없습니다");
+		return moviedto;
+	
+	
 	}
+		
+		
+		
+	
 
 }

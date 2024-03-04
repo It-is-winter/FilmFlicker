@@ -1,5 +1,6 @@
 package management.DAO.interfaces;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import management.DTO.MovieDTO;
@@ -27,7 +28,8 @@ public interface MovieDAO {
 	
 	/**
 	 * 이름으로 영화 검색
+	 * 
 	 */
-	public MovieDTO selectMovieByName(String movieName);
+	public MovieDTO selectMovieByName(String movieName) throws SQLException;
 
 }

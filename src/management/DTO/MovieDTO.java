@@ -3,19 +3,22 @@ package management.DTO;
 import java.util.List;
 
 public class MovieDTO {
-	
+	private int movie_seq;
 	private String movieName ;
 	private String movieDirecter ;
 	private String releaseDate ;
+	
 	
 	private List<ActorDTO> supportActorList;
 	private List<ActorDTO> leadAcotrList;
 	
 	public MovieDTO() {};
 	
-	public MovieDTO(String movieName, String movieDirecter, String releaseDate,
-			List<ActorDTO> supportActorList, List<ActorDTO> leadAcotrList) {
+	public MovieDTO(int movie_seq, String movieName, String movieDirecter, String releaseDate
+			,List<ActorDTO> supportActorList,List<ActorDTO> leadAcotrList
+			) {
 		super();
+		this.movie_seq = movie_seq;
 		this.movieName = movieName;
 		this.movieDirecter = movieDirecter;
 		this.releaseDate = releaseDate;
@@ -53,20 +56,20 @@ public class MovieDTO {
 	public void setLeadAcotrList(List<ActorDTO> leadAcotrList) {
 		this.leadAcotrList = leadAcotrList;
 	}
+	/*
+	 * @Override public String toString() { StringBuilder builder = new
+	 * StringBuilder(); builder.append("MovieDTO [movieName=");
+	 * builder.append(movieName); builder.append(", movieDirecter=");
+	 * builder.append(movieDirecter); builder.append(", releaseDate=");
+	 * builder.append(releaseDate); builder.append("]"); return builder.toString();
+	 * }
+	 * 
+	 */
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("MovieDTO [movieName=");
-		builder.append(movieName);
-		builder.append(", movieDirecter=");
-		builder.append(movieDirecter);
-		builder.append(", releaseDate=");
-		builder.append(releaseDate);
-		builder.append("]");
-		return builder.toString();
+		return "MovieDTO [movie_seq=" + movie_seq + ", movieName=" + movieName + ", movieDirecter=" + movieDirecter
+				+ ", releaseDate=" + releaseDate + ", supportActorList=" + supportActorList + ", leadAcotrList="
+				+ leadAcotrList + "]";
 	}
-	
-	
-
-	
 }

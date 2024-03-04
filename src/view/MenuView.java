@@ -13,6 +13,8 @@ import controller.UserController;
 import management.DTO.UsersDTO;
 
 public class MenuView {
+	
+	
 	/*
 	 * 회원, 비회원, 회원가입, 종료
 	 * 회원 선택 - 영화등록, 리뷰등록(+평점), 영화겁색(+리뷰, 뒤로가기), 마이페이지(+찜목록, 리뷰삭제, 뒤로가기), 종료
@@ -46,6 +48,9 @@ public class MenuView {
 			break;
 		case 3 :
 			MenuView.printRegister(); // 회원 가입 화면 나오기
+			break;
+		case 4 :
+			MenuView.printSelectMovie();
 			break;
 		case 9 : 
 			System.exit(0);
