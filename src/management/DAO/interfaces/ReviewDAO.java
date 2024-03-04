@@ -2,6 +2,7 @@ package management.DAO.interfaces;
 
 import management.DTO.MovieDTO;
 import management.DTO.ReviewDTO;
+import management.DTO.UsersDTO;
 
 public interface ReviewDAO {
 	/**
@@ -23,5 +24,9 @@ public interface ReviewDAO {
 	 * 영화 정보로 리뷰 검색
 	 */
 	public ReviewDTO selectReview(MovieDTO movie); //선택된 리뷰를 movieDAO에 전달
+
+	int insertReview(MovieDTO movie, UsersDTO user);
+
+	int insertReview(ReviewDTO review, MovieDTO movie, UsersDTO user);
 
 }
