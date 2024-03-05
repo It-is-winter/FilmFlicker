@@ -33,9 +33,10 @@ public class SuccessView {
 
 	public static void dipsList(List<DipsDTO> dips) {
 		System.out.println("===== 회원님의 찜목록 =======");
-		
+		int i =0;
 		for (DipsDTO dipsDTO : dips) {
-			System.out.println(dipsDTO);
+			i++;
+			System.out.println(i+"." + dipsDTO);
 		}
 		
 	}

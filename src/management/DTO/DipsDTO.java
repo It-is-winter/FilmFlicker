@@ -49,11 +49,11 @@ public class DipsDTO {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("DipsDTO [movie_name=");
+		builder.append(" [movie_name= ");
 		builder.append(movie_name);
-		builder.append(", movie_directer=");
+		builder.append(", movie_directer= ");
 		builder.append(movie_directer);
-		builder.append(", movie_genre=");
+		builder.append(", movie_genre= ");
 		builder.append(movie_genre);
 		builder.append("]");
 		return builder.toString();
