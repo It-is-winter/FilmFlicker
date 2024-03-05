@@ -9,8 +9,8 @@ import management.DAO.Impl.UsersDAOImpl;
 import management.DAO.interfaces.UsersDAO;
 import management.DTO.UsersDTO;
 import service.UsersService;
-import session.UserSession;
-import session.UserSessionSet;
+import session.*;
+
 
 public class UserServiceImpl implements UsersService {
 
@@ -25,9 +25,9 @@ public class UserServiceImpl implements UsersService {
 		}
 		
 		// user를 찾고 예외가 아니면 userSessionSet에 넣어서 관리
-		UserSession userSession = new UserSession(userID);
+		UsersSession userSession = new UsersSession(userID);
 		
-		UserSessionSet userSessionSet = UserSessionSet.getInstance();
+		UsersSessionSet userSessionSet = UsersSessionSet.getInstance();
 		userSessionSet.add(userSession);
 		
 		return user;

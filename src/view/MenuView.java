@@ -11,8 +11,8 @@ import controller.MovieController;
 import controller.ReviewController;
 import controller.UserController;
 import management.DTO.UsersDTO;
-import session.UserSession;
-import session.UserSessionSet;
+import session.*;
+
 
 public class MenuView {
 	/*
@@ -30,8 +30,8 @@ public class MenuView {
 	public static void menu() {
 		
 		while(true) {
-			UserSessionSet userSessionSet = UserSessionSet.getInstance();
-			System.out.println("현재 접속중인 회원 " +userSessionSet.getUserSet());
+			UsersSessionSet userSessionSet = UsersSessionSet.getInstance();
+			System.out.println("현재 접속중인 회원 " +userSessionSet.getSet());
 			
 			MenuView.printMenu();  // 첫 화면 나오기 1)회원 2)비회원 3)회원가입 9)종료
 			
@@ -205,9 +205,9 @@ public class MenuView {
 
 	// UserSessionSet 에서 userSession를 제거하여 로그아웃 진행
 	private static void printLogOut(UsersDTO user) {
-		UserSession userSession  = new UserSession(user.getIdEmail());
+		UsersSession userSession  = new UsersSession(user.getIdEmail());
 		
-		UserSessionSet userSessionSet = UserSessionSet.getInstance();
+		UsersSessionSet userSessionSet = UsersSessionSet.getInstance();
 		userSessionSet.remove(userSession);
 		
 	}
