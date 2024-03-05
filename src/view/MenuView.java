@@ -216,8 +216,10 @@ public class MenuView {
 		        System.out.println("=== 실마리 영화 등록 ===");
 		        System.out.print("영화 이름    =>  ");
 		        movieName = bf.readLine();
+		        System.out.println(movieName);
 		        System.out.print("영화 감독    =>  ");
 		        movieDirecter = bf.readLine();
+		        System.out.println(movieDirecter);
 		        System.out.print("개봉 날짜    =>  ");
 		        releaseDate = bf.readLine();
 		     
