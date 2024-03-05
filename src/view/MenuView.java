@@ -212,6 +212,7 @@ public class MenuView {
 		List<String> supportActor = new ArrayList<String>();
 	
 		try{
+			
 			 bf = new BufferedReader(new InputStreamReader(System.in));
 		        System.out.println("=== 실마리 영화 등록 ===");
 		        System.out.print("영화 이름    =>  ");
@@ -226,10 +227,33 @@ public class MenuView {
 		        System.out.print("주연 배우(공백 구분)   =>  ");
 		        String leadActorsInput = bf.readLine();
 		        leadActor.addAll(Arrays.asList(leadActorsInput.split(" ")));
+		        System.out.println(leadActor);
 		        System.out.print("조연 배우(공백 구분)   =>  ");
 		        String supportActorsInput = bf.readLine();
 		        supportActor.addAll(Arrays.asList(supportActorsInput.split(" ")));
 			
+		        
+		        
+		/*        
+			bf = new BufferedReader(new InputStreamReader(System.in));
+			st = new StringTokenizer(bf.readLine());
+			System.out.println("=== 실마리 영화 등록 ===");
+			System.out.print("영화 이름	=>	");
+			movieName = st.nextToken();
+			System.out.print("영화 감독	=>	");
+			movieDirecter = st.nextToken();
+			System.out.print("개봉 날짜	=>	");
+			releaseDate = st.nextToken();
+			System.out.print("주연 배우(공백 구분)	=>	");
+			while(st.nextToken() != null) {
+				leadActor.add(st.nextToken());
+			}
+			System.out.print("조연 배우(공백 구분)	=>	");
+			while(st.nextToken() != null) {
+				supportActor.add(st.nextToken());
+			}
+		   */     
+		        
 		} catch (IOException e) {
 			e.printStackTrace();
 			FailView.errorMessage("잘못된 값을 입력하였습니다.!");
