@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import exception.InsertException;
@@ -17,17 +18,19 @@ public class MovieController {
 	/***
 	 * 
 	 * @param movieName
+	 * @param movieGenre 
 	 * @param movieDirecter
 	 * @param releaseDate
 	 * @param leadActor
 	 * @param supportActor
 	 * 영화 이름 , 영화 감독 , 개봉 날짜 , 주연배우 - list , 조연 배우 - list를 받는다.
 	 */
-	public static void insertMovie(String movieName, String movieDirecter, String releaseDate, List<String> leadActor,
+	public static void insertMovie(String movieName, int movieGenre, String movieDirecter, String releaseDate, List<String> leadActor,
 			List<String> supportActor) {
 		
 		try {
-			service.insertMovie(movieName, movieDirecter, releaseDate, leadActor, supportActor);
+			int result =service.insertMovie(movieName,movieGenre, movieDirecter, releaseDate, leadActor, supportActor);
+			if(result ==1)
 			SuccessView.successMessage("등록에 성공했습니다.");
 		}catch (InsertException e) {
 			e.printStackTrace();
@@ -45,10 +48,16 @@ public class MovieController {
 		try {
 			MovieDTO movie =  service.selectMovieByName(movieName);
 			SuccessView.successMovie(movie);
-		}catch (SearchException e) {
-			e.printStackTrace();
+		}catch (SQLException e) {
+		//	e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
 		}
 	}
+	
+		
+	
+	
+	
+	
 
 }
