@@ -19,12 +19,12 @@ public interface ReviewService {
 	/**
 	 * 리뷰 등록
 	 */
-	public void insertReview(ReviewDTO review, MovieDTO movie, UsersDTO user) throws InsertException;
+	public void insertReview(ReviewDTO review) throws InsertException, SearchException;
 	
 	/**
 	 * 리뷰 수정
 	 */
-	public void updateReview(ReviewDTO review, MovieDTO movie, UsersDTO user) throws UpdateException;
+	public void updateReview(ReviewDTO review) throws UpdateException;
 	
 	/**
 	 * 리뷰 삭제
@@ -47,7 +47,7 @@ public interface ReviewService {
 	/**
 	 * 해당 리뷰에 좋아요 또는 싫어요 누르기 -> 1은 좋아요 -1은 싫어요 default값은 0
 	 */
-	public void insertLikeReview(ReviewEtcDTO reviewEtc) throws InsertException;
+	public void insertLikeReview(ReviewEtcDTO reviewEtc) throws InsertException, SearchException;
 
 	/**
 	 * 해당 리뷰에 좋아요 또는 싫어요 수정하기

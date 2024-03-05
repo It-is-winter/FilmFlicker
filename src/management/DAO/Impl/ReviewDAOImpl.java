@@ -20,26 +20,54 @@ import view.SuccessView;
 
 public class ReviewDAOImpl implements ReviewDAO {
 
-	@Override
-	public int insertReview(ReviewDTO review, MovieDTO movie, UsersDTO user) throws InsertException {
+	public boolean isExist(ReviewDTO review) throws SearchException {
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = "insert into review(review_seq, movie_seq, user_seq, review, score, reg_date) "
-				+ "values(review_seq_no.NEXTVAL, ?, ?, ?, ?, sysdate)";
-		int result = 0;
+		ResultSet rs = null;
+		
+		String sql = "select * from review where movie_seq =? and user_seq = ?";
 		
 		try {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, movie.getMovie_seq());
-			ps.setInt(2, user.getUser_seq());
+			ps.setInt(1, review.getMovie_seq());
+			ps.setInt(2, review.getUser_seq());
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+			   return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SearchException("리뷰가 존재하지 않습니다.");
+		} finally {
+			DbManager.close(con, ps, rs);
+		}
+		
+		return false;
+	}
+	
+	
+	@Override
+	public int insertReview(ReviewDTO review) throws InsertException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = "insert into review(review_seq, movie_seq, user_seq, review, score, reg_date) "
+				+ "values(review_seq_no.NEXTVAL, ?, ?, ?, ?, sysdate)";
+		int result =0;
+		try {
+			con = DbManager.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setInt(1, review.getMovie_seq());
+			ps.setInt(2, review.getUser_seq());
 			ps.setString(3, review.getReview()); // 리뷰
 			ps.setInt(4, review.getScore()); // 별점
 			
 			result = ps.executeUpdate();
-			
-			SuccessView.successMessage("등록되었습니다.");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -52,7 +80,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 	}
 
 	@Override
-	public int updateReview(ReviewDTO review, MovieDTO movie, UsersDTO user) throws UpdateException {
+	public int updateReview(ReviewDTO review) throws UpdateException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "update review set review = ?, score =? where movie_seq =? and user_seq = ?";
@@ -110,10 +138,11 @@ public class ReviewDAOImpl implements ReviewDAO {
 	}
 
 	@Override
-	public ReviewDTO selectReview(ReviewDTO review) { // 영화와 사용자 시퀀스로 리뷰 검색
+	public ReviewDTO selectReview(ReviewDTO review) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		ReviewDTO reviewDTO = new ReviewDTO();
 		String sql = "select * from review where movie_seq =? and user_seq = ?";
 		
 		try {
@@ -126,17 +155,48 @@ public class ReviewDAOImpl implements ReviewDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				review = new ReviewDTO(rs.getInt(1), rs.getInt(2), rs.getString(3));
+				reviewDTO = new ReviewDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new SearchException("리뷰 수정에 실패했습니다.");
+			throw new SearchException("리뷰가 존재하지 않습니다.");
 		} finally {
 			DbManager.close(con, ps, rs);
 		}
 		
-		return review;
+		return reviewDTO;
+	}
+	
+	@Override
+	public ReviewDTO selectReview(MovieDTO movie, UsersDTO user) { // 영화와 사용자 시퀀스로 리뷰 검색
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ReviewDTO reviewDTO = new ReviewDTO();
+		String sql = "select * from review where movie_seq =? and user_seq = ?";
+		
+		try {
+			con = DbManager.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setInt(1, movie.getMovieSeq());
+			ps.setInt(2, user.getUser_seq());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				reviewDTO = new ReviewDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SearchException("리뷰가 존재하지 않습니다.");
+		} finally {
+			DbManager.close(con, ps, rs);
+		}
+		
+		return reviewDTO;
 	}
 
 	@Override
@@ -152,19 +212,19 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, movie.getMovieSeq());
+			ps.setInt(1, movie.getMovie_seq());
 			
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				review = new ReviewDTO(rs.getInt(1), rs.getInt(2), rs.getString(3));
+				review = new ReviewDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
 			}
 			
 			list.add(review);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new SearchException("리뷰 수정에 실패했습니다.");
+			throw new SearchException("리뷰가 존재하지 않습니다.");
 		} finally {
 			DbManager.close(con, ps, rs);
 		}
@@ -190,14 +250,14 @@ public class ReviewDAOImpl implements ReviewDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				review = new ReviewDTO(rs.getInt(1), rs.getInt(2), rs.getString(3));
+				review = new ReviewDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
 			}
 			
 			list.add(review);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new SearchException("리뷰 수정에 실패했습니다.");
+			throw new SearchException("리뷰가 존재하지 않습니다.");
 		} finally {
 			DbManager.close(con, ps, rs);
 		}

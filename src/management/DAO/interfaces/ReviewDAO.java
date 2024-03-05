@@ -14,12 +14,16 @@ public interface ReviewDAO {
 	/**
 	 * 리뷰 등록
 	 */
-	public int insertReview(ReviewDTO review, MovieDTO movie, UsersDTO user) throws InsertException;
+	public int insertReview(ReviewDTO review) throws InsertException;
+	/**
+	 * 중복된 리뷰인지 확인
+	 */
+	public boolean isExist(ReviewDTO review) throws SearchException;
 	
 	/**
 	 * 리뷰 수정
 	 */
-	public int updateReview(ReviewDTO review, MovieDTO movie, UsersDTO user) throws UpdateException;
+	public int updateReview(ReviewDTO review) throws UpdateException;
 	
 	/**
 	 * 리뷰 삭제
@@ -29,7 +33,8 @@ public interface ReviewDAO {
 	/**
 	 * 영화와 유저 정보로 리뷰 검색
 	 */
-	public ReviewDTO selectReview(ReviewDTO review)throws SearchException; //선택된 리뷰를 movieDAO에 전달
+	public ReviewDTO selectReview(MovieDTO movie, UsersDTO user) throws SearchException;
+	public ReviewDTO selectReview(ReviewDTO review) throws SearchException; //선택된 리뷰를 movieDAO에 전달
 	
 	/**
 	 * 해당 영화의 리뷰 검색
