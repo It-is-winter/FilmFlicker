@@ -21,7 +21,7 @@ public class DbManager {
 			//proFile.load(new FileInputStream("board.properties"));
 			
 			//C:\Edu\JavaWorks\FilmFlicker
-			Class.forName(DBProperties.DRIVER_NAME);
+			Class.forName(DBProperties.driverName);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -35,9 +35,9 @@ public class DbManager {
 
 	public static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(
-				DBProperties.URL,
-				DBProperties.USER_ID,
-				DBProperties.USER_PASS);
+				DBProperties.url,
+				DBProperties.userName,
+				DBProperties.userPass);
 	}
 	
 
