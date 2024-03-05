@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+import controller.DipsController;
 import controller.UserController;
 import management.DTO.UsersDTO;
 
@@ -44,7 +45,7 @@ public class MyPageView {
 				 // 등록된 리뷰 삭제 화면 나오기
 				break;
 			case 3 :
-				 // 찜목록 확인하기
+				MyPageView.printDips(user);
 				break;
 			case 4 :	
 				return; 	// 뒤로가기
@@ -58,6 +59,20 @@ public class MyPageView {
 		
 	}// printMyPage 메소드 끝
 
+	/**
+	 * 찜목록 내역 확인하기 화면
+	 * @param user
+	 */
+	private static void printDips(UsersDTO user) {
+		DipsController.selectDips(user);
+		
+	}
+
+	
+	/**
+	 * 비밀번호 변경 화면
+	 * @param user
+	 */
 	private static void printUpdatedPassword(UsersDTO user) {
 		String password = null;
 		
