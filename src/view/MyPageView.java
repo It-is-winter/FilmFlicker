@@ -33,7 +33,6 @@ public class MyPageView {
 				menu = Integer.parseInt(bf.readLine());
 				
 			} catch (IOException e) {
-				e.printStackTrace();
 				FailView.errorMessage("잘못된 값을 입력하였습니다.!");
 			}
 			
@@ -68,7 +67,6 @@ public class MyPageView {
 			System.out.print("새 비밀번호 입력	=>	");
 			password = bf.readLine();
 		}catch (IOException e) {
-			e.printStackTrace();
 			FailView.errorMessage("잘못된 값을 입력하였습니다.!");
 		}
 		

@@ -40,7 +40,6 @@ public class MenuView {
 				menu = Integer.parseInt(bf.readLine());
 				
 			} catch (IOException e) {
-				e.printStackTrace();
 				FailView.errorMessage("잘못된 값을 입력하였습니다.!");
 			}
 			
@@ -79,7 +78,6 @@ public class MenuView {
 			id = bf.readLine();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
 			FailView.errorMessage("잘못된 값을 입력하였습니다.!");
 		}
 		
