@@ -17,8 +17,38 @@ import util.DbManager;
 
 public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 	
+	public boolean isExist(ReviewEtcDTO reviewEtc) throws SearchException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = "select * from review_etc where review_seq =? and user_seq = ?";
+		
+		try {
+			con = DbManager.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setInt(1, reviewEtc.getReview_seq());
+			ps.setInt(2, reviewEtc.getUser_seq());
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+			   return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SearchException("리뷰가 존재하지 않습니다.");
+		} finally {
+			DbManager.close(con, ps, rs);
+		}
+		
+		return false;
+	}
+	
 	@Override
-	public int insertLike(ReviewEtcDTO reviewEtc, ReviewDTO review, UsersDTO user) throws InsertException {
+	public int insertLike(ReviewEtcDTO reviewEtc) throws InsertException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "insert review_etc(REVIEW_ETC_SEQ, USER_SEQ, REVIEW_SEQ, LIKE_DISLIKE, REG_DATE) "
@@ -29,8 +59,8 @@ public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 			con = DbManager.getConnection();
 			
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, user.getUser_seq());
-			ps.setInt(2, review.getReview_seq());
+			ps.setInt(1, reviewEtc.getUser_seq());
+			ps.setInt(2, reviewEtc.getReview_seq());
 			ps.setInt(3, reviewEtc.getLike());
 			
 			result = ps.executeUpdate();
