@@ -1,5 +1,8 @@
 package view;
 
+import java.util.List;
+
+import management.DTO.DipsDTO;
 import management.DTO.MovieDTO;
 import management.DTO.UsersDTO;
 
@@ -25,6 +28,15 @@ public class SuccessView {
 
 	public static void printPassword(UsersDTO user) {
 		System.out.println("회원의 비밀번호 => "+user.getPassword());
+		
+	}
+
+	public static void dipsList(List<DipsDTO> dips) {
+		System.out.println("===== 회원님의 찜목록 =======");
+		
+		for (DipsDTO dipsDTO : dips) {
+			System.out.println(dipsDTO);
+		}
 		
 	}
 
