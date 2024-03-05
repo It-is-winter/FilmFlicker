@@ -7,16 +7,19 @@ public class UsersDTO {
 	private String password;
 	private String name;
 	private String birth;
+	private String regDate;
 	
 	
 	public UsersDTO() {};
 	
-	public UsersDTO(int user_seq, String idEmail, String password, String name, String birth) {
+	public UsersDTO(int user_seq, String idEmail, String password, String name, String birth,
+			String regDate) {
 		this.user_seq = user_seq;
 		this.idEmail = idEmail;
 		this.password = password;
 		this.name = name;
 		this.birth = birth;
+		this.regDate = regDate;
 	}
 
 
@@ -50,6 +53,13 @@ public class UsersDTO {
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
+	public String getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

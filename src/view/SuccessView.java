@@ -1,6 +1,7 @@
 package view;
 
 import management.DTO.MovieDTO;
+import management.DTO.UsersDTO;
 
 public class SuccessView {
 	
@@ -20,6 +21,11 @@ public class SuccessView {
 	 */
 	public static void successMovie(MovieDTO movie){
 		System.out.println(movie);
+	}
+
+	public static void printPassword(UsersDTO user) {
+		System.out.println("회원의 비밀번호 => "+user.getPassword());
+		
 	}
 
 }
