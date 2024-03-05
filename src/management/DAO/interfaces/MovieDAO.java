@@ -9,6 +9,7 @@ import management.DTO.MovieDTO;
 public interface MovieDAO {
 	/**
 	 * 영화 등록
+	 * @throws SQLException 
 	 * 
 	 */
 	public int insertMovie( String movieName, String movieDerector, String releaseDate ,List<String> leadActor,

@@ -231,8 +231,10 @@ public class MenuView {
 		        System.out.print("조연 배우(공백 구분)   =>  ");
 		        String supportActorsInput = bf.readLine();
 		        supportActor.addAll(Arrays.asList(supportActorsInput.split(" ")));
-			
-		        
+		        System.out.println(supportActor);
+		        for (String actor : leadActor) {
+		        	System.out.println("주연배우 = "+ actor);
+		        }
 		        
 		/*        
 			bf = new BufferedReader(new InputStreamReader(System.in));
