@@ -14,8 +14,9 @@ public interface MovieService {
 	
 	/**
 	 * 영화 등록
+	 * 
 	 */
-	public int insertMovie(String movieName, String movieDirecter, String releaseDate, List<String> leadActor,
+	public int insertMovie(String movieName, int movieGenre, String movieDirecter, String releaseDate, List<String> leadActor,
 			List<String> supportActor) throws InsertException;
 	
 	/**

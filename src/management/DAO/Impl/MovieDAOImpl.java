@@ -21,14 +21,14 @@ public class MovieDAOImpl implements MovieDAO {
 	
 	
 	@Override
-	public int insertMovie( String movieName, String movieDerector, String releaseDate, List<String> leadActor,
+	public int insertMovie( String movieName,int movieGenre, String movieDerector, String releaseDate, List<String> leadActor,
 			List<String> supportActor) throws InsertException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
 		
-		String sql = "insert into movie (movie_seq,movie_name,movie_director,release_date) "
-				+ "values(movie_seq.nextval,?,?,?)";
+		String sql = "insert into movie (movie_seq,movie_name,movie_genre_seq,movie_director,release_date) "
+				+ "values(movie_seq.nextval,?,?,?,?)";
 
 		try {
 			//1영화정보삽입
@@ -37,14 +37,14 @@ public class MovieDAOImpl implements MovieDAO {
 			 
 			ps = con.prepareStatement(sql);
 			ps.setString(1, movieName);
-			ps.setString(2, movieDerector);
-			ps.setString(3, releaseDate);
-		
+			ps.setInt(2, movieGenre);
+			ps.setString(3, movieDerector);
+			ps.setString(4, releaseDate);
+			System.out.println("여기까지가능?");
 			result = ps.executeUpdate();
 			con.commit();
 			ps.close();
 		
-		     
 		       
 		    int movieSeq = 0;
 			Statement stmt = con.createStatement();
@@ -280,7 +280,7 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 		          List<ActorDTO> leadactorlist = selectLeadActor(movieName);
 		          List<ActorDTO> supportactorlist = selectSupportActor(movieName);
 		          
-		            moviedto = new MovieDTO(0, rs.getString(1), rs.getString(2), releaseDateStr, leadactorlist, supportactorlist);
+		            moviedto = new MovieDTO(0, rs.getString(1), rs.getInt(2),rs.getString(3), releaseDateStr, leadactorlist, supportactorlist);
 		        }
 			
 			

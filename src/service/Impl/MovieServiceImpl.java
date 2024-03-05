@@ -13,10 +13,10 @@ public class MovieServiceImpl implements MovieService {
 	MovieDAO moviedao = new MovieDAOImpl();
 
 	@Override
-	public int insertMovie(String movieName, String movieDirecter, String releaseDate, List<String> leadActor,
+	public int insertMovie(String movieName,int movieGenre, String movieDirecter, String releaseDate, List<String> leadActor,
 			List<String> supportActor) throws InsertException {
 		
-		int result = moviedao.insertMovie( movieName,  movieDirecter,  releaseDate, leadActor, supportActor);
+		int result = moviedao.insertMovie( movieName,movieGenre,  movieDirecter,  releaseDate, leadActor, supportActor);
 		return result;
 	
 	}

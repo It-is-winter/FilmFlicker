@@ -206,6 +206,7 @@ public class MenuView {
 	private static void printInsertMovie() {
 		
 		String movieName = null;
+		int movieGenre = 0;
 		String movieDirecter = null;
 		String releaseDate = null;
 		List<String> leadActor = new ArrayList<String>();
@@ -218,9 +219,17 @@ public class MenuView {
 		        System.out.print("영화 이름    =>  ");
 		        movieName = bf.readLine();
 		        System.out.println(movieName);
+				/*
+				 * System.out.println("영화 장르"); movieGenre = bf.readLine();
+				 */
+		        System.out.print("장르를 숫자로 입력하세요 (1: 액션, 2: 드라마, 3: 코미디, 4: 호러");
+	            System.out.println();
+		        String movieGenreStr = bf.readLine();
+	            movieGenre = Integer.parseInt(movieGenreStr);
+	            System.out.println(movieGenre);
 		        System.out.print("영화 감독    =>  ");
 		        movieDirecter = bf.readLine();
-		        System.out.println(movieDirecter);
+		        
 		        System.out.print("개봉 날짜    =>  ");
 		        releaseDate = bf.readLine();
 		     
@@ -236,33 +245,13 @@ public class MenuView {
 		        	System.out.println("주연배우 = "+ actor);
 		        }
 		        
-		/*        
-			bf = new BufferedReader(new InputStreamReader(System.in));
-			st = new StringTokenizer(bf.readLine());
-			System.out.println("=== 실마리 영화 등록 ===");
-			System.out.print("영화 이름	=>	");
-			movieName = st.nextToken();
-			System.out.print("영화 감독	=>	");
-			movieDirecter = st.nextToken();
-			System.out.print("개봉 날짜	=>	");
-			releaseDate = st.nextToken();
-			System.out.print("주연 배우(공백 구분)	=>	");
-			while(st.nextToken() != null) {
-				leadActor.add(st.nextToken());
-			}
-			System.out.print("조연 배우(공백 구분)	=>	");
-			while(st.nextToken() != null) {
-				supportActor.add(st.nextToken());
-			}
-		   */     
-		        
+			        
 		} catch (IOException e) {
 			e.printStackTrace();
 			FailView.errorMessage("잘못된 값을 입력하였습니다.!");
 		}
 	
-			
-		MovieController.insertMovie(movieName,movieDirecter,releaseDate,leadActor,supportActor);
+		MovieController.insertMovie(movieName,movieGenre,movieDirecter,releaseDate,leadActor,supportActor);
 		
 		
 	}

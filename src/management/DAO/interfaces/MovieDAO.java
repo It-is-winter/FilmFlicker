@@ -12,7 +12,7 @@ public interface MovieDAO {
 	 * @throws SQLException 
 	 * 
 	 */
-	public int insertMovie( String movieName, String movieDerector, String releaseDate ,List<String> leadActor,
+	public int insertMovie( String movieName,int movieGenre, String movieDerector, String releaseDate ,List<String> leadActor,
 			List<String> supportActor) throws InsertException;
 	
 	/**
