@@ -35,7 +35,6 @@ public class UsersDAOImpl implements UsersDAO {
 			ps.setString(1, userID);
 			ps.setString(2, userPassword);
 			rs = ps.executeQuery();
-			
 			if(rs.next()) {
 				user = new UsersDTO(rs.getInt("user_seq"),rs.getString("user_id"),rs.getString("user_password"),
 						rs.getString("user_name"),rs.getString("user_birth"),rs.getString("reg_date"));
