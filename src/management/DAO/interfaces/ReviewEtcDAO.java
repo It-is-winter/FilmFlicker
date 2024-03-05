@@ -10,7 +10,7 @@ import management.DTO.UsersDTO;
 
 public interface ReviewEtcDAO {
 	
-	int insertLike(ReviewEtcDTO reviewEtc, ReviewDTO review, UsersDTO user) throws InsertException;
+	int insertLike(ReviewEtcDTO reviewEtc) throws InsertException;
 	/**
 	 * 리뷰에 대한 좋아요, 싫어요
 	 */

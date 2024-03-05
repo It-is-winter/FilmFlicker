@@ -4,8 +4,12 @@ public class ReviewDTO {
 	private int review_seq;
 	private int score;
 	private String review;
+	
 	MovieDTO movie = new MovieDTO();
+	private int movie_seq = movie.getMovie_seq();
+	
 	UsersDTO user = new UsersDTO();	
+	private int user_seq = user.getUser_seq();
 	
 	public ReviewDTO() {}
 	
@@ -38,6 +42,38 @@ public class ReviewDTO {
 
 	public void setReview(String review) {
 		this.review = review;
+	}
+
+	public MovieDTO getMovie() {
+		return movie;
+	}
+
+	public void setMovie(MovieDTO movie) {
+		this.movie = movie;
+	}
+
+	public int getMovie_seq() {
+		return movie_seq;
+	}
+
+	public void setMovie_seq(int movie_seq) {
+		this.movie_seq = movie_seq;
+	}
+
+	public UsersDTO getUser() {
+		return user;
+	}
+
+	public void setUser(UsersDTO user) {
+		this.user = user;
+	}
+
+	public int getUser_seq() {
+		return user_seq;
+	}
+
+	public void setUser_seq(int user_seq) {
+		this.user_seq = user_seq;
 	}
 
 	@Override

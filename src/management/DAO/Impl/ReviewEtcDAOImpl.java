@@ -18,7 +18,7 @@ import util.DbManager;
 public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 	
 	@Override
-	public int insertLike(ReviewEtcDTO reviewEtc, ReviewDTO review, UsersDTO user) throws InsertException {
+	public int insertLike(ReviewEtcDTO reviewEtc) throws InsertException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "insert review_etc(REVIEW_ETC_SEQ, USER_SEQ, REVIEW_SEQ, LIKE_DISLIKE, REG_DATE) "
@@ -29,8 +29,8 @@ public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 			con = DbManager.getConnection();
 			
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, user.getUser_seq());
-			ps.setInt(2, review.getReview_seq());
+			ps.setInt(1, reviewEtc.getUser_seq());
+			ps.setInt(2, reviewEtc.getReview_seq());
 			ps.setInt(3, reviewEtc.getLike());
 			
 			result = ps.executeUpdate();
