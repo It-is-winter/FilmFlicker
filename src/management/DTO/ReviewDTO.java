@@ -7,6 +7,8 @@ public class ReviewDTO {
 	MovieDTO movie = new MovieDTO();
 	UsersDTO user = new UsersDTO();	
 	
+	public ReviewDTO() {}
+	
 	public ReviewDTO(int review_seq, int score, String review) {
 		super();
 		this.review_seq = review_seq;

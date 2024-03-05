@@ -23,7 +23,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "insert into review(review_seq, movie_seq, user_seq, review, score, reg_date) "
-				+ "values(review_seq_no, ?, ?, ?, ?, sysdate)";
+				+ "values(review_seq_no.NEXTVAL, ?, ?, ?, ?, sysdate)";
 		int result = 0;
 		
 		try {
