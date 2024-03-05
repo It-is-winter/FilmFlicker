@@ -27,7 +27,7 @@ public class MovieDAOImpl implements MovieDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "insert into movie (movie_seq ,movie_name,movie_director,release_date) "
+		String sql = "insert into movie (movie_seq.nextval ,movie_name,movie_director,release_date) "
 				+ "values(movie_seq.nextval,?,?,?)";
 		 String actorSql = "insert into movie_actor (movie_seq, actor_name, actor_role) "
 				+ "values (?, ?, ?)";
@@ -44,7 +44,7 @@ public class MovieDAOImpl implements MovieDAO {
 			
 			result = ps.executeUpdate();
 			ps.close();
-			
+			con.close();
 			
 			//2삽입된 영화의 movie_seq값 가져오기
 			
