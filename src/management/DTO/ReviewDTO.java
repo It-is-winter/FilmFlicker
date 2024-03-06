@@ -58,11 +58,8 @@ public class ReviewDTO {
 		return movieSeq;
 	}
 
-<<<<<<< HEAD
-	public void setmovieSeq(int movieSeq) {
-=======
+
 	public void setMovieSeq(int movieSeq) {
->>>>>>> main
 		this.movieSeq = movieSeq;
 	}
 

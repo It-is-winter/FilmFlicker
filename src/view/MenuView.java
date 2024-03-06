@@ -16,14 +16,10 @@ import exception.SearchException;
 import management.DTO.MovieDTO;
 import management.DTO.ReviewDTO;
 import management.DTO.UsersDTO;
-<<<<<<< HEAD
 import service.MovieService;
 import service.Impl.MovieServiceImpl;
 import session.*;
-=======
-import session.UsersSession;
-import session.UsersSessionSet;
->>>>>>> main
+
 
 
 public class MenuView {

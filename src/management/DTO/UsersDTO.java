@@ -14,11 +14,7 @@ public class UsersDTO {
 	
 	public UsersDTO(int userSeq, String idEmail, String password, String name, String birth,
 			String regDate) {
-<<<<<<< HEAD
 		this.userSeq = userSeq;
-=======
-		this.userSeq = user_seq;
->>>>>>> main
 		this.idEmail = idEmail;
 		this.password = password;
 		this.name = name;
@@ -67,11 +63,7 @@ public class UsersDTO {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-<<<<<<< HEAD
 		builder.append("UsersDTO [userSeq=");
-=======
-		builder.append("UsersDTO [user_seq=");
->>>>>>> main
 		builder.append(userSeq);
 		builder.append(", idEmail=");
 		builder.append(idEmail);
