@@ -4,16 +4,16 @@ public class ReviewEtcDTO {
 	private int like; // 1 이면 좋아요 -1 이면 싫어요 0 이면 default
 	private int countLike;
 	private int countHate;
-	private int reviewEtc_seq;
+	private int reviewEtcSeq;
 	
 	ReviewDTO review = new ReviewDTO();
-	private int review_seq = review.getReview_seq();
+	private int review_seq = review.getReviewSeq();
 	
 	UsersDTO user = new UsersDTO();
-	private int user_seq = user.getUser_seq();
+	private int user_seq = user.getUserSeq();
 	
 	MovieDTO movie = new MovieDTO();
-	private int movie_seq = movie.getMovie_seq();
+	private int movie_seq = movie.getMovieSeq();
 	
 	public ReviewEtcDTO() {}
 	
@@ -21,7 +21,7 @@ public class ReviewEtcDTO {
 			UsersDTO user, int user_seq, int like) {
 		super();
 		this.like = like;
-		this.reviewEtc_seq = reviewEtc_seq;
+		this.reviewEtcSeq = reviewEtc_seq;
 		this.review = review;
 		this.review_seq = review_seq;
 		this.user = user;
@@ -54,11 +54,11 @@ public class ReviewEtcDTO {
 		this.review = review;
 	}
 
-	public int getReview_seq() {
+	public int getReviewSeq() {
 		return review_seq;
 	}
 
-	public void setReview_seq(int review_seq) {
+	public void setReviewSeq(int review_seq) {
 		this.review_seq = review_seq;
 	}
 	
@@ -70,11 +70,11 @@ public class ReviewEtcDTO {
 		this.user = user;
 	}
 
-	public int getUser_seq() {
+	public int getUserSeq() {
 		return user_seq;
 	}
 
-	public void setUser_seq(int user_seq) {
+	public void setUserSeq(int user_seq) {
 		this.user_seq = user_seq;
 	}
 
