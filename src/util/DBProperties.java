@@ -1,10 +1,11 @@
 package util;
 
-public interface DBProperties {
+// DB 설정 정보들을 상수로 관리
 
-			String driverName="oracle.jdbc.driver.OracleDriver";
-			String url="jdbc:oracle:thin:@127.0.0.1:1521:XE";
-			String userName="c##test";
-			String userPass="1234";
+public interface DBProperties {
+	public static final String DRIVER_NAME = "oracle.jdbc.driver.OracleDriver";
+	String URL = "jdbc:oracle:thin:@localhost:1521:xe";
+	String USER_ID = "scott";
+	String USER_PASS = "TIGER";
 	
 }

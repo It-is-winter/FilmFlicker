@@ -31,8 +31,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, review.getMovieSeq());
-			ps.setInt(2, review.getUserSeq());
+			ps.setInt(1, review.getMovie_seq());
+			ps.setInt(2, review.getUser_seq());
 			
 			rs = ps.executeQuery();
 			
@@ -62,8 +62,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, review.getMovieSeq());
-			ps.setInt(2, review.getUserSeq());
+			ps.setInt(1, review.getMovie_seq());
+			ps.setInt(2, review.getUser_seq());
 			ps.setString(3, review.getReview()); // 리뷰
 			ps.setInt(4, review.getScore()); // 별점
 			
@@ -92,8 +92,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 			
 			ps.setString(1, review.getReview());
 			ps.setInt(2, review.getScore());
-			ps.setInt(3, review.getMovieSeq());
-			ps.setInt(4, review.getUserSeq());
+			ps.setInt(3, review.getMovie_seq());
+			ps.setInt(4, review.getUser_seq());
 			
 			result = ps.executeUpdate();
 			
@@ -120,8 +120,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, review.getMovieSeq());
-			ps.setInt(2, review.getUserSeq());
+			ps.setInt(1, review.getMovie_seq());
+			ps.setInt(2, review.getUser_seq());
 			
 			result = ps.executeUpdate();
 			
@@ -149,8 +149,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, review.getMovieSeq());
-			ps.setInt(2, review.getUserSeq());
+			ps.setInt(1, review.getMovie_seq());
+			ps.setInt(2, review.getUser_seq());
 			
 			rs = ps.executeQuery();
 			
@@ -169,7 +169,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 	}
 	
 	@Override
-	public ReviewDTO selectReview(MovieDTO movie, UsersDTO user) { // 영화와 사용자 시퀀스로 리뷰 검색
+	public ReviewDTO selectReview(MovieDTO movie, UsersDTO user) throws SearchException { // 영화와 사용자 시퀀스로 리뷰 검색
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -180,8 +180,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, movie.getMovieSeq());
-			ps.setInt(2, user.getUserSeq());
+			ps.setInt(1, movie.getMovie_seq());
+			ps.setInt(2, user.getUser_seq());
 			
 			rs = ps.executeQuery();
 			
@@ -212,7 +212,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, movie.getMovieSeq());
+			ps.setInt(1, movie.getMovie_seq());
 			
 			rs = ps.executeQuery();
 			
@@ -245,7 +245,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(2, user.getUserSeq());
+			ps.setInt(2, user.getUser_seq());
 			
 			rs = ps.executeQuery();
 			
