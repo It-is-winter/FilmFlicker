@@ -79,7 +79,8 @@ public class ReviewDTO {
 
 	@Override
 	public String toString() {
-		return "ReviewDTO [review_seq=" + review_seq + ", score=" + score + ", review=" + review + "]";
+		return "리뷰 : " + review +
+				"\n평점 : " + score + "/10";
 	}
 	
 
