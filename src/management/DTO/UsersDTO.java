@@ -2,7 +2,7 @@ package management.DTO;
 
 public class UsersDTO {
 
-	private int user_seq;
+	private int userSeq;
 	private String idEmail;
 	private String password;
 	private String name;
@@ -12,9 +12,9 @@ public class UsersDTO {
 	
 	public UsersDTO() {};
 	
-	public UsersDTO(int user_seq, String idEmail, String password, String name, String birth,
+	public UsersDTO(int userSeq, String idEmail, String password, String name, String birth,
 			String regDate) {
-		this.user_seq = user_seq;
+		this.userSeq = userSeq;
 		this.idEmail = idEmail;
 		this.password = password;
 		this.name = name;
@@ -23,11 +23,11 @@ public class UsersDTO {
 	}
 
 
-	public int getUser_seq() {
-		return user_seq;
+	public int getUserSeq() {
+		return userSeq;
 	}
-	public void setUser_seq(int user_seq) {
-		this.user_seq = user_seq;
+	public void setUserSeq(int userSeq) {
+		this.userSeq = userSeq;
 	}
 	public String getIdEmail() {
 		return idEmail;
@@ -63,8 +63,8 @@ public class UsersDTO {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("UsersDTO [user_seq=");
-		builder.append(user_seq);
+		builder.append("UsersDTO [userSeq=");
+		builder.append(userSeq);
 		builder.append(", idEmail=");
 		builder.append(idEmail);
 		builder.append(", password=");

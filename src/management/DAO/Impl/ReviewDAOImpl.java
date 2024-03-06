@@ -31,8 +31,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, review.getMovie_seq());
-			ps.setInt(2, review.getUser_seq());
+			ps.setInt(1, review.getMovieSeq());
+			ps.setInt(2, review.getUserSeq());
 			
 			rs = ps.executeQuery();
 			
@@ -62,8 +62,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, review.getMovie_seq());
-			ps.setInt(2, review.getUser_seq());
+			ps.setInt(1, review.getMovieSeq());
+			ps.setInt(2, review.getUserSeq());
 			ps.setString(3, review.getReview()); // 리뷰
 			ps.setInt(4, review.getScore()); // 별점
 			
@@ -92,8 +92,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 			
 			ps.setString(1, review.getReview());
 			ps.setInt(2, review.getScore());
-			ps.setInt(3, review.getMovie_seq());
-			ps.setInt(4, review.getUser_seq());
+			ps.setInt(3, review.getMovieSeq());
+			ps.setInt(4, review.getUserSeq());
 			
 			result = ps.executeUpdate();
 			
@@ -119,9 +119,10 @@ public class ReviewDAOImpl implements ReviewDAO {
 		try {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
+
 			
-			ps.setInt(1, review.getMovie_seq());
-			ps.setInt(2, review.getUser_seq());
+			ps.setInt(1, review.getMovieSeq());
+			ps.setInt(2, review.getUserSeq());
 			
 			result = ps.executeUpdate();
 			
@@ -137,8 +138,37 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return result;
 	}
 
-
-
+	@Override
+	public ReviewDTO selectReview(ReviewDTO review) throws SearchException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ReviewDTO reviewDTO = new ReviewDTO();
+		String sql = "select * from review where movie_seq =? and user_seq = ?";
+		
+		try {
+			con = DbManager.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setInt(1, review.getMovieSeq());
+			ps.setInt(2, review.getUserSeq());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				reviewDTO = new ReviewDTO(rs.getInt("USER_SEQ"), rs.getInt("MOVIE_SEQ"), rs.getString("REVIEW"), rs.getInt("SCORE"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SearchException("리뷰가 존재하지 않습니다.");
+		} finally {
+			DbManager.close(con, ps, rs);
+		}
+		
+		return reviewDTO;
+	}
+	
 	@Override
 	public ReviewDTO selectReview(MovieDTO movie, UsersDTO user) throws SearchException { // 영화와 사용자 시퀀스로 리뷰 검색
 		Connection con = null;
@@ -151,13 +181,13 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, movie.getMovie_seq());
-			ps.setInt(2, user.getUser_seq());
+			ps.setInt(1, movie.getMovieSeq());
+			ps.setInt(2, user.getUserSeq());
 			
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				reviewDTO = new ReviewDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
+				reviewDTO = new ReviewDTO(rs.getInt("USER_SEQ"), rs.getInt("MOVIE_SEQ"), rs.getString("REVIEW"), rs.getInt("SCORE"));
 			}
 			
 		} catch (SQLException e) {
@@ -183,15 +213,14 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, movie.getMovie_seq());
+			ps.setInt(1, movie.getMovieSeq());
 			
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				review = new ReviewDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
+				review = new ReviewDTO(rs.getInt("USER_SEQ"), rs.getInt("MOVIE_SEQ"), rs.getString("REVIEW"), rs.getInt("SCORE"));
+				list.add(review);
 			}
-			
-			list.add(review);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -216,15 +245,14 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(2, user.getUser_seq());
+			ps.setInt(2, user.getUserSeq());
 			
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				review = new ReviewDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
+				review = new ReviewDTO(rs.getInt("USER_SEQ"), rs.getInt("MOVIE_SEQ"), rs.getString("REVIEW"), rs.getInt("SCORE"));
+				list.add(review);
 			}
-			
-			list.add(review);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -234,13 +262,6 @@ public class ReviewDAOImpl implements ReviewDAO {
 		}
 		
 		return list;
-	}
-
-
-	@Override
-	public ReviewDTO selectReview(ReviewDTO review) throws SearchException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

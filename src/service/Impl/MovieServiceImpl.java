@@ -22,21 +22,28 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public List<MovieDTO> selectMovieByGenre(String movieGenre) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<MovieDTO> selectMovieByGenre(String movieGenre) throws SQLException{
+		List<MovieDTO> moviedto = moviedao.selectMovieByGenre(movieGenre);
+		return moviedto;
 	}
 
 	@Override
-	public List<MovieDTO> selectMovieByDerector(String movieDerector) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<MovieDTO> selectMovieByDirecter(String movieDirecter) throws SQLException {
+		
+		List<MovieDTO> moviedto = moviedao.selectMovieByDirecter(movieDirecter);
+		
+		
+		//if(moviedto ==null) throw new SQLException("찾는 감독이 없습니다");
+	
+		return moviedto;
 	}
 
 	@Override
-	public List<MovieDTO> selectMovieByReleaseDate(String releaseDate) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<MovieDTO> selectMovieByReleaseDate(String movieReleaseDate) throws SQLException {
+		List<MovieDTO> moviedto = moviedao.selectMovieByReleaseDate(movieReleaseDate);
+		
+		
+		return moviedto;
 	}
 
 	@Override
@@ -44,7 +51,6 @@ public class MovieServiceImpl implements MovieService {
 		
 		MovieDTO moviedto = moviedao.selectMovieByName(movieName);
 	
-		if(moviedto ==null) throw new SQLException("찾는 영화가 없습니다");
 	
 		return moviedto;
 	}

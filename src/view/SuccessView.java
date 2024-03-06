@@ -4,6 +4,7 @@ import java.util.List;
 
 import management.DTO.DipsDTO;
 import management.DTO.MovieDTO;
+import management.DTO.ReviewDTO;
 import management.DTO.UsersDTO;
 
 public class SuccessView {
@@ -16,7 +17,20 @@ public class SuccessView {
 	public static void successMessage(String message){
 		System.out.println(message);
 	}
+	/*
+	 * 감독 이름으로 검색 성공했을때 띄움
+	 */
 	
+	public static void successMessage(List<MovieDTO> moviedirecter) {
+
+		for (MovieDTO movie : moviedirecter) {
+			System.out.println(movie);
+
+		}
+
+	}
+
+
 	/***
 	 * 
 	 * @param movie
@@ -24,6 +38,25 @@ public class SuccessView {
 	 */
 	public static void successMovie(MovieDTO movie){
 		System.out.println(movie);
+	}
+	
+	/***
+	 * @param review
+	 * 리뷰 호출에 성공했을때 ReviewDTO의 toString() 출력
+	 */
+	public static void successReview(ReviewDTO review){
+		System.out.println(review);
+	}
+	/***
+	 * @param review
+	 * selectReviewByMovie() 또는 selectReviewByUser() 호출에 성공했을때 
+	 * 리턴한 List<ReviewDTO>안의 값들을 출력
+	 */
+	public static void successReviewList(List<ReviewDTO> list){
+		int cnt = 1;
+		for(ReviewDTO review : list) {
+			System.out.println("● 리뷰 " + cnt++ + " : " + review);
+		}
 	}
 
 	public static void printPassword(UsersDTO user) {
@@ -42,3 +75,4 @@ public class SuccessView {
 	}
 
 }
+	

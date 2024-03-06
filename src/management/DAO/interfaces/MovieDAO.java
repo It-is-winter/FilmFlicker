@@ -18,17 +18,18 @@ public interface MovieDAO {
 	/**
 	 * 장르로 영화 검색
 	 */
-	public List<MovieDTO> selectMovieByGenre(String movieGenre);
+	public List<MovieDTO> selectMovieByGenre(String movieGenre) throws SQLException;
 	
 	/**
 	 * 감독으로 영화 검색
+	 * @throws SQLException 
 	 */
-	public List<MovieDTO> selectMovieByDerector(String movieDerector);
+	public List<MovieDTO> selectMovieByDirecter(String movieDirecter) throws SQLException;
 	
 	/**
 	 * 개봉연도로 영화 검색
 	 */
-	public List<MovieDTO> selectMovieByReleaseDate(String releaseDate);
+	public List<MovieDTO> selectMovieByReleaseDate(String releaseDate) throws SQLException;
 	
 	/**
 	 * 이름으로 영화 검색

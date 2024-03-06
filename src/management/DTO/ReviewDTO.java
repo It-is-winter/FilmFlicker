@@ -1,32 +1,34 @@
 package management.DTO;
 
 public class ReviewDTO {
-	private int review_seq;
+	private int reviewSeq;
 	private int score;
 	private String review;
 	
 	MovieDTO movie = new MovieDTO();
-	private int movie_seq = movie.getMovie_seq();
+	private int movieSeq = movie.getMovieSeq();
 	
 	UsersDTO user = new UsersDTO();	
-	private int user_seq = user.getUser_seq();
+	private int userSeq = user.getUserSeq();
+	private String userName = user.getName();
 	
 	public ReviewDTO() {}
 	
-	public ReviewDTO(int review_seq, int movie_seq, String review, int score) {
+	public ReviewDTO(int userSeq, int movieSeq, String review, int score) {
 		super();
-		this.review_seq = review_seq;
-		this.movie_seq = movie_seq;
+		this.movieSeq = movieSeq;
+		this.userSeq = userSeq;
+
 		this.score = score;
 		this.review = review;
 	}
 
-	public int getReview_seq() {
-		return review_seq;
+	public int getReviewSeq() {
+		return reviewSeq;
 	}
 
-	public void setReview_seq(int review_seq) {
-		this.review_seq = review_seq;
+	public void setReviewSeq(int reviewSeq) {
+		this.reviewSeq = reviewSeq;
 	}
 
 	public int getScore() {
@@ -53,12 +55,13 @@ public class ReviewDTO {
 		this.movie = movie;
 	}
 
-	public int getMovie_seq() {
-		return movie_seq;
+	public int getMovieSeq() {
+		return movieSeq;
 	}
 
-	public void setMovie_seq(int movie_seq) {
-		this.movie_seq = movie_seq;
+
+	public void setMovieSeq(int movieSeq) {
+		this.movieSeq = movieSeq;
 	}
 
 	public UsersDTO getUser() {
@@ -69,17 +72,25 @@ public class ReviewDTO {
 		this.user = user;
 	}
 
-	public int getUser_seq() {
-		return user_seq;
+	public int getUserSeq() {
+		return userSeq;
 	}
 
-	public void setUser_seq(int user_seq) {
-		this.user_seq = user_seq;
+	public void setUserSeq(int userSeq) {
+		this.userSeq = userSeq;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	@Override
 	public String toString() {
-		return "ReviewDTO [review_seq=" + review_seq + ", score=" + score + ", review=" + review + "]";
+		return review + "\n  평점 : " + score + "/10";
 	}
 	
 
