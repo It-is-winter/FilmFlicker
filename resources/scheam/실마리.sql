@@ -15,7 +15,7 @@ CREATE TABLE MOVIE (
 );
 
 alter table MOVIE ADD CONSTRAINT FK_MOVIE_GENRE_SEQ2 
-foreign key (MOVE_GENRE_SEQ) references MOVIE_GENRE (MOVIE_GENRE_SEQ); -- fk »ý¼º
+foreign key (MOVE_GENRE_SEQ) references MOVIE_GENRE (MOVIE_GENRE_SEQ); -- fk ï¿½ï¿½ï¿½ï¿½
 
 ------------------------------------------------------------------------------------------------------
 
@@ -48,7 +48,7 @@ CREATE TABLE DIPS (
 );
 
 alter table DIPS add constraint PK_DIPS 
-primary key (DIPS_SEQ); -- pk »ý¼º
+primary key (DIPS_SEQ); -- pk ï¿½ï¿½ï¿½ï¿½
 ------------------------------------------------------------------
 CREATE TABLE REVIEW_ETC (
 	REVIEW_ETC_SEQ	NUMBER	primary key,
