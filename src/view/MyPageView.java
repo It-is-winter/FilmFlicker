@@ -42,7 +42,7 @@ public class MyPageView {
 				MyPageView.printUpdatedPassword(user);// 비밀번호 수정 화면 나오기
 				break;
 			case 2 :
-				 // 등록된 리뷰 삭제 화면 나오기
+				 // 등록된 리뷰 화면 나오기
 				break;
 			case 3 :
 				MyPageView.printDips(user);

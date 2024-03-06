@@ -109,6 +109,8 @@ public class MenuView {
 			birth = bf.readLine();
 			System.out.println("");
 			
+			UserController.register(id, password, userName, birth);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			FailView.errorMessage("잘못된 값을 입력하였습니다.!");
