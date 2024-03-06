@@ -238,7 +238,7 @@ public class MenuView {
 			
 			System.out.print("영화 이름	=>	");
 			movieName = bf.readLine();
-			MovieDTO movie = movieService.selectMovieByName(movieName);;
+			MovieDTO movie = movieService.selectMovieByName(movieName);
 			
 			System.out.print("리뷰 내용	=>	");
 			review = bf.readLine();

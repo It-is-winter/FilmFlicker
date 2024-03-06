@@ -21,7 +21,7 @@ public class DbManager {
 			//proFile.load(new FileInputStream("board.properties"));
 			
 			//C:\Edu\JavaWorks\FilmFlicker
-			Class.forName(DBProperties.DRIVER_NAME);
+			Class.forName(DBProperties.DRVIER_NAME);
 
 		} catch (Exception e) {
 			e.printStackTrace();
