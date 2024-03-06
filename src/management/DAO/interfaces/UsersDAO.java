@@ -21,8 +21,9 @@ public interface UsersDAO {
 	 * 회원가입
 	 * insert into users values(user_seq_NO.NEXTVAL,?,?,?,?,sysdate)
 	 * @throws SQLException 
+	 * @throws SearchException 
 	 */
-	public int register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SQLException;
+	public int register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SQLException, SearchException;
 	
 	/**
 	 * 회원 정보 수정

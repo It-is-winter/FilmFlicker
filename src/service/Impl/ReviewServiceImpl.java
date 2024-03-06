@@ -109,4 +109,10 @@ public class ReviewServiceImpl implements ReviewService {
 		return result;
 	}
 
+	@Override
+	public void insertReview(String movieName, String review, int movieScore, UsersDTO user) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

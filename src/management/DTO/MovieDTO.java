@@ -91,4 +91,8 @@ public class MovieDTO {
 				+ ", 개봉일 =" + releaseDate + ", 주연배우 = " +leadAcotrList  + ", 조연배우 = "
 				+ supportActorList;
 	}
+
+	public int getMovieSeq() {
+		return movie_seq;
+	}
 }
