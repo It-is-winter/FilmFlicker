@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import exception.InsertException;
-import exception.SearchException;
 import management.DTO.MovieDTO;
 import service.MovieService;
 import service.Impl.MovieServiceImpl;
@@ -30,10 +29,12 @@ public class MovieController {
 		
 		try {
 			int result =service.insertMovie(movieName,movieGenre, movieDirecter, releaseDate, leadActor, supportActor);
-			if(result ==1)
-			SuccessView.successMessage("등록에 성공했습니다.");
+			if(result ==1) {
+			SuccessView.successMessage("등록에 성공했습니다.");}
+			else{
+				throw new InsertException("등록하는데 오류가 발생했습니다1");
+			}
 		}catch (InsertException e) {
-			e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
 		}
 	}
@@ -47,6 +48,7 @@ public class MovieController {
 		
 		try {
 			MovieDTO movie =  service.selectMovieByName(movieName);
+			if(movie == null) throw new SQLException("찾는 영화가 없습니다");
 			SuccessView.successMovie(movie);
 		}catch (SQLException e) {
 		//	e.printStackTrace();
@@ -54,8 +56,51 @@ public class MovieController {
 		}
 	}
 	
-		
+	/*
+	 * 감독 이름으로 영화 검색
+	 * 
+	 * */
 	
+	public static void selectMovieByDirecter(String movieDirecter) {
+		
+		try {
+			List<MovieDTO> moviedirecter = service.selectMovieByDirecter(movieDirecter);
+			if(moviedirecter.isEmpty()) throw new SQLException("찾는 감독이 없습니다");
+			SuccessView.successMessage(moviedirecter);
+		}catch(SQLException e) {
+			FailView.errorMessage(e.getMessage());
+		}
+		
+	}
+	/*
+	 * 장르로 영화 검색
+	 * */
+	public static void selectMovieByGenre(String movieGenre) {
+
+		try {
+			List<MovieDTO> moviegenre = service.selectMovieByGenre(movieGenre);
+			if(moviegenre.isEmpty()) throw new SQLException("해당 장르에 영화가 없습니다");
+			SuccessView.successMessage(moviegenre);
+		}catch(SQLException e) {
+			FailView.errorMessage(e.getMessage());
+		}
+		
+	}
+	/*
+	 * 개봉 날짜로 영화 검색
+	 */
+	public static void selectMovieByReleaseDate(String movieReleaseDate) {
+		try {
+			List<MovieDTO> moviereleaseDate = service.selectMovieByReleaseDate(movieReleaseDate);
+			if(moviereleaseDate.isEmpty()) throw new SQLException("날짜에 개봉된 영화가 없습니다");
+			SuccessView.successMessage(moviereleaseDate);
+			
+		}catch(SQLException e) {
+			FailView.errorMessage(e.getMessage());
+		}
+		
+		
+	}
 	
 	
 	

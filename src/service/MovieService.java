@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import exception.InsertException;
-import exception.SearchException;
 import management.DTO.MovieDTO;
 
 public interface MovieService {
@@ -22,22 +21,26 @@ public interface MovieService {
 	/**
 	 * 장르로 영화 검색
 	 */
-	public List<MovieDTO> selectMovieByGenre(String movieGenre) /*throws SearchException*/;
+	public List<MovieDTO> selectMovieByGenre(String movieGenre) throws SQLException;
 	
 	/**
 	 * 감독으로 영화 검색
+	 * @throws SQLException 
 	 */
-	public List<MovieDTO> selectMovieByDerector(String movieDerector) /*throws SearchException*/;
+	public List<MovieDTO> selectMovieByDirecter(String movieDirecter) throws SQLException ;
 	
 	/**
 	 * 개봉연도로 영화 검색
 	 */
-	public List<MovieDTO> selectMovieByReleaseDate(String releaseDate) /*throws SearchException*/;
+	public List<MovieDTO> selectMovieByReleaseDate(String movieReleaseDate) throws SQLException;
 	
 	/**
 	 * 이름으로 영화 검색
 	 * @throws SQLException 
 	 */
 	public MovieDTO selectMovieByName(String movieName) throws SQLException;
+
+
+
 
 }
