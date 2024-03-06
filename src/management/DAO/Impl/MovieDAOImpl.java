@@ -40,7 +40,6 @@ public class MovieDAOImpl implements MovieDAO {
 			ps.setInt(2, movieGenre);
 			ps.setString(3, movieDerector);
 			ps.setString(4, releaseDate);
-			System.out.println("여기까지가능?");
 			result = ps.executeUpdate();
 			con.commit();
 			ps.close();
@@ -61,7 +60,6 @@ public class MovieDAOImpl implements MovieDAO {
 			        
 	    result1 = this.insertSupportActor(con, movieSeq, supportActor);
 	    if(result1 ==0) {throw new SQLException("조연배우 입력 오류");}
-			        System.out.println("여기까지 성공");
 	      con.commit();
 		}catch(SQLException e) {
 			try {
@@ -69,8 +67,6 @@ public class MovieDAOImpl implements MovieDAO {
 	                con.rollback(); // 롤백
 	            }
 			   } catch (SQLException ex) {
-		            ex.printStackTrace();
-		            System.out.println("여기서 오류1");
 		        }
 			
 			
@@ -106,7 +102,6 @@ public class MovieDAOImpl implements MovieDAO {
 			result = ps.executeUpdate();
 			ps.close();
 		
-			System.out.println("주연배우 등록 성공!!!@");
 			}
 			
 			//result = ps.executeUpdate();
@@ -263,8 +258,12 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		MovieDTO moviedto = null;
-		String sql = "select movie_name,movie_director,release_date from movie where movie_name =?";
+		//String sql = "select movie_name,movie_director,release_date from movie where movie_name =?";
+		String sql = "select movie_name,movie_genre,movie_director,release_date from movie a inner join movie_genre b"
+				+ "on a.movie_genre_seq = b.movie_genre_seq"
+				+ "where movie_name ='해리포터'";
 		try {
+			System.out.println("111");
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, movieName);
@@ -280,7 +279,7 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 		          List<ActorDTO> leadactorlist = selectLeadActor(movieName);
 		          List<ActorDTO> supportactorlist = selectSupportActor(movieName);
 		          
-		            moviedto = new MovieDTO(0, rs.getString(1), rs.getInt(2),rs.getString(3), releaseDateStr, leadactorlist, supportactorlist);
+		            moviedto = new MovieDTO(0, rs.getString(1), rs.getString(2),rs.getString(3), releaseDateStr, leadactorlist, supportactorlist);
 		        }
 			
 			

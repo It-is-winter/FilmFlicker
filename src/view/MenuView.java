@@ -30,6 +30,51 @@ public class MenuView {
 	private static StringTokenizer st = null;
 	private static int menu;
 	
+	
+	public static void menu() {
+		
+		while(true) {
+			UsersSessionSet userSessionSet = UsersSessionSet.getInstance();
+			System.out.println("현재 접속중인 회원 " +userSessionSet.getSet());
+			
+			MenuView.printMenu();  // 첫 화면 나오기 1)회원 2)비회원 3)회원가입 9)종료
+			
+			try{
+				bf = new BufferedReader(new InputStreamReader(System.in));
+				menu = Integer.parseInt(bf.readLine());
+				
+			} catch (IOException e) {
+				FailView.errorMessage("잘못된 값을 입력하였습니다.!");
+			}
+			
+
+			switch(menu) {
+			case 1 :
+				MenuView.printMember(); // 회원으로 접속 화면 나오기
+				break;
+			case 2 :
+				MenuView.printNotMember(); // 비회원 접속 화면 나오기
+				break;
+			case 3 :
+				MenuView.printRegister(); // 회원 가입 화면 나오기
+				break;
+			case 4 :
+				MenuView.printFindPassword(); // 비밀번호 찾기 화면 나오기
+				break;
+		
+				
+			case 9 : 
+				System.exit(0);
+				break;
+			default :
+				FailView.errorMessage("Consol 이외의 값을 입력하였습니다.!");
+			}
+		}
+
+	}
+	
+	
+	/*
 	public static void menu() {
 		
 		while(true) {
@@ -69,7 +114,7 @@ public class MenuView {
 		}
 
 	}
-	
+	*/
 	
 	private static void printFindPassword() {
 		String id = null;
