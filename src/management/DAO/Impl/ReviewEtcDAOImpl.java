@@ -28,8 +28,8 @@ public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, reviewEtc.getReview_seq());
-			ps.setInt(2, reviewEtc.getUser_seq());
+			ps.setInt(1, reviewEtc.getReviewSeq());
+			ps.setInt(2, reviewEtc.getUserSeq());
 			
 			rs = ps.executeQuery();
 			
@@ -59,8 +59,8 @@ public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 			con = DbManager.getConnection();
 			
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, reviewEtc.getUser_seq());
-			ps.setInt(2, reviewEtc.getReview_seq());
+			ps.setInt(1, reviewEtc.getUserSeq());
+			ps.setInt(2, reviewEtc.getReviewSeq());
 			ps.setInt(3, reviewEtc.getLike());
 			
 			result = ps.executeUpdate();
@@ -91,7 +91,7 @@ public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 			ps = con.prepareStatement(sql);
 			
 			ps.setInt(1, reviewEtc.getLike());
-			ps.setInt(2, reviewEtc.getReview_seq());
+			ps.setInt(2, reviewEtc.getReviewSeq());
 			
 			result = ps.executeUpdate();
 		} catch (SQLException e) {

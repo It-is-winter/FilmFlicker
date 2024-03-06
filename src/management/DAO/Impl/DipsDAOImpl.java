@@ -37,14 +37,14 @@ public class DipsDAOImpl implements DipsDAO {
 			con.setAutoCommit(false);
 			
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, users.getUser_seq());
+			ps.setInt(1, users.getUserSeq());
 			rs = ps.executeQuery();
 			
 		
 			while(rs.next()) {
 				
 				dips = new DipsDTO(rs.getString(1),rs.getString(2),
-						rs.getString(3),users.getUser_seq());
+						rs.getString(3),users.getUserSeq());
 				list.add(dips);
 			}
 			

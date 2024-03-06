@@ -245,7 +245,7 @@ public class MenuView {
 			System.out.print("영화 평점	=>	");
 			movieScore = Integer.parseInt(bf.readLine());
 			
-			ReviewDTO reviewDTO = new ReviewDTO(user.getUser_seq(), movie.getMovie_seq(), review, movieScore);
+			ReviewDTO reviewDTO = new ReviewDTO(user.getUserSeq(), movie.getMovieSeq(), review, movieScore);
 			ReviewController.insertReview(reviewDTO);
 			
 		}catch (IOException e) {

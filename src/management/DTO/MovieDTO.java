@@ -3,7 +3,7 @@ package management.DTO;
 import java.util.List;
 
 public class MovieDTO {
-	private int movie_seq;
+	private int movieSeq;
 	private int movieGenre;
 	private String movieName ;
 	private String movieDirecter ;
@@ -15,10 +15,10 @@ public class MovieDTO {
 	
 	public MovieDTO() {};
 		
-	public MovieDTO(int movie_seq,String movieName, int movieGenre,  String movieDirecter, String releaseDate,
+	public MovieDTO(int movieSeq,String movieName, int movieGenre,  String movieDirecter, String releaseDate,
 			List<ActorDTO> supportActorList, List<ActorDTO> leadAcotrList) {
 		super();
-		this.movie_seq = movie_seq;
+		this.movieSeq = movieSeq;
 		this.movieGenre = movieGenre;
 		this.movieName = movieName;
 		this.movieDirecter = movieDirecter;
@@ -29,12 +29,12 @@ public class MovieDTO {
 
 
 	
-	public int getMovie_seq() {
-		return movie_seq;
+	public int getMovieSeq() {
+		return movieSeq;
 	}
 
-	public void setMovie_seq(int movie_seq) {
-		this.movie_seq = movie_seq;
+	public void setMovieSeq(int movieSeq) {
+		this.movieSeq = movieSeq;
 	}
 
 	public int getMovieGenre() {

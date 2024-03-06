@@ -7,17 +7,17 @@ public class DipsDTO {
 	private String movie_name;
 	private String movie_directer;
 	private String movie_genre;
-	private int user_seq;
+	private int userSeq;
 	
 	
 	public DipsDTO() {}
 	
-	public DipsDTO(String movie_name, String movie_directer, String movie_genre, int user_seq) {
+	public DipsDTO(String movie_name, String movie_directer, String movie_genre, int userSeq) {
 		super();
 		this.movie_name = movie_name;
 		this.movie_directer = movie_directer;
 		this.movie_genre = movie_genre;
-		this.user_seq = user_seq;
+		this.userSeq = userSeq;
 	}
 	
 	
@@ -39,11 +39,11 @@ public class DipsDTO {
 	public void setMovie_genre(String movie_genre) {
 		this.movie_genre = movie_genre;
 	}
-	public int getUser_seq() {
-		return user_seq;
+	public int getUserSeq() {
+		return userSeq;
 	}
-	public void setUser_seq(int user_seq) {
-		this.user_seq = user_seq;
+	public void setUserSeq(int userSeq) {
+		this.userSeq = userSeq;
 	}
 
 	@Override
