@@ -10,9 +10,18 @@ import management.DTO.UsersDTO;
 
 public interface ReviewEtcDAO {
 	
-	int insertLike(ReviewEtcDTO reviewEtc, ReviewDTO review, UsersDTO user) throws InsertException;
 	/**
-	 * 리뷰에 대한 좋아요, 싫어요
+	 * 리뷰에 대한 좋아요, 싫어요 입력
+	 */
+	int insertLike(ReviewEtcDTO reviewEtc) throws InsertException;
+	
+	/**
+	 * 리뷰에 대한 좋아요, 싫어요가 중복 되었는지 검사
+	 */
+	public boolean isExist(ReviewEtcDTO reviewEtc) throws SearchException;
+	
+	/**
+	 * 리뷰에 대한 좋아요, 싫어요 수정
 	 */
 	public int updateLike(ReviewEtcDTO reviewEtc) throws UpdateException;
 	
