@@ -2,3 +2,5 @@
 .classpath
 .project
 .settings/
+*.properties
+DBProperties
