@@ -7,25 +7,25 @@ public class ReviewEtcDTO {
 	private int reviewEtcSeq;
 	
 	ReviewDTO review = new ReviewDTO();
-	private int review_seq = review.getReviewSeq();
+	private int reviewSeq = review.getReviewSeq();
 	
 	UsersDTO user = new UsersDTO();
-	private int user_seq = user.getUserSeq();
+	private int UserSeq = user.getUserSeq();
 	
 	MovieDTO movie = new MovieDTO();
-	private int movie_seq = movie.getMovieSeq();
+	private int MovieSeq = movie.getMovieSeq();
 	
 	public ReviewEtcDTO() {}
 	
-	public ReviewEtcDTO(int reviewEtc_seq, ReviewDTO review, int review_seq,
-			UsersDTO user, int user_seq, int like) {
+	public ReviewEtcDTO(int reviewEtcSeq, ReviewDTO review, int reviewSeq,
+			UsersDTO user, int UserSeq, int like) {
 		super();
 		this.like = like;
-		this.reviewEtcSeq = reviewEtc_seq;
+		this.reviewEtcSeq = reviewEtcSeq;
 		this.review = review;
-		this.review_seq = review_seq;
+		this.reviewSeq = reviewSeq;
 		this.user = user;
-		this.user_seq = user_seq;
+		this.UserSeq = UserSeq;
 	}
 	public int getLike() {
 		return like;
@@ -55,11 +55,11 @@ public class ReviewEtcDTO {
 	}
 
 	public int getReviewSeq() {
-		return review_seq;
+		return reviewSeq;
 	}
 
-	public void setReviewSeq(int review_seq) {
-		this.review_seq = review_seq;
+	public void setReviewSeq(int reviewSeq) {
+		this.reviewSeq = reviewSeq;
 	}
 	
 	public UsersDTO getUser() {
@@ -71,11 +71,11 @@ public class ReviewEtcDTO {
 	}
 
 	public int getUserSeq() {
-		return user_seq;
+		return UserSeq;
 	}
 
-	public void setUserSeq(int user_seq) {
-		this.user_seq = user_seq;
+	public void setUserSeq(int UserSeq) {
+		this.UserSeq = UserSeq;
 	}
 
 	@Override

@@ -16,8 +16,7 @@ public class DbManager {
 	static {
 		try {
 			
-
-			
+			//C:\Edu\JavaWorks\FilmFlicker
 			Class.forName(DBProperties.DRIVER_NAME);
 
 

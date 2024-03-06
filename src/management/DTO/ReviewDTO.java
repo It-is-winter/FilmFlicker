@@ -10,13 +10,15 @@ public class ReviewDTO {
 	
 	UsersDTO user = new UsersDTO();	
 	private int userSeq = user.getUserSeq();
+	private String userName = user.getName();
 	
 	public ReviewDTO() {}
 	
-	public ReviewDTO(int reviewSeq, int movieSeq, String review, int score) {
+	public ReviewDTO(int userSeq, int movieSeq, String review, int score) {
 		super();
-		this.reviewSeq = reviewSeq;
 		this.movieSeq = movieSeq;
+		this.userSeq = userSeq;
+
 		this.score = score;
 		this.review = review;
 	}
@@ -57,6 +59,7 @@ public class ReviewDTO {
 		return movieSeq;
 	}
 
+
 	public void setMovieSeq(int movieSeq) {
 		this.movieSeq = movieSeq;
 	}
@@ -77,9 +80,17 @@ public class ReviewDTO {
 		this.userSeq = userSeq;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	@Override
 	public String toString() {
-		return "ReviewDTO [review_seq=" + reviewSeq + ", score=" + score + ", review=" + review + "]";
+		return review + "\n  평점 : " + score + "/10";
 	}
 	
 
