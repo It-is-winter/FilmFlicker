@@ -120,7 +120,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, review.getMovieSeq());
+			ps.setInt(1, review.getMovie_seq());
 			ps.setInt(2, review.getUser_seq());
 			
 			result = ps.executeUpdate();
@@ -149,7 +149,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, review.getMovieSeq());
+			ps.setInt(1, review.getMovie_seq());
 			ps.setInt(2, review.getUser_seq());
 			
 			rs = ps.executeQuery();
@@ -180,7 +180,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, movie.getMovieSeq());
+			ps.setInt(1, movie.getMovie_seq());
 			ps.setInt(2, user.getUser_seq());
 			
 			rs = ps.executeQuery();
