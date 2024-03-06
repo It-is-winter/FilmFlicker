@@ -29,7 +29,7 @@ public class ReviewController {
 		try {
 			service.insertReview(movieName,review,movieScore,user);
 			SuccessView.successMessage("등록에 성공했습니다.");
-		}catch (InsertException e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
 		}
