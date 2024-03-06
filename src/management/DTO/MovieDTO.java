@@ -65,6 +65,11 @@ public class MovieDTO {
 		builder.append("]");
 		return builder.toString();
 	}
+
+	public int getMovieSeq() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 

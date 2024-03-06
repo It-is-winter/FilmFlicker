@@ -106,7 +106,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 	}
 
 	@Override
-	public ReviewDTO selectReview(MovieDTO movie, UsersDTO user) { // 영화와 사용자 시퀀스로 리뷰 검색
+	public ReviewDTO selectReview(MovieDTO movie, UsersDTO user) throws SearchException{ // 영화와 사용자 시퀀스로 리뷰 검색
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
