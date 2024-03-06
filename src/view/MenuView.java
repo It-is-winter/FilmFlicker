@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -15,6 +16,8 @@ import session.*;
 
 
 public class MenuView {
+	
+	
 	/*
 	 * 회원, 비회원, 회원가입, 종료
 	 * 회원 선택 - 영화등록, 리뷰등록(+평점), 영화겁색(+리뷰, 뒤로가기), 마이페이지(+찜목록, 리뷰삭제, 뒤로가기), 종료
@@ -111,8 +114,11 @@ public class MenuView {
 			FailView.errorMessage("잘못된 값을 입력하였습니다.!");
 		}
 		
-		UserController.register(id, password, userName, birth);
+
+
 	}
+	
+	 
 
 
 	private static void printNotMember() {
@@ -258,40 +264,59 @@ public class MenuView {
 	}
 
 
+
 	private static void printInsertMovie() {
 		
 		String movieName = null;
+		int movieGenre = 0;
 		String movieDirecter = null;
 		String releaseDate = null;
 		List<String> leadActor = new ArrayList<String>();
 		List<String> supportActor = new ArrayList<String>();
-		
+	
 		try{
-			bf = new BufferedReader(new InputStreamReader(System.in));
-			st = new StringTokenizer(bf.readLine());
-			System.out.println("=== 실마리 영화 등록 ===");
-			System.out.print("영화 이름	=>	");
-			movieName = st.nextToken();
-			System.out.print("영화 감독	=>	");
-			movieDirecter = st.nextToken();
-			System.out.print("개봉 날짜	=>	");
-			releaseDate = st.nextToken();
-			System.out.print("주연 배우(공백 구분)	=>	");
-			while(st.nextToken() != null) {
-				leadActor.add(st.nextToken());
-			}
-			System.out.print("조연 배우(공백 구분)	=>	");
-			while(st.nextToken() != null) {
-				supportActor.add(st.nextToken());
-			}
 			
+			 bf = new BufferedReader(new InputStreamReader(System.in));
+		        System.out.println("=== 실마리 영화 등록 ===");
+		        System.out.print("영화 이름    =>  ");
+		        movieName = bf.readLine();
+		        System.out.println(movieName);
+				/*
+				 * System.out.println("영화 장르"); movieGenre = bf.readLine();
+				 */
+		        System.out.print("장르를 숫자로 입력하세요 (1: 액션, 2: 드라마, 3: 코미디, 4: 호러");
+	            System.out.println();
+		        String movieGenreStr = bf.readLine();
+	            movieGenre = Integer.parseInt(movieGenreStr);
+	            System.out.println(movieGenre);
+		        System.out.print("영화 감독    =>  ");
+		        movieDirecter = bf.readLine();
+		        
+		        System.out.print("개봉 날짜    =>  ");
+		        releaseDate = bf.readLine();
+		     
+		        System.out.print("주연 배우(공백 구분)   =>  ");
+		        String leadActorsInput = bf.readLine();
+		        leadActor.addAll(Arrays.asList(leadActorsInput.split(" ")));
+		        System.out.println(leadActor);
+		        System.out.print("조연 배우(공백 구분)   =>  ");
+		        String supportActorsInput = bf.readLine();
+		        supportActor.addAll(Arrays.asList(supportActorsInput.split(" ")));
+		        System.out.println(supportActor);
+		        for (String actor : leadActor) {
+		        	System.out.println("주연배우 = "+ actor);
+		        }
+		        
+			        
 		} catch (IOException e) {
 			e.printStackTrace();
 			FailView.errorMessage("잘못된 값을 입력하였습니다.!");
 		}
 	
-			
-		MovieController.insertMovie(movieName,movieDirecter,releaseDate,leadActor,supportActor);
+
+		MovieController.insertMovie(movieName,movieGenre,movieDirecter,releaseDate,leadActor,supportActor);
+		
+		
 
 	}
 

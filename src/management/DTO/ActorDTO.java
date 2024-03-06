@@ -3,39 +3,50 @@ package management.DTO;
 public class ActorDTO {
 
 	private String name;
-	private String age;
+	private String role;
 	
 	
 	
 	public ActorDTO() {}
 
-	public ActorDTO(String name, String age) {
+
+
+	public ActorDTO(String name, String role) {
 		super();
 		this.name = name;
-		this.age = age;
+		this.role = role;
 	}
-	
+
+
+
 	public String getName() {
 		return name;
 	}
+
+
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getAge() {
-		return age;
+
+
+
+	public String getRole() {
+		return role;
 	}
-	public void setAge(String age) {
-		this.age = age;
+
+
+
+	public void setRole(String role) {
+		this.role = role;
 	}
-	
+
+
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("ActorDTO [name=");
-		builder.append(name);
-		builder.append(", age=");
-		builder.append(age);
-		builder.append("]");
-		return builder.toString();
+		return name;
 	}
+
+	
 }

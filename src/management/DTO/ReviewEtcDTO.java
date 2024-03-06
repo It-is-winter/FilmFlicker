@@ -12,6 +12,9 @@ public class ReviewEtcDTO {
 	UsersDTO user = new UsersDTO();
 	private int user_seq = user.getUser_seq();
 	
+	MovieDTO movie = new MovieDTO();
+	private int movie_seq = movie.getMovie_seq();
+	
 	public ReviewEtcDTO() {}
 	
 	public ReviewEtcDTO(int reviewEtc_seq, ReviewDTO review, int review_seq,
