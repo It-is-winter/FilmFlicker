@@ -277,7 +277,7 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 		MovieDTO moviedto = null;
 		//String sql = "select movie_name,movie_genre,movie_directer,release_date from movie a inner join movie_genre b on a.movie_genre_seq = b.movie_genre_seq "
 		//		+ "where movie_name =?";
-		String sql ="select movie_name,movie_genre,movie_directer,release_date "
+		String sql ="select movie_seq,movie_name,movie_genre,movie_directer,release_date "
 				+ "from movie a inner join movie_genre b on a.movie_genre_seq = b.movie_genre_seq	"
 				+ "where movie_name =?";
 		try {
@@ -288,14 +288,14 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 			if(rs.next()) {
 				//날짜에 년월일 패턴을 입힘
 				  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		          String releaseDateStr = dateFormat.format(rs.getDate(4));
+		          String releaseDateStr = dateFormat.format(rs.getDate(5));
 
 				// 배우 리스트를 불러오는 메서드 호출
 		          List<ActorDTO> leadactorlist = selectLeadActor(movieName);
 		          List<ActorDTO> supportactorlist = selectSupportActor(movieName);
 		          
 		           
-		          moviedto = new MovieDTO(0, rs.getString(1), rs.getString(2),rs.getString(3),
+		          moviedto = new MovieDTO(rs.getInt("movie_seq"), rs.getString("movie_name"), rs.getString("movie_genre"),rs.getString("movie_directer"),
 		            		releaseDateStr, leadactorlist,supportactorlist);
 		          
 		        }

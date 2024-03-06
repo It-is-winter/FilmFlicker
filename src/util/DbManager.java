@@ -18,7 +18,7 @@ public class DbManager {
 		try {
 			
 			//C:\Edu\JavaWorks\FilmFlicker
-			Class.forName(DBProperties.DRVIER_NAME);
+			Class.forName(DBProperties.DRIVER_NAME);
 
 
 		} catch (Exception e) {
