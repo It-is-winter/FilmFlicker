@@ -64,5 +64,7 @@ public interface ReviewService {
 	 */
 	public int countHate(ReviewDTO review) throws SearchException ;
 
+	public void insertReview(String movieName, String review, int movieScore, UsersDTO user);
+
 	
 }
