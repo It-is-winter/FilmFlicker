@@ -137,8 +137,37 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return result;
 	}
 
-
-
+	@Override
+	public ReviewDTO selectReview(ReviewDTO review) throws SearchException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ReviewDTO reviewDTO = new ReviewDTO();
+		String sql = "select * from review where movie_seq =? and user_seq = ?";
+		
+		try {
+			con = DbManager.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setInt(1, review.getMovie_seq());
+			ps.setInt(2, review.getUser_seq());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				reviewDTO = new ReviewDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SearchException("리뷰가 존재하지 않습니다.");
+		} finally {
+			DbManager.close(con, ps, rs);
+		}
+		
+		return reviewDTO;
+	}
+	
 	@Override
 	public ReviewDTO selectReview(MovieDTO movie, UsersDTO user) throws SearchException { // 영화와 사용자 시퀀스로 리뷰 검색
 		Connection con = null;
@@ -236,15 +265,4 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return list;
 	}
 
-<<<<<<< HEAD
 }
-=======
-
-	@Override
-	public ReviewDTO selectReview(ReviewDTO review) throws SearchException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-}
->>>>>>> 4ab5e17629534be8c1c4e346a3ef085150d2b04f
