@@ -16,7 +16,7 @@ public class UsersSession {
 	 * 찜 목록, 리뷰 삭제, 비밀번호 수정
 	 * */
 	public void setAttribute(String name, Object value) {
-		attributes.put(name, value); //<찜목록, 영화이름>, List<영화이름>
+		attributes.put(name, value); //<찜목록, 영화이름>, List<영화이름> //<내가 등록한 리뷰, 리뷰 내용>, List<리뷰 내용> //<비밀번호 변경, UsersDTO>
 	}
 	/**
 	 * 찜 목록, 리뷰 삭제, 비밀번호 수정에 해당하는 value 찾기
