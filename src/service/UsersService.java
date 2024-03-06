@@ -22,8 +22,9 @@ public interface UsersService {
 	/**
 	 * 회원가입
 	 * @throws SQLException 
+	 * @throws SearchException 
 	 */
-	public void register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SQLException;
+	public void register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SQLException, SearchException;
 	
 	/**
 	 * 회원 정보 수정
@@ -37,6 +38,6 @@ public interface UsersService {
 	 * @throws SQLException 
 	 * @throws SearchException 
 	 */
-	public UsersDTO searchByUserID(String userID) throws SearchException, SQLException /*throws SearchException*/;
+	public UsersDTO searchByUserID(String userID) throws SearchException, SQLException ;
 
 }

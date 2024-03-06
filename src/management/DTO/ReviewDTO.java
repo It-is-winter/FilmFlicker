@@ -17,6 +17,7 @@ public class ReviewDTO {
 		super();
 		this.movieSeq = movieSeq;
 		this.userSeq = userSeq;
+
 		this.score = score;
 		this.review = review;
 	}
@@ -57,7 +58,11 @@ public class ReviewDTO {
 		return movieSeq;
 	}
 
+<<<<<<< HEAD
 	public void setmovieSeq(int movieSeq) {
+=======
+	public void setMovieSeq(int movieSeq) {
+>>>>>>> main
 		this.movieSeq = movieSeq;
 	}
 
@@ -73,7 +78,7 @@ public class ReviewDTO {
 		return userSeq;
 	}
 
-	public void setuserSeq(int userSeq) {
+	public void setUserSeq(int userSeq) {
 		this.userSeq = userSeq;
 	}
 

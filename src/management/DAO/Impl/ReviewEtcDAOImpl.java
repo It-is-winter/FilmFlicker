@@ -5,14 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import exception.DeleteException;
 import exception.InsertException;
 import exception.SearchException;
 import exception.UpdateException;
 import management.DAO.interfaces.ReviewEtcDAO;
 import management.DTO.ReviewDTO;
 import management.DTO.ReviewEtcDTO;
-import management.DTO.UsersDTO;
 import util.DbManager;
 
 public class ReviewEtcDAOImpl implements ReviewEtcDAO {

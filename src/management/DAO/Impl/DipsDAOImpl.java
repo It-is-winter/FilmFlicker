@@ -10,7 +10,6 @@ import java.util.List;
 import exception.SearchException;
 import management.DAO.interfaces.DipsDAO;
 import management.DTO.DipsDTO;
-import management.DTO.MovieDTO;
 import management.DTO.UsersDTO;
 import util.DbManager;
 

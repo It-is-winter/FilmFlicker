@@ -4,40 +4,42 @@ import java.util.List;
 
 public class DipsDTO {
 	
-	private String movie_name;
-	private String movie_directer;
-	private String movie_genre;
+
+	private String movieName;
+	private String movieDirecter;
+	private String movieGenre;
 	private int userSeq;
 	
 	
 	public DipsDTO() {}
 	
-	public DipsDTO(String movie_name, String movie_directer, String movie_genre, int userSeq) {
+
+	public DipsDTO(String movieName, String movieDirecter, String movieGenre, int userSeq) {
 		super();
-		this.movie_name = movie_name;
-		this.movie_directer = movie_directer;
-		this.movie_genre = movie_genre;
+		this.movieName = movieName;
+		this.movieDirecter = movieDirecter;
+		this.movieGenre = movieGenre;
 		this.userSeq = userSeq;
 	}
 	
 	
-	public String getMovie_name() {
-		return movie_name;
+	public String getMovieName() {
+		return movieName;
 	}
-	public void setMovie_name(String movie_name) {
-		this.movie_name = movie_name;
+	public void setMovieName(String movieName) {
+		this.movieName = movieName;
 	}
-	public String getMovie_directer() {
-		return movie_directer;
+	public String getMovieDirecter() {
+		return movieDirecter;
 	}
-	public void setMovie_directer(String movie_directer) {
-		this.movie_directer = movie_directer;
+	public void setMovieDirecter(String movieDirecter) {
+		this.movieDirecter = movieDirecter;
 	}
-	public String getMovie_genre() {
-		return movie_genre;
+	public String getMovieGenre() {
+		return movieGenre;
 	}
-	public void setMovie_genre(String movie_genre) {
-		this.movie_genre = movie_genre;
+	public void setMovieGenre(String movieGenre) {
+		this.movieGenre = movieGenre;
 	}
 	public int getUserSeq() {
 		return userSeq;
@@ -49,12 +51,12 @@ public class DipsDTO {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(" [movie_name= ");
-		builder.append(movie_name);
-		builder.append(", movie_directer= ");
-		builder.append(movie_directer);
-		builder.append(", movie_genre= ");
-		builder.append(movie_genre);
+		builder.append(" [movieName= ");
+		builder.append(movieName);
+		builder.append(", movieDirecter= ");
+		builder.append(movieDirecter);
+		builder.append(", movieGenre= ");
+		builder.append(movieGenre);
 		builder.append("]");
 		return builder.toString();
 	}

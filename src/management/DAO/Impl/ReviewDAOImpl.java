@@ -119,6 +119,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		try {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
+
 			
 			ps.setInt(1, review.getMovieSeq());
 			ps.setInt(2, review.getUserSeq());
