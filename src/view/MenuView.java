@@ -242,7 +242,7 @@ public class MenuView {
 			
 			System.out.print("리뷰 내용	=>	");
 			review = bf.readLine();
-			System.out.print("영화 평점	=>	");
+			System.out.print("영화 평점(10점 만점)	=>	");
 			movieScore = Integer.parseInt(bf.readLine());
 			
 			ReviewDTO reviewDTO = new ReviewDTO(user.getUserSeq(), movie.getMovieSeq(), review, movieScore);
