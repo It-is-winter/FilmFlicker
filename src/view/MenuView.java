@@ -266,7 +266,7 @@ public class MenuView {
 	
 	
 //--
-	private static void printSelectMovie() {
+	private static void printSelectMovie() throws SQLException {
 		
 		while(true) {
 			System.out.println("==== 영화 검색 방법 ====");
@@ -312,7 +312,8 @@ public class MenuView {
 	}
 
 
-	private static void selectMovieName() {
+	private static void selectMovieName() throws SQLException {
+		MovieService movieService = new MovieServiceImpl();
 		
 		String movieName = null;
 			
@@ -321,12 +322,14 @@ public class MenuView {
 				System.out.println("=== 영화 검색 ===");
 				System.out.print("검색할 영화 이름	=>	");
 				movieName = bf.readLine();
+				//----영화에 달린 리뷰들 호출----
+				MovieController.selectMovieByName(movieName);
+				MovieDTO movie = movieService.selectMovieByName(movieName);
+				ReviewController.selectReviewByMovie(movie);
 			}catch (IOException e) {
 				e.printStackTrace();
 				FailView.errorMessage("잘못된 값을 입력하였습니다.!");
 			}
-			
-			MovieController.selectMovieByName(movieName);
 			
 		}
 			
