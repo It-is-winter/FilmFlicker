@@ -17,10 +17,11 @@ public class DbManager {
 	static {
 		try {
 			//외부 properteis파일 로딩하기
-			proFile.load(new FileInputStream("resources/dbInfo.properties"));
+			//proFile.load(new FileInputStream(DBProperties.DRIVER_NAME));
 			//proFile.load(new FileInputStream("board.properties"));
 			
-			Class.forName(proFile.getProperty("driverName"));
+			//C:\Edu\JavaWorks\FilmFlicker
+			Class.forName(DBProperties.driverName);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -28,15 +29,15 @@ public class DbManager {
 	}
 
 	
-	public static Properties getProFile() {
-		return proFile;
-	}
+//	public static Properties getProFile() {
+//		return proFile;
+//	}
 
 	public static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(
-				proFile.getProperty("url"),
-				proFile.getProperty("userName"),
-				proFile.getProperty("userPass"));
+				DBProperties.url,
+				DBProperties.userId,
+				DBProperties.userPass);
 	}
 	
 

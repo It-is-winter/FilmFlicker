@@ -42,6 +42,7 @@ public class UsersSession {
 	public void setAttributes(Map<String, Object> attributes) {
 		this.attributes = attributes;
 	}
+	
 	@Override
 	public int hashCode() {
 		return sessionId.hashCode();
@@ -54,5 +55,14 @@ public class UsersSession {
 		}
 		return false;
 	}
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("UsersSession ID =");
+		builder.append(sessionId);
+		return builder.toString();
+	}
+	
+	
 
 }

@@ -9,13 +9,23 @@ import session.UsersSession;
 import session.UsersSessionSet;
 import view.FailView;
 
+import java.util.List;
+
+import exception.SearchException;
+import management.DTO.DipsDTO;
+import management.DTO.UsersDTO;
+import service.DipsService;
+import service.Impl.DipsServiceImpl;
+import view.SuccessView;
+
 public class DipsController {
 	private static MovieService movieService = new MovieServiceImpl();
+	public static DipsService service = new DipsServiceImpl();
 	
 	public static void putDips(String usersId, String movieName) {
 		try {
 			MovieDTO movie = movieService.selectMovieByName(movieName);
-			if(movieName == null) {
+			if(movie.getMovieName() == null) {
 				throw new SQLException("찾는 영화가 없습니다.");
 			}
 			UsersSessionSet uss = UsersSessionSet.getInstance();
@@ -30,8 +40,21 @@ public class DipsController {
 	public static void movieList(String usersId) {
 		UsersSessionSet uss = UsersSessionSet.getInstance();
 		UsersSession session = uss.get(usersId);
+	}
 		
 		//영화 리스트 만들기
+	
+	public static void selectDips(UsersDTO user) {
+		try {
+			
+			List<DipsDTO> dips = service.selectDipsListAll(user);
+			SuccessView.dipsList(dips);
+			
+		} catch (SearchException e) {
+			FailView.errorMessage(e.getMessage());
+		} catch(SQLException e) {
+			FailView.errorMessage(e.getMessage());
+		}
 	}
 
 }

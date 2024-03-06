@@ -3,26 +3,48 @@ package management.DTO;
 import java.util.List;
 
 public class MovieDTO {
-	
+	private int movieSeq;
+	private int movieGenre;
 	private String movieName ;
 	private String movieDirecter ;
 	private String releaseDate ;
+	
 	
 	private List<ActorDTO> supportActorList;
 	private List<ActorDTO> leadAcotrList;
 	
 	public MovieDTO() {};
-	
-	public MovieDTO(String movieName, String movieDirecter, String releaseDate,
+		
+	public MovieDTO(int movieSeq,String movieName, int movieGenre,  String movieDirecter, String releaseDate,
 			List<ActorDTO> supportActorList, List<ActorDTO> leadAcotrList) {
 		super();
+		this.movieSeq = movieSeq;
+		this.movieGenre = movieGenre;
 		this.movieName = movieName;
 		this.movieDirecter = movieDirecter;
 		this.releaseDate = releaseDate;
 		this.supportActorList = supportActorList;
 		this.leadAcotrList = leadAcotrList;
 	}
+
+
 	
+	public int getMovieSeq() {
+		return movieSeq;
+	}
+
+	public void setMovie_seq(int movieSeq) {
+		this.movieSeq = movieSeq;
+	}
+
+	public int getMovieGenre() {
+		return movieGenre;
+	}
+
+	public void setMovieGenre(int movieGenre) {
+		this.movieGenre = movieGenre;
+	}
+
 	public String getMovieName() {
 		return movieName;
 	}
@@ -53,20 +75,20 @@ public class MovieDTO {
 	public void setLeadAcotrList(List<ActorDTO> leadAcotrList) {
 		this.leadAcotrList = leadAcotrList;
 	}
+	/*
+	 * @Override public String toString() { StringBuilder builder = new
+	 * StringBuilder(); builder.append("MovieDTO [movieName=");
+	 * builder.append(movieName); builder.append(", movieDirecter=");
+	 * builder.append(movieDirecter); builder.append(", releaseDate=");
+	 * builder.append(releaseDate); builder.append("]"); return builder.toString();
+	 * }
+	 * 
+	 */
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("MovieDTO [movieName=");
-		builder.append(movieName);
-		builder.append(", movieDirecter=");
-		builder.append(movieDirecter);
-		builder.append(", releaseDate=");
-		builder.append(releaseDate);
-		builder.append("]");
-		return builder.toString();
+		return  "영화 제목 = " + movieName + ", 감독 =" + movieDirecter
+				+ ", 개봉일 =" + releaseDate + ", 주연배우 = " +leadAcotrList  + ", 조연배우 = "
+				+ supportActorList;
 	}
-	
-	
-
-	
 }

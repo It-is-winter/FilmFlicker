@@ -3,6 +3,7 @@ package session;
 import java.util.HashSet;
 import java.util.Set;
 
+
 public class UsersSessionSet {
 	private static UsersSessionSet usersSessionSet = new UsersSessionSet();
 	private Set<UsersSession> set;
@@ -25,6 +26,11 @@ public class UsersSessionSet {
 			}
 		}
 		return null;
+	}
+	
+	// UsersSession반환
+	public Set<UsersSession> getSet(){
+		return set;
 	}
 	
 	/**
