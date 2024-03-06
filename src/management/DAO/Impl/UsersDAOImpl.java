@@ -55,10 +55,11 @@ public class UsersDAOImpl implements UsersDAO {
 	/***
 	 * insert into users values(user_seq_NO.NEXTVAL,?,?,?,?,sysdate)
 	 * @throws SQLException 
+	 * @throws SearchException 
 	 * @throws  
 	 */
 	@Override
-	public int register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SQLException {
+	public int register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SQLException, SearchException {
 		int result = 0;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -78,12 +79,11 @@ public class UsersDAOImpl implements UsersDAO {
 			
 			if(result == 0) {
 				con.rollback();
-			   throw new SQLException("DAO 실패...");
+			   throw new SQLException("등록 실패...");
 			}
-			
+
 			con.commit();
-		} 
-		finally {
+		} finally {
 			con.commit();
 			DbManager.close(con, ps, null);
 		}
@@ -152,7 +152,7 @@ public class UsersDAOImpl implements UsersDAO {
 						rs.getString("user_name"),rs.getString("user_birth"),rs.getString("reg_date"));
 			}else {
 				con.rollback();
-				throw new SQLException("DAO 실패...");
+				throw new SQLException("아이디가 없습니다...");
 			}
 			
 			con.commit();

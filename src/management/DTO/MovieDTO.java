@@ -4,7 +4,11 @@ import java.util.List;
 
 public class MovieDTO {
 	private int movieSeq;
+
 	private String movieGenre;
+
+
+
 	private String movieName ;
 	private String movieDirecter ;
 	private String releaseDate ;
@@ -15,7 +19,9 @@ public class MovieDTO {
 	
 	public MovieDTO() {};
 		
+
 	public MovieDTO(int movieSeq,String movieName, String movieGenre,  String movieDirecter, String releaseDate,
+
 			List<ActorDTO> supportActorList, List<ActorDTO> leadAcotrList) {
 		super();
 		this.movieSeq = movieSeq;
@@ -33,7 +39,10 @@ public class MovieDTO {
 		return movieSeq;
 	}
 
+
 	public void setMovieSeq(int movieSeq) {
+
+
 		this.movieSeq = movieSeq;
 	}
 

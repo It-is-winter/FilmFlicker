@@ -3,4 +3,6 @@
 .project
 .settings/
 *.properties
-src/util/
+
+/src/util/
+

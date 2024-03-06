@@ -17,8 +17,10 @@ public class DbManager {
 	static {
 		try {
 			
+
 			
 			Class.forName(DBProperties.DRIVER_NAME);
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -32,10 +34,12 @@ public class DbManager {
 
 	public static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(
+
 				DBProperties.URL,
 				DBProperties.USER_ID,
 				DBProperties.USER_PASS);
 				
+
 	}
 	
 
