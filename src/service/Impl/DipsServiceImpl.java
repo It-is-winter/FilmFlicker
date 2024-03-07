@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+
 import exception.InsertException;
 import exception.SearchException;
 import management.DAO.Impl.DipsDAOImpl;
@@ -11,6 +12,7 @@ import management.DAO.interfaces.DipsDAO;
 import management.DTO.DipsDTO;
 import management.DTO.UsersDTO;
 import service.DipsService;
+
 
 public class DipsServiceImpl implements DipsService {
 
@@ -23,6 +25,10 @@ public class DipsServiceImpl implements DipsService {
 		if(list.isEmpty()) {
 			throw new SearchException("찜목록이 없습니다.");
 		}
+		
+		
+		
+		
 		
 		return list;
 	}

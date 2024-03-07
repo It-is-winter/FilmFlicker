@@ -40,7 +40,7 @@ public class UsersDAOImpl implements UsersDAO {
 						rs.getString("user_name"),rs.getString("user_birth"),rs.getString("reg_date"));
 			}else {
 				con.rollback();
-			    throw new SQLException("DAO 실패...");
+			    throw new SQLException("로그인 실패...");
 			}
 			
 			con.commit();

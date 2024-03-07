@@ -32,12 +32,9 @@ public class DbManager {
 
 	public static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(
-
 				DBProperties.URL,
 				DBProperties.USER_ID,
 				DBProperties.USER_PASS);
-				
-
 	}
 	
 
