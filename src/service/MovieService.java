@@ -2,6 +2,7 @@ package service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 import exception.InsertException;
 import exception.SearchException;
@@ -33,7 +34,7 @@ public interface MovieService {
 	/**
 	 * 개봉연도로 영화 검색
 	 */
-	public List<MovieDTO> selectMovieByReleaseDate(String movieReleaseDate) throws SearchException;
+	public Set<MovieDTO> selectMovieByReleaseDate(String movieReleaseDate) throws SearchException;
 	
 	/**
 	 * 이름으로 영화 검색

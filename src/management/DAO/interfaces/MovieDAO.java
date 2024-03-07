@@ -2,6 +2,7 @@ package management.DAO.interfaces;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 import exception.InsertException;
 import exception.SearchException;
@@ -29,7 +30,7 @@ public interface MovieDAO {
 	/**
 	 * 개봉연도로 영화 검색
 	 */
-	public List<MovieDTO> selectMovieByReleaseDate(String releaseDate) throws SearchException;
+	public Set<MovieDTO> selectMovieByReleaseDate(String releaseDate) throws SearchException;
 	
 	/**
 	 * 이름으로 영화 검색

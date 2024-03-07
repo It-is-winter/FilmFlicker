@@ -1,6 +1,7 @@
 package management.DTO;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MovieDTO {
 	private int movieSeq;
@@ -79,6 +80,28 @@ public class MovieDTO {
 		this.leadAcotrList = leadAcotrList;
 	}
 	
+	
+	
+	
+	
+
+	@Override
+	public int hashCode() {
+		return movieName.hashCode();
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		MovieDTO other = (MovieDTO) obj;
+		
+		if(movieDirecter.equals(other.getMovieDirecter()))  {
+			return true;
+		}
+		
+		return false;
+	}
+
 
 	@Override
 	public String toString() {

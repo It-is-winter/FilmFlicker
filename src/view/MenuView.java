@@ -250,26 +250,30 @@ public class MenuView {
 			
 			switch(menu) {
 			case 1 :
+				System.out.println();
 				MenuView.printInsertMovie(); // 영화 등록 화면 나오기
 				System.out.println();
 				break;
 			case 2 :
+				System.out.println();
 				MenuView.printInsertReview(user); // 리뷰 등록 화면 나오기
 				System.out.println();
 				break;
 			case 3 :
+				System.out.println();
 				MenuView.printSelectMovie(user); // 영화 검색 화면 나오기
 				System.out.println();
 				break;
 			case 4 :
+				System.out.println();
 				MyPageView.printMyPage(user); // 마이페이지 화면 나오기
 				System.out.println();
 				break;
 			case 5 :
 				 return; // 뒤로가기
 			case 6 :
-				 MenuView.printLogOut(user);
-				 return; // 로그아웃하기
+				MenuView.printLogOut(user);
+				return; // 로그아웃하기
 			case 9 : 
 				System.exit(0);
 			default :
@@ -291,7 +295,6 @@ public class MenuView {
 		
 		UsersSessionSet userSessionSet = UsersSessionSet.getInstance();
 		userSessionSet.remove(userSession);
-		
 	}
 
 	
@@ -300,8 +303,6 @@ public class MenuView {
 	 * @param user
 	 */
 	private static void printInsertReview(UsersDTO user) {
-		MovieService movieService = new MovieServiceImpl();
-
 		String movieName = null;
 		String review = null;
 		int movieScore = 0;
@@ -311,17 +312,13 @@ public class MenuView {
 			System.out.println("=== 실마리 리뷰 등록 ===");
 			System.out.print("영화 이름 => ");
 			movieName = bf.readLine();
+			
+			System.out.print("영화 평점(10점 만점) => ");
+			movieScore = Integer.parseInt(bf.readLine());
+			MovieDTO movie = MovieController.selectMovieByName(movieName);
+			
 			System.out.print("리뷰 내용 => ");
 			review = bf.readLine();
-			System.out.print("영화 평점 => ");
-			
-			System.out.print("영화 이름	=>	");
-			movieName = bf.readLine();
-			MovieDTO movie = movieService.selectMovieByName(movieName);
-			System.out.print("리뷰 내용	=>	");
-			review = bf.readLine();
-			System.out.print("영화 평점(10점 만점)	=>	");
-			movieScore = Integer.parseInt(bf.readLine());
 			
 			ReviewDTO reviewDTO = new ReviewDTO(user.getUserSeq(), movie.getMovieSeq(), review, movieScore);
 			ReviewController.insertReview(reviewDTO);
@@ -357,27 +354,31 @@ public class MenuView {
 			switch (menu) {
 			
 			case 1 :
+				System.out.println();
 				MenuView.selectMovieName(); //영화 이름으로 영화 검색하는 화면 나오기
 				System.out.println();
 				break;
 			case 2 :
+				System.out.println();
 				MenuView.selectMovieDirecter(); //감독 이름으로 영화 검색하는 화면 나오기
 				System.out.println();
 				break;
 				
 			case 3 :
+				System.out.println();
 				MenuView.selectMovieGenre(); //장르로 영화 검색하는 화면 나오기
 				System.out.println();
 				break;
 			case 4 :
+				System.out.println();
 				MenuView.selectMovieReleaseDate(); //개봉연도로 영화 검색하는 화면 나오기
 				System.out.println();
 				break;
 			case 5 :
 				return; //뒤로 가기
 			case 6 :
-				MenuView.printMenu();
-				System.out.println();
+				MenuView.printLogOut(user);
+				return;
 			case 9 :
 				System.exit(0);
 			
@@ -395,17 +396,15 @@ public class MenuView {
 	 * 영화 이름으로 검색 화면
 	 */
 	private static void selectMovieName() {
-		MovieService movieService = new MovieServiceImpl();
 		String movieName = null;
 		
 		try{
 			bf = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("=== 영화 검색 ===");
-			System.out.print("검색할 영화 이름	=>	");
+			System.out.print("검색할 영화 이름 => ");
 			movieName = bf.readLine();
+			MovieDTO movie = MovieController.selectMovieByName(movieName);
 			//----영화에 달린 리뷰들 호출----
-			MovieController.selectMovieByName(movieName);
-			MovieDTO movie = movieService.selectMovieByName(movieName);
 			ReviewController.selectReviewByMovie(movie);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -424,9 +423,9 @@ public class MenuView {
 		try {
 			bf = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("=== 영화 검색 ===");
-			System.out.print("검색할 감독 이름	=>	");
+			System.out.print("검색할 감독 이름 => ");
 			movieDirecter = bf.readLine();
-		}catch(IOException e) {
+		} catch(IOException e) {
 			FailView.errorMessage("잘못된 값을 입력하였습니다.");
 		}
 		
@@ -447,7 +446,7 @@ public class MenuView {
 	
 		movieGenre = bf.readLine();
 		
-		}catch(IOException e) {
+		} catch(IOException e) {
 			FailView.errorMessage("잘못된 값을 입력하였습니다.");
 		}
 		MovieController.selectMovieByGenre(movieGenre);
@@ -464,11 +463,11 @@ public class MenuView {
 		 try {
 			 bf = new BufferedReader(new InputStreamReader(System.in));
 			 System.out.println("=== 영화 검색 ===");
-			 System.out.println("개봉 날짜 입력");
+			 System.out.println("개봉 연도 입력(EX.0000)");
 			 
 			 movieReleaseDate = bf.readLine();
 			 
-		 }catch(IOException e) {
+		 } catch(IOException e) {
 			 FailView.errorMessage("잘못된 값을 입력하였습니다.");
 		 }
 		
@@ -494,32 +493,34 @@ public class MenuView {
 		        System.out.println("=== 실마리 영화 등록 ===");
 		        System.out.print("영화 이름 => ");
 		        movieName = bf.readLine();
-		        System.out.println(movieName);
+//		        System.out.println(movieName);
 				/*
 				 * System.out.println("영화 장르"); movieGenre = bf.readLine();
 				 */
-		        System.out.print("장르를 숫자로 입력하세요 (1: 액션, 2: 드라마, 3: 코미디, 4: 호러");
+		        System.out.print("장르를 숫자로 입력하세요 (1: 액션, 2: 드라마, 3: 코미디, 4: 호러)");
 	            System.out.println();
 		        String movieGenreStr = bf.readLine();
 	            movieGenre = Integer.parseInt(movieGenreStr);
-	            System.out.println(movieGenre);
+//	            System.out.println(movieGenre);
 		        System.out.print("영화 감독 => ");
 		        movieDirecter = bf.readLine();
 		        
-		        System.out.print("개봉 날짜 => ");
+		        System.out.print("개봉 날짜(EX.0000-00-00) => ");
 		        releaseDate = bf.readLine();
 		     
-		        System.out.print("주연 배우(공백 구분) => ");
+		        System.out.print("주연 배우(\",\" 로 구분) => ");
 		        String leadActorsInput = bf.readLine();
-		        leadActor.addAll(Arrays.asList(leadActorsInput.split(" ")));
-		        System.out.println(leadActor);
-		        System.out.print("조연 배우(공백 구분) => ");
+		        leadActor.addAll(Arrays.asList(leadActorsInput.split(",")));
+//		        System.out.println(leadActor);
+		        
+		        System.out.print("조연 배우(\",\" 로 구분) => ");
 		        String supportActorsInput = bf.readLine();
-		        supportActor.addAll(Arrays.asList(supportActorsInput.split(" ")));
-		        System.out.println(supportActor);
-		        for (String actor : leadActor) {
-		        	System.out.println("주연배우 = "+ actor);
-		        }
+		        supportActor.addAll(Arrays.asList(supportActorsInput.split(",")));
+//		        System.out.println(supportActor);
+		        
+//		        for (String actor : leadActor) {
+//		        	System.out.println("주연배우 = "+ actor);
+//		        }
 		        
 			        
 		} catch (IOException e) {

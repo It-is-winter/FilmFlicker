@@ -1,5 +1,6 @@
 package view;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -26,9 +27,17 @@ public class SuccessView {
 	
 	public static void successMessage(List<MovieDTO> moviedirecter) {
 
-		for (MovieDTO movie : moviedirecter) {
-			System.out.println(movie);
+		System.out.println(moviedirecter);
 
+	}
+	
+	public static void successMessage(Set<MovieDTO> moviedirecter) {
+
+
+		Iterator<MovieDTO> ite =  moviedirecter.iterator();
+		
+		while(ite.hasNext()) {
+			System.out.println(ite.next());
 		}
 
 	}

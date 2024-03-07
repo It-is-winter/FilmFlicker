@@ -2,6 +2,7 @@ package service.Impl;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 import javax.security.sasl.SaslException;
 
@@ -20,6 +21,7 @@ public class MovieServiceImpl implements MovieService {
 			String releaseDate, List<String> leadActor,List<String> supportActor) throws InsertException {
 		
 		int result = moviedao.insertMovie( movieName,movieGenre,  movieDirecter,  releaseDate, leadActor, supportActor);
+		
 		if(result == 0) throw new InsertException("영화 등록에 실패했습니다.");
 		
 		return result;
@@ -29,10 +31,8 @@ public class MovieServiceImpl implements MovieService {
 	public List<MovieDTO> selectMovieByGenre(String movieGenre) throws SearchException {
 		List<MovieDTO> moviedto = moviedao.selectMovieByGenre(movieGenre);
 		
-		for(MovieDTO m : moviedto) {
-			if(m == null) {
-				throw new SearchException();
-			}
+		if(moviedto.isEmpty()) {
+			throw new SearchException("찾는 영화가 없습니다.");
 		}
 		
 		return moviedto;
@@ -42,23 +42,19 @@ public class MovieServiceImpl implements MovieService {
 	public List<MovieDTO> selectMovieByDirecter(String movieDirecter) throws SearchException {
 		List<MovieDTO> moviedto = moviedao.selectMovieByDirecter(movieDirecter);
 		
-		for(MovieDTO m : moviedto) {
-			if(m == null) {
-				throw new SearchException();
-			}
+		if(moviedto.isEmpty()) {
+			throw new SearchException("찾는 영화가 없습니다.");
 		}
 		
 		return moviedto;
 	}
 
 	@Override
-	public List<MovieDTO> selectMovieByReleaseDate(String movieReleaseDate) throws SearchException {
-		List<MovieDTO> moviedto = moviedao.selectMovieByReleaseDate(movieReleaseDate);
+	public Set<MovieDTO> selectMovieByReleaseDate(String movieReleaseDate) throws SearchException {
+		Set<MovieDTO> moviedto = moviedao.selectMovieByReleaseDate(movieReleaseDate);
 		
-		for(MovieDTO m : moviedto) {
-			if(m == null) {
-				throw new SearchException();
-			}
+		if(moviedto.isEmpty()) {
+			throw new SearchException("찾는 영화가 없습니다.");
 		}
 		
 		return moviedto;
@@ -69,7 +65,7 @@ public class MovieServiceImpl implements MovieService {
 		MovieDTO moviedto = moviedao.selectMovieByName(movieName);
 		
 		if(moviedto == null) {
-			throw new SearchException();
+			throw new SearchException("찾는 영화가 없습니다.");
 		}
 		
 		return moviedto;
