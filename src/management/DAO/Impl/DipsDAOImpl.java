@@ -18,7 +18,7 @@ public class DipsDAOImpl implements DipsDAO {
 	/***
 	 * 찜목록 조회
 	 * view에서 user에 해당하는 것만 뽑는다.
-	 * select * from view_dips_info where user_seq = ?
+	 * select * from view_dips where user_seq = ?
 	 * @throws SearchException 
 	 */
 	
@@ -29,7 +29,7 @@ public class DipsDAOImpl implements DipsDAO {
 		ResultSet rs = null;
 		DipsDTO dips = null;
 		List<DipsDTO> list = new ArrayList<DipsDTO>();
-		String sql = "select * from view_dips_info where user_seq = ?";
+		String sql = "select * from view_dips where user_seq = ?";
 		
 		try {
 			con = DbManager.getConnection();
@@ -62,7 +62,7 @@ public class DipsDAOImpl implements DipsDAO {
 
 	@Override
 	public int insertDips(UsersDTO users) {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
