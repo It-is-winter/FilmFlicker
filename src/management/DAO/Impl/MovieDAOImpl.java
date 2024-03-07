@@ -29,7 +29,7 @@ public class MovieDAOImpl implements MovieDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 		
-		String sql = "insert into movie (movie_seq,movie_name,movie_genre_seq,movie_directer,release_date) "
+		String sql = "insert into movie (movie_seq,movie_name,movie_genre_seq,movie_director,release_date) "
 				+ "values(movie_seq_no.nextval,?,?,?,?)";
 
 		try {
@@ -181,21 +181,21 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 		
 		//감독이름으로 영화찾기
 		@Override
-		public List<MovieDTO> selectMovieByDirecter(String movieDirecter) throws SQLException {
+		public List<MovieDTO> selectMovieByDirector(String movieDirector) throws SQLException {
 
 			Connection con = null;
 			PreparedStatement ps =null;
 			ResultSet rs = null;
 			List<MovieDTO> list = new ArrayList<MovieDTO>();		
 			List<String> movienamelist = new ArrayList<>();
-			String sql ="select movie_name from movie where movie_directer =?"; //영화 감독이름에 해당하는 영화 가지고오기
+			String sql ="select movie_name from movie where movie_director =?"; //영화 감독이름에 해당하는 영화 가지고오기
 
 			MovieDTO moviedto =null;
 			
 			try {
 				con = DbManager.getConnection();
 				ps = con.prepareStatement(sql);
-				ps.setString(1, movieDirecter);
+				ps.setString(1, movieDirector);
 				rs = ps.executeQuery();
 				while(rs.next()) {
 					
@@ -275,9 +275,9 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		MovieDTO moviedto = null;
-		//String sql = "select movie_name,movie_genre,movie_directer,release_date from movie a inner join movie_genre b on a.movie_genre_seq = b.movie_genre_seq "
+		//String sql = "select movie_name,movie_genre,movie_director,release_date from movie a inner join movie_genre b on a.movie_genre_seq = b.movie_genre_seq "
 		//		+ "where movie_name =?";
-		String sql ="select movie_seq,movie_name,movie_genre,movie_directer,release_date "
+		String sql ="select movie_seq,movie_name,movie_genre,movie_director,release_date "
 				+ "from movie a inner join movie_genre b on a.movie_genre_seq = b.movie_genre_seq	"
 				+ "where movie_name =?";
 		try {
@@ -299,7 +299,7 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 		          List<ActorDTO> supportactorlist = selectSupportActor(movieSeq);
 		          
 		           
-		          moviedto = new MovieDTO(rs.getInt("movie_seq"), rs.getString("movie_name"), rs.getString("movie_genre"),rs.getString("movie_directer"),
+		          moviedto = new MovieDTO(rs.getInt("movie_seq"), rs.getString("movie_name"), rs.getString("movie_genre"),rs.getString("movie_director"),
 		            		releaseDateStr, leadactorlist,supportactorlist);
 		         
 		         

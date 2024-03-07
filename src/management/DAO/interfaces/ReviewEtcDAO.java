@@ -15,6 +15,8 @@ public interface ReviewEtcDAO {
 	 */
 	int insertLike(ReviewEtcDTO reviewEtc) throws InsertException;
 	
+	int insertHate(ReviewEtcDTO reviewEtc) throws InsertException;
+	
 	/**
 	 * 리뷰에 대한 좋아요, 싫어요가 중복 되었는지 검사
 	 */
@@ -26,15 +28,15 @@ public interface ReviewEtcDAO {
 	public int updateLike(ReviewEtcDTO reviewEtc) throws UpdateException;
 	
 	/**
-	 * 좋아요 개수
+	 * 좋아요,싫어요 개수
 	 */
 	public int countLike(ReviewDTO review) throws SearchException;
 	
-	/**
-	 * 싫어요 개수
-	 */
 	public int countHate(ReviewDTO review) throws SearchException;
-
 	
-
+	/**
+	 * 리뷰 시퀀스에 해당하는 ReviewEtcDTO 객체를 반환하기
+	 */
+	public ReviewEtcDTO selectReviewEtc(ReviewDTO review) throws SearchException;
+	
 }

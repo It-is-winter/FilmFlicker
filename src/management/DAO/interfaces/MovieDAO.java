@@ -24,7 +24,7 @@ public interface MovieDAO {
 	 * 감독으로 영화 검색
 	 * @throws SQLException 
 	 */
-	public List<MovieDTO> selectMovieByDirecter(String movieDirecter) throws SQLException;
+	public List<MovieDTO> selectMovieByDirector(String movieDirector) throws SQLException;
 	
 	/**
 	 * 개봉연도로 영화 검색

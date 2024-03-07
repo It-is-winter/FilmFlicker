@@ -14,11 +14,19 @@ public class ReviewDTO {
 	
 	public ReviewDTO() {}
 	
-	public ReviewDTO(int userSeq, int movieSeq, String review, int score) {
+	public ReviewDTO( int userSeq, int movieSeq, String review, int score) {
 		super();
 		this.movieSeq = movieSeq;
 		this.userSeq = userSeq;
-
+		this.score = score;
+		this.review = review;
+	}
+	
+	public ReviewDTO(int reviewSeq, int userSeq, int movieSeq, String review, int score) {
+		super();
+		this.movieSeq = movieSeq;
+		this.userSeq = userSeq;
+		this.reviewSeq = reviewSeq;
 		this.score = score;
 		this.review = review;
 	}

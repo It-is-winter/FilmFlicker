@@ -10,6 +10,7 @@ import management.DTO.MovieDTO;
 import management.DTO.ReviewDTO;
 import management.DTO.ReviewEtcDTO;
 import management.DTO.UsersDTO;
+import service.ReviewEtcService;
 import service.ReviewService;
 import service.Impl.ReviewServiceImpl;
 import view.FailView;
@@ -18,6 +19,7 @@ import view.SuccessView;
 public class ReviewController {
 	
 	public static ReviewService service = new ReviewServiceImpl();
+	public static ReviewEtcService etcService = new ReviewServiceImpl();
 	
 //=======================Review controller===========================
 
@@ -37,7 +39,7 @@ public class ReviewController {
 	 * 리뷰 입력하기
 	 */
 	public static void insertReview(ReviewDTO review) throws SearchException {
-
+		
 		try {
 			service.insertReview(review);
 			SuccessView.successMessage("리뷰 등록에 성공했습니다.");
@@ -122,41 +124,67 @@ public class ReviewController {
 //=======================ReviewEtc controller===========================	
 	
 	/***
-	 * @param ReviewEtcDTO
-	 * 리뷰에 좋아요 또는 싫어요 입력하기
+	 * @param ReviewDTO
+	 * 해당 리뷰에 대한 ReviewEtcDTO 반환
 	 */
-	public static void insertLikeReview(ReviewEtcDTO reviewEtc) throws SearchException {
-
+	public static ReviewEtcDTO selectReviewEtc(ReviewDTO review) throws SearchException {
+		ReviewEtcDTO reviewEtcDTO = new ReviewEtcDTO();
 		try {
-			service.insertLikeReview(reviewEtc);
-			SuccessView.successMessage("좋아요/싫어요 등록에 성공했습니다.");
-		} catch (InsertException e) {
-			//e.printStackTrace();
+			reviewEtcDTO = etcService.selectReviewEtc(review);
+		} catch (SearchException e) {
 			FailView.errorMessage(e.getMessage());
 		}
+		return reviewEtcDTO;
 	}
 	
 	/***
 	 * @param ReviewEtcDTO
 	 * 리뷰에 좋아요 또는 싫어요 입력하기
 	 */
-	public static void updateLikeReview(ReviewEtcDTO reviewEtc) throws UpdateException {
+	public static void insertLike(ReviewEtcDTO reviewEtc) throws SearchException {
 
 		try {
-			service.updateLikeReview(reviewEtc);
-			SuccessView.successMessage("좋아요/싫어요 수정에 성공했습니다.");
+			etcService.insertLike(reviewEtc);
+		} catch (InsertException e) {
+			FailView.errorMessage(e.getMessage());
 		} catch (UpdateException e) {
-			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
 		}
 	}
+	
+	public static void insertHate(ReviewEtcDTO reviewEtc) throws SearchException {
+
+		try {
+			etcService.insertHate(reviewEtc);
+			SuccessView.successMessage("싫어요 등록에 성공했습니다.");
+		} catch (InsertException e) {
+			FailView.errorMessage(e.getMessage());
+		} catch (UpdateException e) {
+			FailView.errorMessage(e.getMessage());
+		}
+	}
+	
+	/***
+	 * @param ReviewEtcDTO
+	 * 리뷰에 좋아요 또는 싫어요 수정하기
+	 */
+//	public static void updateLikeReview(ReviewEtcDTO reviewEtc) throws UpdateException {
+//
+//		try {
+//			etcService.updateLike(reviewEtc);
+//			SuccessView.successMessage("좋아요/싫어요 수정에 성공했습니다.");
+//		} catch (UpdateException e) {
+//			//e.printStackTrace();
+//			FailView.errorMessage(e.getMessage());
+//		}
+//	}
 	
 	/***
 	 * @param ReviewDTO
 	 * 해당 리뷰에 달린 좋아요 개수 반환
 	 */
 	public static int countLike(ReviewDTO review) throws SearchException {
-		int result = service.countLike(review);
+		int result = etcService.countLike(review);
 		return result;
 	}
 	
@@ -165,7 +193,7 @@ public class ReviewController {
 	 * 해당 리뷰에 달린 싫어요 개수 반환
 	 */
 	public static int countHate(ReviewDTO review) throws SearchException {
-		int result = service.countHate(review);
+		int result = etcService.countHate(review);
 		return result;
 	}
 	
