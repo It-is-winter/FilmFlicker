@@ -17,7 +17,7 @@ public class DbManager {
 		try {
 			
 			//C:\Edu\JavaWorks\FilmFlicker
-			Class.forName(DBProperties.DRIVER_NAME);
+			Class.forName(DBProperties.driverName);
 
 
 		} catch (Exception e) {
@@ -32,12 +32,9 @@ public class DbManager {
 
 	public static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(
-
-				DBProperties.URL,
-				DBProperties.USER_ID,
-				DBProperties.USER_PASS);
-				
-
+				DBProperties.url,
+				DBProperties.userId,
+				DBProperties.userPass);
 	}
 	
 

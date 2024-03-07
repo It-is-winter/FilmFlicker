@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 import controller.DipsController;
+import controller.MyPageController;
+import controller.ReviewController;
 import controller.UserController;
 import management.DTO.UsersDTO;
 
@@ -25,34 +27,30 @@ public class MyPageView {
 			
 			
 			System.out.println("=== 실마리 영화 커뮤니티 ===");
-			System.out.println("1. 비밀번호 수정		|	2. 등록 리뷰 삭제	"
-					+ "|	3. 찜목록 확인하기	"
-					+ "|	4. 뒤로가기	"+ "|	9. 종료하기	");
+			System.out.println("1. 등록한 리뷰 보기 | 2. 찜목록 확인하기 "
+					+ "| 3. 뒤로가기 | 9. 종료하기");
 			
 			try{
 				bf = new BufferedReader(new InputStreamReader(System.in));
 				menu = Integer.parseInt(bf.readLine());
 				
 			} catch (IOException e) {
-				FailView.errorMessage("잘못된 값을 입력하였습니다.!");
+				FailView.errorMessage("잘못된 값을 입력하였습니다.");
 			}
 			
 			switch(menu) {
 			case 1 :
-				MyPageView.printUpdatedPassword(user);// 비밀번호 수정 화면 나오기
+				MyPageView.printMyReviewMenu(user); // 등록된 리뷰 화면 나오기
 				break;
 			case 2 :
-				 // 등록된 리뷰 삭제 화면 나오기
-				break;
-			case 3 :
 				MyPageView.printDips(user);
 				break;
-			case 4 :	
-				return; 	// 뒤로가기
+			case 3 :
+				return; // 뒤로가기
 			case 9 : 
 				System.exit(0);
 			default :
-				FailView.errorMessage("Consol 이외의 값을 입력하였습니다.!");
+				FailView.errorMessage("Consol 이외의 값을 입력하였습니다.");
 			}
 		}// while 끝
 		
@@ -64,28 +62,69 @@ public class MyPageView {
 	 * @param user
 	 */
 	private static void printDips(UsersDTO user) {
-		DipsController.selectDips(user);
+		
+		MyPageController.selectDips(user);
 		
 	}
-
+	
+	private static void printMyReviewMenu(UsersDTO user) {
+		MyPageController.selectReviewByUser(user);
+		System.out.println("=================================================");
+		System.out.println("1. 리뷰 수정 | 2. 리뷰 삭제");
+		try {
+			bf = new BufferedReader(new InputStreamReader(System.in));
+			menu = Integer.parseInt(bf.readLine());
+			
+			switch(menu) {
+			case 1 :
+				MyPageView.printUpdateReview(user);
+				break;
+			case 2 :
+				MyPageView.printDeleteReview(user);
+				break;
+			}
+			
+		} catch (IOException e) {
+			FailView.errorMessage("잘못된 값을 입력하였습니다.");
+		}
+	}
 	
 	/**
-	 * 비밀번호 변경 화면
-	 * @param user
+	 * 등록된 리뷰 수정 화면
 	 */
-	private static void printUpdatedPassword(UsersDTO user) {
-		String password = null;
+	private static void printUpdateReview(UsersDTO user) {
+		int update = 0;
+		String reviewComent = null;
+		int reviewScore = 0;
 		
-		try{
+		try {
 			bf = new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("=== 실마리 회원 정보 수정 ===");
-			System.out.print("새 비밀번호 입력	=>	");
-			password = bf.readLine();
-		}catch (IOException e) {
-			FailView.errorMessage("잘못된 값을 입력하였습니다.!");
+			System.out.print("수정할 리뷰 번호 => ");
+			update = Integer.parseInt(bf.readLine());
+			System.out.print("수정할 리뷰 내용 => ");
+			reviewComent = bf.readLine();
+			System.out.print("수정할 리뷰 점수 => ");
+			reviewScore = Integer.parseInt(bf.readLine());
+			
+			MyPageController.updateMyReview(user, update,reviewComent,reviewScore);
+			
+		} catch (IOException e) {
+			FailView.errorMessage("잘못된 값을 입력하였습니다.");
 		}
-		
-		UserController.userUpdate(user.getIdEmail(), password);
-		
 	}
+	
+	/**
+	 * 등록된 리뷰 삭제 화면
+	 */
+	private static void printDeleteReview(UsersDTO user) {
+		System.out.print("삭제할 리뷰 번호 => ");
+		try {
+			bf = new BufferedReader(new InputStreamReader(System.in));
+			int delete = Integer.parseInt(bf.readLine());
+			MyPageController.deletMyReview(user, delete);
+		} catch (IOException e) {
+			FailView.errorMessage("잘못된 값을 입력하였습니다.");
+		}
+	}
+
 }// 클래스 끝
