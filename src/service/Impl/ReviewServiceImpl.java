@@ -71,7 +71,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<ReviewDTO> selectReviewByUser(UsersDTO user) throws SearchException {
 		List<ReviewDTO> list = reviewDAO.selectReviewByUser(user);
-		if(list==null || list.size()==0) throw new SearchException("작성된 리뷰가 없습니다.");
+		if(list.isEmpty() || list.size()==0) throw new SearchException("작성된 리뷰가 없습니다.");
 		return list;
 	}
 

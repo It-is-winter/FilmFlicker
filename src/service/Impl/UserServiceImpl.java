@@ -41,18 +41,16 @@ public class UserServiceImpl implements UsersService {
 	@Override
 	public void register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SQLException, SearchException {
 			
-		
 		try {
 			userdao.searchByUserID(userID);
 		} catch (SQLException e) {
 			
 			int result = userdao.register(userID, userPassword, userName, userBirth);
+			
 			if(result == 0) {
 				throw new InsertException("회원 가입이 실패했습니다.");
 			}
 		}
-		
-		
 	}
 
 	@Override

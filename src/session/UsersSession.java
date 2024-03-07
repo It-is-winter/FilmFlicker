@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UsersSession {
+	
 	private String sessionId; //usersId
 	private Map<String, Object> attributes; //찜 목록, 리뷰 삭제, 비밀번호 수정
 	
