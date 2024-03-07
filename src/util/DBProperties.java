@@ -4,8 +4,8 @@ package util;
 
 public interface DBProperties {
 	public static final String driverName = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	String userId = "scott";
-	String userPass = "TIGER";
+	String url = "jdbc:oracle:thin:@orcl_high?TNS_ADMIN=C:/Edu/Util/Wallet_orcl";
+	String userId = "admin";
+	String userPass = "Wjdwlsdn9561@";
 	
 }
