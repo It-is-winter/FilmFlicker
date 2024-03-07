@@ -62,15 +62,18 @@ public class MyPageView {
 	 * @param user
 	 */
 	private static void printDips(UsersDTO user) {
-		
 		MyPageController.selectDips(user);
 		
 	}
 	
+	/***
+	 * 리뷰 수정, 삭제, 뒤로가기 메뉴 띄우기
+	 * @param user
+	 */
 	private static void printMyReviewMenu(UsersDTO user) {
 		MyPageController.selectReviewByUser(user);
 		System.out.println("=================================================");
-		System.out.println("1. 리뷰 수정 | 2. 리뷰 삭제");
+		System.out.println("1. 리뷰 수정 | 2. 리뷰 삭제 | 3. 뒤로가기");
 		try {
 			bf = new BufferedReader(new InputStreamReader(System.in));
 			menu = Integer.parseInt(bf.readLine());
@@ -82,6 +85,8 @@ public class MyPageView {
 			case 2 :
 				MyPageView.printDeleteReview(user);
 				break;
+			case 3 :
+				return;
 			}
 			
 		} catch (IOException e) {

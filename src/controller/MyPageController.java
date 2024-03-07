@@ -37,10 +37,7 @@ public class MyPageController {
 		
 		Map<Integer, ReviewDTO> reviewList = (Map<Integer, ReviewDTO>)session.getAttribute("리뷰목록");
 		
-		if(reviewList == null) { 
-			reviewList = new HashMap<>(); 
-			session.setAttribute("리뷰목록", reviewList);
-		}
+		
 		
 		List<ReviewDTO> list = null;
 		int i =0;
@@ -50,11 +47,17 @@ public class MyPageController {
 		} catch(SearchException e) {
 			FailView.errorMessage(e.getMessage());
 		}
-		for (ReviewDTO reviewDTO : list) {
-			i++;
-			reviewList.put(i, reviewDTO);
-		}
 		
+		if(reviewList == null) { 
+			reviewList = new HashMap<>(); 
+			session.setAttribute("리뷰목록", reviewList);
+			
+			for (ReviewDTO reviewDTO : list) {
+				i++;
+				reviewList.put(i, reviewDTO);
+			}
+		}
+
 		SuccessView.printReviewByUser(reviewList);
 		
 		return list;
@@ -116,8 +119,7 @@ public class MyPageController {
 			Iterator<Map.Entry<Integer, ReviewDTO>> ite = entySet.iterator();
 			
 			boolean isCheck = false;
-			
-			
+
 			while(ite.hasNext()) {
 				if(ite.next().getKey() == reviewNum) {
 					isCheck = true;
@@ -128,6 +130,7 @@ public class MyPageController {
 			if(isCheck) {
 				review = reviewList.get(reviewNum);
 				reviewList.remove(reviewNum);
+				
 			}else {
 				FailView.errorMessage("삭제 실패했습니다.");
 			}
@@ -167,6 +170,7 @@ public class MyPageController {
 					dipList.put(i, dipsDTO);
 				}
 				SuccessView.dipsList(dipList);
+				System.out.println("");
 				
 			} catch (SearchException e) {
 				FailView.errorMessage(e.getMessage());
