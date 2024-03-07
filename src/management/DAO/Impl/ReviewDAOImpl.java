@@ -42,7 +42,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new SearchException("리뷰가 존재하지 않습니다.");
+			throw new SearchException("이미 리뷰한 영화입니다.");
 		} finally {
 			DbManager.close(con, ps, rs);
 		}

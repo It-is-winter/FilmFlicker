@@ -3,9 +3,9 @@ package management.DAO.interfaces;
 import java.sql.SQLException;
 import java.util.List;
 
+import exception.DeleteException;
 import exception.SearchException;
 import management.DTO.DipsDTO;
-import management.DTO.MovieDTO;
 import management.DTO.UsersDTO;
 
 public interface DipsDAO {
@@ -31,6 +31,6 @@ public interface DipsDAO {
 	/**
 	 * 찜 목록 삭제
 	 */
-	public int deleteDips(UsersDTO users);
+	public int deleteDips(DipsDTO dips) throws DeleteException;
 
 }

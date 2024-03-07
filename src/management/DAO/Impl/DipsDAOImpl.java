@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.DeleteException;
 import exception.SearchException;
 import management.DAO.interfaces.DipsDAO;
 import management.DTO.DipsDTO;
@@ -67,9 +68,30 @@ public class DipsDAOImpl implements DipsDAO {
 	}
 
 	@Override
-	public int deleteDips(UsersDTO users) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteDips(DipsDTO dips) throws DeleteException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "delete from dips where user_seq = ?";
+		
+		try {
+			con = DbManager.getConnection();
+			ps = con.prepareStatement(sql);
+
+			
+			ps.setInt(1,dips.getUserSeq());
+			
+			result = ps.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DeleteException("리뷰 삭제에 실패했습니다.");
+		} finally {
+			DbManager.close(con, ps, null);
+		}
+		
+		return result;
 	}
 
 }

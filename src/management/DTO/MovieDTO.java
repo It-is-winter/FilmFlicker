@@ -18,6 +18,7 @@ public class MovieDTO {
 
 	public MovieDTO(int movieSeq,String movieName, String movieGenre,  String movieDirecter, String releaseDate,
 			List<ActorDTO> supportActorList, List<ActorDTO> leadAcotrList) {
+		
 		super();
 		this.movieSeq = movieSeq;
 		this.movieGenre = movieGenre;
@@ -32,8 +33,7 @@ public class MovieDTO {
 	public int getMovieSeq() {
 		return movieSeq;
 	}
-
-
+	
 	public void setMovieSeq(int movieSeq) {
 
 

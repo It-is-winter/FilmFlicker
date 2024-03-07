@@ -76,12 +76,11 @@ public class MovieController {
 	 * 장르로 영화 검색
 	 * */
 	public static void selectMovieByGenre(String movieGenre) {
-
 		try {
 			List<MovieDTO> moviegenre = service.selectMovieByGenre(movieGenre);
 			if(moviegenre.isEmpty()) throw new SQLException("해당 장르에 영화가 없습니다");
 			SuccessView.successMessage(moviegenre);
-		}catch(SQLException e) {
+		} catch(SQLException e) {
 			FailView.errorMessage(e.getMessage());
 		}
 		

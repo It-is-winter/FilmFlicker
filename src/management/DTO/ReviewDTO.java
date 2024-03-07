@@ -18,7 +18,6 @@ public class ReviewDTO {
 		super();
 		this.movieSeq = movieSeq;
 		this.userSeq = userSeq;
-
 		this.score = score;
 		this.review = review;
 	}

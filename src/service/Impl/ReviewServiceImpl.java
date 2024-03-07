@@ -34,11 +34,9 @@ public class ReviewServiceImpl implements ReviewService {
 		//만약 있으면 예외 발행
 		//없으면 등록 호출
 		
-		if(reviewDAO.isExist(review)) 
-			 throw new InsertException("이미 리뷰한 영화입니다!");
-		else {
+		if(! reviewDAO.isExist(review)) {
 			int result = reviewDAO.insertReview(review);
-			if(result==0) throw new InsertException("리뷰 입력에 실패했습니다.");
+			if(result == 0) throw new InsertException("리뷰 입력에 실패했습니다.");
 		}
 	}
 

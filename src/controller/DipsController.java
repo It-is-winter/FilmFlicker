@@ -43,8 +43,5 @@ public class DipsController {
 		UsersSessionSet uss = UsersSessionSet.getInstance();
 		UsersSession session = uss.get(usersId);
 	}
-		
-		//영화 리스트 만들기
-	
 
 }

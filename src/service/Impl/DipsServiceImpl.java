@@ -3,7 +3,7 @@ package service.Impl;
 import java.sql.SQLException;
 import java.util.List;
 
-
+import exception.DeleteException;
 import exception.SearchException;
 import management.DAO.Impl.DipsDAOImpl;
 import management.DAO.interfaces.DipsDAO;
@@ -24,10 +24,6 @@ public class DipsServiceImpl implements DipsService {
 			throw new SearchException("찜목록이 없습니다.");
 		}
 		
-		
-		
-		
-		
 		return list;
 	}
 
@@ -38,9 +34,11 @@ public class DipsServiceImpl implements DipsService {
 	}
 
 	@Override
-	public int deleteDips(UsersDTO users) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteDips(DipsDTO dips) throws DeleteException {
+		int result = dipsDAO.deleteDips(dips);
+		if(result == 0) throw new DeleteException("찜목록 삭제에 실패했습니다."); 
+		
+		return result;
 	}
 
 }

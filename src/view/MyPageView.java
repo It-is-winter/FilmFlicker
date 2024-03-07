@@ -41,9 +41,13 @@ public class MyPageView {
 			switch(menu) {
 			case 1 :
 				MyPageView.printMyReviewMenu(user); // 등록된 리뷰 화면 나오기
+				System.out.println();
 				break;
 			case 2 :
-				MyPageView.printDips(user);
+				MyPageView.printDips(user); //찜목록 내역 확인 화면 나오기
+				System.out.println();
+				MyPageView.printMyDipsMenu(user); //찜목록 메뉴 화면 나오기
+				System.out.println();
 				break;
 			case 3 :
 				return; // 뒤로가기
@@ -62,15 +66,59 @@ public class MyPageView {
 	 * @param user
 	 */
 	private static void printDips(UsersDTO user) {
-		
 		MyPageController.selectDips(user);
-		
 	}
 	
+	
+	/**
+	 * 찜목록 메뉴 화면
+	 * @param user
+	 */
+	private static void printMyDipsMenu(UsersDTO user) {
+		System.out.println("=================================================");
+		System.out.println("1. 찜목록 삭제 | 2. 뒤로가기");
+		try {
+			bf = new BufferedReader(new InputStreamReader(System.in));
+			menu = Integer.parseInt(bf.readLine());
+			
+			switch(menu) {
+			case 1 :
+				MyPageView.printDeleteDips(user); //찜목록 삭제 화면 나오기
+				System.out.println();
+				break;
+			case 3:
+				return;
+			}
+			
+		} catch (IOException e) {
+			FailView.errorMessage("잘못된 값을 입력하였습니다.");
+		}
+	}
+	
+	/**
+	 * 찜 목록 삭제 화면
+	 * @param user
+	 */
+	private static void printDeleteDips(UsersDTO user) {
+		System.out.print("삭제할 찜 목록 번호 => ");
+		try {
+			bf = new BufferedReader(new InputStreamReader(System.in));
+			int delete = Integer.parseInt(bf.readLine());
+			MyPageController.deleteMyDips(user, delete);
+		} catch (IOException e) {
+			FailView.errorMessage("잘못된 값을 입력하였습니다.");
+		}
+	}
+	
+	
+	/**
+	 * 리뷰 확인 화면
+	 * @param user
+	 */
 	private static void printMyReviewMenu(UsersDTO user) {
 		MyPageController.selectReviewByUser(user);
 		System.out.println("=================================================");
-		System.out.println("1. 리뷰 수정 | 2. 리뷰 삭제");
+		System.out.println("1. 리뷰 수정 | 2. 리뷰 삭제 | 3. 뒤로가기");
 		try {
 			bf = new BufferedReader(new InputStreamReader(System.in));
 			menu = Integer.parseInt(bf.readLine());
@@ -78,10 +126,14 @@ public class MyPageView {
 			switch(menu) {
 			case 1 :
 				MyPageView.printUpdateReview(user);
+				System.out.println();
 				break;
 			case 2 :
 				MyPageView.printDeleteReview(user);
+				System.out.println();
 				break;
+			case 3:
+				return;
 			}
 			
 		} catch (IOException e) {
@@ -121,7 +173,7 @@ public class MyPageView {
 		try {
 			bf = new BufferedReader(new InputStreamReader(System.in));
 			int delete = Integer.parseInt(bf.readLine());
-			MyPageController.deletMyReview(user, delete);
+			MyPageController.deleteMyDips(user, delete);
 		} catch (IOException e) {
 			FailView.errorMessage("잘못된 값을 입력하였습니다.");
 		}
