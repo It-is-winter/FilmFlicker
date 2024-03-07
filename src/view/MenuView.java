@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import controller.DipsController;
 import controller.MovieController;
 import controller.ReviewController;
 import controller.UserController;
@@ -285,7 +286,7 @@ public class MenuView {
 			switch (menu) {
 			
 			case 1 :
-				MenuView.selectMovieName();
+				MenuView.selectMovieName(user);
 				break;
 			case 2 :
 				MenuView.selectMovieDirecter();
@@ -316,11 +317,11 @@ public class MenuView {
 	}
 
 
-	private static void selectMovieName() throws SQLException {
+	private static void selectMovieName(UsersDTO user) throws  SearchException, SQLException {
 		MovieService movieService = new MovieServiceImpl();
 		
 		String movieName = null;
-			
+		String insertdips = null;
 			try{
 				bf = new BufferedReader(new InputStreamReader(System.in));
 				System.out.println("=== 영화 검색 ===");
@@ -330,10 +331,38 @@ public class MenuView {
 				MovieController.selectMovieByName(movieName);
 				MovieDTO movie = movieService.selectMovieByName(movieName);
 				ReviewController.selectReviewByMovie(movie);
+				System.out.println("영화를 찜목록에 추가하시겠습니까? 추가 1 이전 메뉴 2");
+				
+				
+				while(true) {
+					
+					bf = new BufferedReader(new InputStreamReader(System.in));
+					insertdips = bf.readLine().trim();
+					int movieSeq =movie.getMovieSeq();
+					switch(Integer.parseInt(insertdips)) {
+					case 1 :
+						System.out.println("1번");
+						//찜에저장메서드호출
+						DipsController.insertDips(user,movieSeq);
+						MenuView.printSelectMovie(user);
+					case 2 :
+						System.out.println("2번");
+						//이전 메뉴 호출
+						MenuView.printSelectMovie(user);
+					default :
+						System.out.println("잘못입력하였습니다! 추가 1 이전메뉴 2");
+					}
+			
+				}
+				
+				
+				
 			}catch (IOException e) {
 				e.printStackTrace();
 				FailView.errorMessage("잘못된 값을 입력하였습니다.!");
 			}
+			
+			
 			
 		}
 			

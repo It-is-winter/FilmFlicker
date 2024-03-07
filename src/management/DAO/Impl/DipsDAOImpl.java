@@ -61,9 +61,27 @@ public class DipsDAOImpl implements DipsDAO {
 	}
 
 	@Override
-	public int insertDips(UsersDTO users) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertDips(UsersDTO user, int movieSeq) throws SQLException{
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = "insert into dips (dips_seq,user_seq,movie_seq) values (dips_seq_no.nextval,?,?)";
+		int result = 0;
+		try {
+			con =DbManager.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, user.getUserSeq());
+			ps.setInt(2, movieSeq);
+			
+			result = ps.executeUpdate();
+			
+			
+		}finally {
+			DbManager.close(con, ps, null);
+		}
+		
+		
+		return result;
 	}
 
 	@Override

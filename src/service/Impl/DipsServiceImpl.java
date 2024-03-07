@@ -3,6 +3,7 @@ package service.Impl;
 import java.sql.SQLException;
 import java.util.List;
 
+import exception.InsertException;
 import exception.SearchException;
 import management.DAO.Impl.DipsDAOImpl;
 import management.DAO.interfaces.DipsDAO;
@@ -26,9 +27,15 @@ public class DipsServiceImpl implements DipsService {
 	}
 
 	@Override
-	public int insertDips(UsersDTO users) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertDips(UsersDTO user, int movieSeq) throws InsertException, SQLException{
+		
+		int insertdips = dipsDAO.insertDips(user, movieSeq);
+		if(insertdips != 1) {
+			throw new InsertException("찜등록에 실패했습니다");
+		}
+		
+		
+		return insertdips;
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package controller;
 import java.sql.SQLException;
 import java.util.List;
 
+import exception.InsertException;
 import exception.SearchException;
 import management.DTO.DipsDTO;
 import management.DTO.MovieDTO;
@@ -31,4 +32,19 @@ public class DipsController {
 		
 	}
 
+	
+	public static void insertDips(UsersDTO user, int movieSeq) {
+		try {
+			int insertdips = service.insertDips(user,movieSeq);
+			if(insertdips >0) {
+				System.out.println("찜목록에 저장 성공");
+			}
+		}catch(InsertException | SQLException e){
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
 }

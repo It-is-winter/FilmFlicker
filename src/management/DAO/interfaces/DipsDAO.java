@@ -25,8 +25,9 @@ public interface DipsDAO {
 	
 	/**
 	 * 찜 목록 등록
+	 * @throws SQLException 
 	 */
-	public int insertDips(UsersDTO users);
+	public int insertDips(UsersDTO user, int movieSeq) throws SQLException;
 	
 	/**
 	 * 찜 목록 삭제
