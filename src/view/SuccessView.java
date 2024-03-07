@@ -56,8 +56,9 @@ public class SuccessView {
 	 * 리턴한 List<ReviewDTO>안의 값들을 출력
 	 */
 	public static void successReviewList(List<ReviewDTO> list){
+		int cnt = 1;
 		for(ReviewDTO review : list) {
-			System.out.println(review);
+			System.out.println("● 리뷰 " + cnt++ + " : " + review);
 		}
 	}
 

@@ -182,7 +182,7 @@ public class MenuView {
 	 * 비회원 접속 화면
 	 */
 	private static void printNotMember() {
-		MenuView.printSelectMovie();
+		//MenuView.printSelectMovie();
 	}
 	
 	/**
@@ -253,7 +253,7 @@ public class MenuView {
 				MenuView.printInsertReview(user); // 리뷰 등록 화면 나오기
 				break;
 			case 3 :
-				MenuView.printSelectMovie(); // 영화 검색 화면 나오기
+				MenuView.printSelectMovie(user); // 영화 검색 화면 나오기
 				break;
 			case 4 :
 				MyPageView.printMyPage(user); // 마이페이지 화면 나오기
@@ -331,10 +331,12 @@ public class MenuView {
 	}
 	
 
+
 	/**
 	 * 영화 검색 화면
 	 */
-	private static void printSelectMovie() {
+	private static void printSelectMovie(UsersDTO user) throws SQLException, SearchException {
+
 		
 		while(true) {
 			System.out.println("==== 영화 검색 방법 ====");
@@ -365,7 +367,7 @@ public class MenuView {
 				MenuView.selectMovieReleaseDate();
 				break;
 			case 5 :
-				//MenuView.printUserMenu();
+				MenuView.printUserMenu(user);
 			case 9 :
 				System.exit(0);
 			
@@ -378,11 +380,13 @@ public class MenuView {
 		
 	}
 
+
 	
 	/**
 	 * 영화 등록 화면
 	 */
-	private static void selectMovieName() {
+	private static void selectMovieName() throws SQLException {
+		MovieService movieService = new MovieServiceImpl();
 		
 		String movieName = null;
 			
@@ -391,14 +395,17 @@ public class MenuView {
 				System.out.println("=== 영화 검색 ===");
 				System.out.print("검색할 영화 이름	=>	");
 				movieName = bf.readLine();
+				//----영화에 달린 리뷰들 호출----
+				MovieController.selectMovieByName(movieName);
+				MovieDTO movie = movieService.selectMovieByName(movieName);
+				ReviewController.selectReviewByMovie(movie);
 			}catch (IOException e) {
 				e.printStackTrace();
 				FailView.errorMessage("잘못된 값을 입력하였습니다.!");
 			}
 			
-			MovieController.selectMovieByName(movieName);
-			
 		}
+
 			
 		
 

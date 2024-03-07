@@ -8,6 +8,7 @@ import exception.DeleteException;
 import exception.InsertException;
 import exception.SearchException;
 import exception.UpdateException;
+import management.DTO.MovieDTO;
 import management.DTO.ReviewDTO;
 import management.DTO.ReviewEtcDTO;
 import management.DTO.UsersDTO;
@@ -130,6 +131,11 @@ public class ReviewController {
 	public static int countHate(ReviewDTO review) throws SearchException {
 		int result = service.countHate(review);
 		return result;
+	}
+
+	public static void selectReviewByMovie(MovieDTO movie) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

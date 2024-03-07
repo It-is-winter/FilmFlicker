@@ -10,6 +10,7 @@ public class ReviewDTO {
 	
 	UsersDTO user = new UsersDTO();	
 	private int userSeq = user.getUserSeq();
+	private String userName = user.getName();
 	
 	public ReviewDTO() {}
 	
@@ -79,10 +80,17 @@ public class ReviewDTO {
 		this.userSeq = userSeq;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	@Override
 	public String toString() {
-		return "리뷰 : " + review +
-				"\n평점 : " + score + "/10";
+		return review + "\n  평점 : " + score + "/10";
 	}
 	
 
