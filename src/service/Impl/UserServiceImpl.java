@@ -1,6 +1,8 @@
 package service.Impl;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import exception.InsertException;
 import exception.SearchException;
@@ -30,6 +32,9 @@ public class UserServiceImpl implements UsersService {
 		UsersSessionSet userSessionSet = UsersSessionSet.getInstance();
 		userSessionSet.add(userSession);
 		
+		Map<String, Object> myPage = new HashMap<String, Object>();
+		userSession.setAttribute("마이페이지", myPage);
+		
 		return user;
 	}
 
@@ -39,12 +44,13 @@ public class UserServiceImpl implements UsersService {
 		try {
 			userdao.searchByUserID(userID);
 		} catch (SQLException e) {
+			
 			int result = userdao.register(userID, userPassword, userName, userBirth);
+			
 			if(result == 0) {
 				throw new InsertException("회원 가입이 실패했습니다.");
 			}
-		} 
-			
+		}
 	}
 
 	@Override

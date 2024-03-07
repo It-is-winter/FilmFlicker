@@ -6,12 +6,30 @@ import java.util.Map;
 public class UsersSession {
 	
 	private String sessionId; //usersId
-	private Map<String, Object> attributes; //찜 목록, 리뷰 삭제
+	private Map<String, Object> attributes; //찜 목록, 리뷰 삭제, 비밀번호 수정
 	
 	public UsersSession() {}
 	public UsersSession(String sessionId) {
 		this.sessionId = sessionId;
 		attributes = new HashMap<String, Object>();
+	}
+	/**
+	 * 찜 목록, 리뷰 삭제, 비밀번호 수정
+	 * */
+	public void setAttribute(String name, Object value) {
+		attributes.put(name, value); //<찜목록, 영화이름>, List<영화이름> //<내가 등록한 리뷰, 리뷰 내용>, List<리뷰 내용> //<비밀번호 변경, UsersDTO>
+	}
+	/**
+	 * 찜 목록, 리뷰 삭제, 비밀번호 수정에 해당하는 value 찾기
+	 * */
+	public Object getAttribute(String name) {
+		return attributes.get(name);
+	}
+	/**
+	 * 되돌아가기
+	 * */
+	public void removeAttribute(String name) {
+		attributes.remove(name);
 	}
 	public String getSessionId() {
 		return sessionId;
@@ -25,26 +43,6 @@ public class UsersSession {
 	public void setAttributes(Map<String, Object> attributes) {
 		this.attributes = attributes;
 	}
-	
-	
-	// String name 에 따라 map 추가
-	public void setAttribute(String name, Object value) {
-		attributes.put(name,value);
-	}
-	
-	// String name을 받아 map 만들기
-	public Object getAttribute(String name) {//cart
-		return attributes.get(name);
-	}
-	
-	// String name에 해당하는 map 제거
-	public void removeAttribute(String name) {//cart
-		attributes.remove(name);
-	}
-	
-	
-	
-	
 	
 	@Override
 	public int hashCode() {

@@ -286,19 +286,28 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 			ps.setString(1, movieName);
 			rs= ps.executeQuery();
 			if(rs.next()) {
+				
+				 int movieSeq = rs.getInt("movie_seq");
+				 
 				//날짜에 년월일 패턴을 입힘
 				  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		          String releaseDateStr = dateFormat.format(rs.getDate(5));
 
 				// 배우 리스트를 불러오는 메서드 호출
-		          List<ActorDTO> leadactorlist = selectLeadActor(movieName);
-		          List<ActorDTO> supportactorlist = selectSupportActor(movieName);
+		      
+		          List<ActorDTO> leadactorlist = selectLeadActor(movieSeq);
+		          List<ActorDTO> supportactorlist = selectSupportActor(movieSeq);
 		          
 		           
 		          moviedto = new MovieDTO(rs.getInt("movie_seq"), rs.getString("movie_name"), rs.getString("movie_genre"),rs.getString("movie_directer"),
 		            		releaseDateStr, leadactorlist,supportactorlist);
-		          
+		         
+		         
 		        }
+			
+			
+			
+			
 			
 			
 		}finally {
@@ -313,7 +322,7 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 
 
 	//주연 배우 리스트 찾기
-	public List<ActorDTO> selectLeadActor(String movieName) throws SQLException{
+	public List<ActorDTO> selectLeadActor(int movieSeq) throws SQLException{
 		
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -321,11 +330,12 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 		List<ActorDTO> leadactorlist= new ArrayList<>();
 		
 		
-		String sql = "select actor_name from movie_actor where actor_role='주연'";
+		String sql = "select actor_name from movie_actor where movie_seq = ? and actor_role='주연'";
 		
 		try {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
+			ps.setInt(1, movieSeq);
 			rs= ps.executeQuery();
 			
 			while (rs.next()) {
@@ -341,7 +351,7 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 		return leadactorlist;
 }//메서드 끝
 	//조연 배우 리스트 찾기
-	public List<ActorDTO> selectSupportActor(String movieName) throws SQLException{
+	public List<ActorDTO> selectSupportActor(int movieSeq) throws SQLException{
 		
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -349,11 +359,12 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 		List<ActorDTO> supportactorlist= new ArrayList<>();
 		
 		
-		String sql = "select actor_name from movie_actor where actor_role='조연'";
+		String sql = "select actor_name from movie_actor where movie_seq = ? and actor_role='조연'";
 		
 		try {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
+			ps.setInt(1, movieSeq);
 			rs= ps.executeQuery();
 			
 			while (rs.next()) {

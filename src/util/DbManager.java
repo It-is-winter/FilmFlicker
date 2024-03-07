@@ -1,6 +1,5 @@
 package util;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -33,12 +32,9 @@ public class DbManager {
 
 	public static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(
-
 				DBProperties.URL,
 				DBProperties.USER_ID,
 				DBProperties.USER_PASS);
-				
-
 	}
 	
 

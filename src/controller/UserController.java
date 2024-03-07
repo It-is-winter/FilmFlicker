@@ -98,8 +98,6 @@ public class UserController {
 			FailView.errorMessage(e.getMessage());
 		}
 		
-		
-		
 	}
 	
 	
