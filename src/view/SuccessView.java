@@ -21,9 +21,9 @@ public class SuccessView {
 	 * 감독 이름으로 검색 성공했을때 띄움
 	 */
 	
-	public static void successMessage(List<MovieDTO> moviedirecter) {
+	public static void successMessage(List<MovieDTO> moviedirector) {
 
-		for (MovieDTO movie : moviedirecter) {
+		for (MovieDTO movie : moviedirector) {
 			System.out.println(movie);
 
 		}

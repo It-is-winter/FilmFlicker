@@ -13,7 +13,7 @@ public interface DipsDAO {
 	 * 찜 목록 조회
 	 * movie와 dips를 합친 view를 만듬.
 	 * create or replace view view_dips_info
-		as select d2.movie_name,d2.movie_directer,d2.move_genre, d1.user_seq from dips d1 join movie d2
+		as select d2.movie_name,d2.movie_director,d2.move_genre, d1.user_seq from dips d1 join movie d2
 		on d1.movie_seq = d2.movie_seq;
 		이 뷰에서 user_seq가 맞는거 뽑아내기.
 		select * from view_dips_info

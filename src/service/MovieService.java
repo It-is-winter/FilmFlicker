@@ -15,7 +15,7 @@ public interface MovieService {
 	 * 영화 등록
 	 * 
 	 */
-	public int insertMovie(String movieName, int movieGenre, String movieDirecter, String releaseDate, List<String> leadActor,
+	public int insertMovie(String movieName, int movieGenre, String movieDirector, String releaseDate, List<String> leadActor,
 			List<String> supportActor) throws InsertException;
 	
 	/**
@@ -27,7 +27,7 @@ public interface MovieService {
 	 * 감독으로 영화 검색
 	 * @throws SQLException 
 	 */
-	public List<MovieDTO> selectMovieByDirecter(String movieDirecter) throws SQLException ;
+	public List<MovieDTO> selectMovieByDirector(String movieDirector) throws SQLException ;
 	
 	/**
 	 * 개봉연도로 영화 검색
