@@ -90,7 +90,6 @@ public class MovieDTO {
 		return movieName.hashCode();
 	}
 
-
 	@Override
 	public boolean equals(Object obj) {
 		MovieDTO other = (MovieDTO) obj;

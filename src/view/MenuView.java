@@ -210,7 +210,6 @@ public class MenuView {
 		}
 
 		UsersDTO user = UserController.login(id, password);
-		MenuView.printUserMenu(user);
 		System.out.println();
 	}
 	

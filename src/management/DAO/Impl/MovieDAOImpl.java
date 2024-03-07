@@ -287,8 +287,6 @@ public class MovieDAOImpl implements MovieDAO {
 		
 			}
 
-			
-			
 		} catch(SQLException e) {
 			
 		} finally {
@@ -327,15 +325,16 @@ public class MovieDAOImpl implements MovieDAO {
 		        String releaseDateStr = dateFormat.format(rs.getDate(5));
 
 				// 배우 리스트를 불러오는 메서드 호출
-		      
+
+		        moviedto = new MovieDTO(rs.getInt("movie_seq"), rs.getString("movie_name"), rs.getString("movie_genre"),rs.getString("movie_director"),
+		            		releaseDateStr, null, null);
+		         
 		        List<ActorDTO> leadactorlist = selectLeadActor(moviedto);
 		        List<ActorDTO> supportactorlist = selectSupportActor(moviedto);
-		          
-		           
-		        moviedto = new MovieDTO(rs.getInt("movie_seq"), rs.getString("movie_name"), rs.getString("movie_genre"),rs.getString("movie_director"),
-		            		releaseDateStr, leadactorlist, supportactorlist);
-		         
-		         
+		        
+		        moviedto.setLeadAcotrList(leadactorlist);
+		        moviedto.setSupportActorList(supportactorlist);
+		        
 		        }
 			
 		} catch(SQLException e) {
