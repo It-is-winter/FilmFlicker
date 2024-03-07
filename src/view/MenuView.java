@@ -18,7 +18,8 @@ import management.DTO.ReviewDTO;
 import management.DTO.UsersDTO;
 import service.MovieService;
 import service.Impl.MovieServiceImpl;
-import session.*;
+import session.UsersSession;
+import session.UsersSessionSet;
 
 
 
@@ -197,7 +198,7 @@ public class MenuView {
 				MenuView.printInsertReview(user); // 리뷰 등록 화면 나오기
 				break;
 			case 3 :
-				MenuView.printSelectMovie(); // 영화 검색 화면 나오기
+				MenuView.printSelectMovie(user); // 영화 검색 화면 나오기
 				break;
 			case 4 :
 				MyPageView.printMyPage(user); // 마이페이지 화면 나오기
@@ -266,7 +267,7 @@ public class MenuView {
 	
 	
 //--
-	private static void printSelectMovie() throws SQLException {
+	private static void printSelectMovie(UsersDTO user) throws SQLException, SearchException{
 		
 		while(true) {
 			System.out.println("==== 영화 검색 방법 ====");
@@ -297,7 +298,10 @@ public class MenuView {
 				MenuView.selectMovieReleaseDate();
 				break;
 			case 5 :
-				//MenuView.printUserMenu();
+				MenuView.printUserMenu(user);
+			case 6 :
+				 MenuView.printLogOut(user);
+				 break;// 로그아웃하기
 			case 9 :
 				System.exit(0);
 			
