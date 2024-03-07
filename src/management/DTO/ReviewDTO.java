@@ -92,6 +92,23 @@ public class ReviewDTO {
 	public String toString() {
 		return review + "\n  평점 : " + score + "/10";
 	}
+
+	@Override
+	public int hashCode() {
+		return reviewSeq;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		ReviewDTO other = (ReviewDTO)obj;
+		if(review.equals(other.getReview())) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	
 	
 
 }

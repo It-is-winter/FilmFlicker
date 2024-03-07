@@ -1,6 +1,8 @@
 package controller;
 
-import java.util.List;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import exception.DeleteException;
 import exception.InsertException;
@@ -12,6 +14,8 @@ import management.DTO.ReviewEtcDTO;
 import management.DTO.UsersDTO;
 import service.ReviewService;
 import service.Impl.ReviewServiceImpl;
+import session.UsersSession;
+import session.UsersSessionSet;
 import view.FailView;
 import view.SuccessView;
 
@@ -32,10 +36,17 @@ public class ReviewController {
 	 * @throws SearchException 
 	 */
 
-	/***
-	 * @param ReviewDTO
-	 * 리뷰 입력하기
-	 */
+//	public static void insertReview(String movieName, String review, int movieScore,UsersDTO user) {
+//		
+//		try {
+//			service.insertReview(movieName,review,movieScore,user);
+//			SuccessView.successMessage("등록에 성공했습니다.");
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//			FailView.errorMessage(e.getMessage());
+//		}
+//	}
+	
 	public static void insertReview(ReviewDTO review) throws SearchException {
 
 		try {
@@ -47,94 +58,47 @@ public class ReviewController {
 		}
 	}
 	
-	/***
-	 * @param ReviewDTO
-	 * 리뷰 수정하기
+	/**
+	 * 가져온 리뷰 목록에서 리뷰 수정하기
 	 */
-	public static void updateReview(ReviewDTO review) throws UpdateException {
-
+	public static void updateMyReview(UsersDTO user, int reviewNum,String reviewComent,int reviewScore) {
+		UsersSessionSet uss = UsersSessionSet.getInstance();
+		UsersSession session = uss.get(user.getIdEmail());
+		ReviewDTO review = null;
+		
+		Map<Integer, ReviewDTO> reviewList = (Map<Integer, ReviewDTO>)session.getAttribute("리뷰목록");
+		
+		Set<Map.Entry<Integer, ReviewDTO>> entySet = reviewList.entrySet();
+		Iterator<Map.Entry<Integer, ReviewDTO>> ite = entySet.iterator();
+		
+		boolean isCheck = false;
+		
+		
+		while(ite.hasNext()) {
+			if(ite.next().getKey() == reviewNum) {
+				isCheck = true;
+				break;
+			}
+		}
+		
+		if(isCheck) {
+			review = reviewList.get(reviewNum);
+			review.setReview(reviewComent);
+			review.setScore(reviewScore);
+			
+		}
+		else {
+			FailView.errorMessage("수정이 완료되지 못했습니다.");
+		}
+		
 		try {
 			service.updateReview(review);
-			SuccessView.successMessage("리뷰 수정에 성공했습니다.");
-		} catch (UpdateException e) {
-			//e.printStackTrace();
+			SuccessView.printReview(review);
+		} catch(UpdateException e) {
 			FailView.errorMessage(e.getMessage());
 		}
 	}
 	
-	/***
-	 * @param ReviewDTO
-	 * 리뷰 수정하기
-	 */
-	public static void deleteReview(ReviewDTO review) throws DeleteException {
-
-		try {
-			service.deleteReview(review);
-			SuccessView.successMessage("리뷰 삭제에 성공했습니다.");
-		} catch (DeleteException e) {
-			//e.printStackTrace();
-			FailView.errorMessage(e.getMessage());
-		}
-	}
-	
-	
-	/***
-	 * @param ReviewDTO
-	 * 해당 리뷰(1개) 출력하기 (user_seq 와 movie_seq 필요)
-	 */
-	public static void selectReview(ReviewDTO review) {
-		try {
-			service.selectReview(review);
-			SuccessView.successReview(review);
-		} catch (SearchException e) {
-			FailView.errorMessage(e.getMessage());
-		}
-	}
-	
-	/***
-	 * @param ReviewDTO
-	 * 영화로 리뷰 검색
-	 * 해당 영화에 달린 리뷰의 리스트 전체 출력하기
-	 */
-	public static void selectReviewByMovie(MovieDTO movie) {
-		try {
-			List<ReviewDTO> list = service.selectReviewByMovie(movie);
-			SuccessView.successReviewList(list);
-		} catch (SearchException e) {
-			FailView.errorMessage(e.getMessage());
-		}
-	}
-	
-	/***
-	 * @param ReviewDTO
-	 * 사용자로 리뷰 검색
-	 * 해당 유저가 단 리뷰의 리스트 전체 출력하기
-	 */
-	public static void selectReviewByUser(UsersDTO user) {
-		try {
-			List<ReviewDTO> list = service.selectReviewByUser(user);
-			SuccessView.successReviewList(list);
-		} catch (SearchException e) {
-			FailView.errorMessage(e.getMessage());
-		}
-	}
-	
-//=======================ReviewEtc controller===========================	
-	
-	/***
-	 * @param ReviewEtcDTO
-	 * 리뷰에 좋아요 또는 싫어요 입력하기
-	 */
-	public static void insertLikeReview(ReviewEtcDTO reviewEtc) throws SearchException {
-
-		try {
-			service.insertLikeReview(reviewEtc);
-			SuccessView.successMessage("좋아요/싫어요 등록에 성공했습니다.");
-		} catch (InsertException e) {
-			//e.printStackTrace();
-			FailView.errorMessage(e.getMessage());
-		}
-	}
 	
 	/***
 	 * @param ReviewEtcDTO
@@ -167,6 +131,11 @@ public class ReviewController {
 	public static int countHate(ReviewDTO review) throws SearchException {
 		int result = service.countHate(review);
 		return result;
+	}
+
+	public static void selectReviewByMovie(MovieDTO movie) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

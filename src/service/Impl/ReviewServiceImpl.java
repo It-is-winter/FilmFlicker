@@ -45,33 +45,33 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void updateReview(ReviewDTO review) throws UpdateException {
 		int result = reviewDAO.updateReview(review);
-		if(result == 0) throw new UpdateException("리뷰 입력에 실패했습니다."); 
+		if(result == 0) throw new UpdateException("리뷰 수정에 실패했습니다."); 
 	}
 
 	@Override
 	public void deleteReview(ReviewDTO review) throws DeleteException {
 		int result = reviewDAO.deleteReview(review);
-		if(result == 0) throw new DeleteException("리뷰 입력에 실패했습니다."); 
+		if(result == 0) throw new DeleteException("리뷰 삭제에 실패했습니다."); 
 	}
 
 	@Override
 	public ReviewDTO selectReview(ReviewDTO review) throws SearchException {
 		ReviewDTO reviewDTO = reviewDAO.selectReview(review);
-		if(reviewDTO==null) throw new SearchException("리뷰 입력에 실패했습니다.");
+		if(reviewDTO==null) throw new SearchException("작성된 리뷰가 없습니다.");
 		return reviewDTO;
 	}
 	
 	@Override
 	public List<ReviewDTO> selectReviewByMovie(MovieDTO movie) throws SearchException {
 		List<ReviewDTO> list = reviewDAO.selectReviewByMovie(movie);
-		if(list==null || list.size()==0) throw new SearchException("리뷰 입력에 실패했습니다.");
+		if(list==null || list.size()==0) throw new SearchException("작성된 리뷰가 없습니다.");
 		return list;
 	}
 	
 	@Override
 	public List<ReviewDTO> selectReviewByUser(UsersDTO user) throws SearchException {
 		List<ReviewDTO> list = reviewDAO.selectReviewByUser(user);
-		if(list==null || list.size()==0) throw new SearchException("리뷰 입력에 실패했습니다.");
+		if(list.isEmpty() || list.size()==0) throw new SearchException("작성된 리뷰가 없습니다.");
 		return list;
 	}
 
