@@ -1,12 +1,12 @@
 package service;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 import exception.InsertException;
 import exception.SearchException;
 import management.DTO.DipsDTO;
-import management.DTO.MovieDTO;
 import management.DTO.UsersDTO;
 
 public interface DipsService {
@@ -26,11 +26,24 @@ public interface DipsService {
 	 * @throws InsertException 
 	 * @throws SQLException 
 	 */
-	public int insertDips(UsersDTO user, int movieSeq) throws InsertException, InsertException, SQLException;
+	public int insertDips(UsersDTO user, int movieSeq) throws InsertException, SQLException;
+	
+
 	
 	/**
 	 * 찜 목록 삭제
 	 */
 	public int deleteDips(UsersDTO users) /*throws DeleteException*/;
 
+	/*
+	 * 감독이름으로 찜 등록
+	 */
+	
+	public int insertDirectorDips(UsersDTO user) throws IOException, SQLException;
+
+	
+	
+	
+	
+	
 }

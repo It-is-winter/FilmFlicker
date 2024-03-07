@@ -1,5 +1,6 @@
 package service.Impl;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -29,18 +30,28 @@ public class DipsServiceImpl implements DipsService {
 	@Override
 	public int insertDips(UsersDTO user, int movieSeq) throws InsertException, SQLException{
 		
-		int insertdips = dipsDAO.insertDips(user, movieSeq);
-		if(insertdips != 1) {
+		int result = dipsDAO.insertDips(user, movieSeq);
+		if(result != 1) {
 			throw new InsertException("찜등록에 실패했습니다");
 		}
 		
 		
-		return insertdips;
+		return result;
 	}
 
 	@Override
 	public int deleteDips(UsersDTO users) {
 		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertDirectorDips(UsersDTO user) throws IOException, SQLException {
+
+		int result= dipsDAO.insertDirectorDips(user);
+		if(result != 1) {
+		}
+		
 		return 0;
 	}
 

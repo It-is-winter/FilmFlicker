@@ -289,7 +289,7 @@ public class MenuView {
 				MenuView.selectMovieName(user);
 				break;
 			case 2 :
-				MenuView.selectMovieDirector();
+				MenuView.selectMovieDirector(user);
 				break;
 				
 			case 3 :
@@ -365,8 +365,37 @@ public class MenuView {
 			
 		}
 			
+//감독이름으로 영화검색 및 찜하기
+	private static void selectMovieDirector(UsersDTO user) {
+	
+		String movieDirector = null;
+		//List<String> movieSeqDips = new ArrayList<String>();
+		try {
+			bf = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("=== 영화 검색 ===");
+			System.out.print("검색할 감독 이름	=>	");
+			movieDirector = bf.readLine();
+			
+		}catch(IOException e) {
+			FailView.errorMessage("잘못된 값을 입력하였습니다");
+		}
 		
-
+		MovieController.selectMovieByDirector(movieDirector);
+		
+		//출력된 영화 중에 찜리스트에 넣는다 1 아니다 2 
+		//1일경우 
+		// 저장 메서드 호출
+		DipsController.insertDirectorDips(user);
+		//2일경우 영화 검색으로 이동
+		/*
+		System.out.println("검색된 영화 중 찜목록에 넣을 영화 번호를 입력하세요");
+		   String movieSeqInput = bf.readLine();
+		   movieSeqDips.addAll(Arrays.asList(movieSeqInput.split(" ")));
+		*/
+		//찜목록에 넣을 메서드 호출
+		
+}
+/*
 	private static void selectMovieDirector() {
 	
 		String movieDirector = null;
@@ -384,7 +413,7 @@ public class MenuView {
 		MovieController.selectMovieByDirector(movieDirector);
 		
 }
-
+*/
 	
 	private static void selectMovieGenre() {
 		String movieGenre = null;
@@ -397,13 +426,11 @@ public class MenuView {
 			movieGenre = bf.readLine();
 			
 			
-		}catch(IOException e) {
+		}catch(IOException e) { 
 			FailView.errorMessage("잘못된 값을 입력하였습니다");
 		}
 		MovieController.selectMovieByGenre(movieGenre);
 		
-		//List<MovieDTO> movie = MovieService.selectMovieByGenre(movieGenre);
-				//MovieService.selectMovieByGenre(movieGenre);
 		
 		
 		
@@ -413,28 +440,6 @@ public class MenuView {
 	}
 	
 	
-	
-	
-	/*
-	private static void selectMovieGenre() {
-		String movieGenre = null;
-		try {
-			bf = new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("=== 영화 검색 ===");
-			System.out.println("검색할 장르 숫자로 입력");
-			System.out.println("1: 액션, 2: 드라마, 3: 코미디, 4: 호러");
-
-			movieGenre = bf.readLine();
-		
-			
-		
-		
-		}catch(IOException e) {
-			FailView.errorMessage("잘못된 값을 입력하였습니다");
-		}
-		MovieController.selectMovieByGenre(movieGenre);
-	}
-	*/
 
 	private static void selectMovieReleaseDate() {
 

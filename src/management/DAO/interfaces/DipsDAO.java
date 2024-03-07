@@ -1,5 +1,6 @@
 package management.DAO.interfaces;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -34,4 +35,14 @@ public interface DipsDAO {
 	 */
 	public int deleteDips(UsersDTO users);
 
+	
+	
+	
+	public int insertDirectorDips(UsersDTO user) throws IOException, SQLException;
+
+	
+	
+	
+	
+	
 }

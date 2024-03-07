@@ -17,6 +17,7 @@ public class SuccessView {
 	public static void successMessage(String message){
 		System.out.println(message);
 	}
+	
 	/*
 	 * 감독 이름으로 검색 성공했을때 띄움
 	 */
@@ -30,6 +31,7 @@ public class SuccessView {
 
 	}
 
+	
 
 	/***
 	 * 
