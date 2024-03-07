@@ -18,17 +18,17 @@ public class MovieController {
 	 * 
 	 * @param movieName
 	 * @param movieGenre 
-	 * @param movieDirecter
+	 * @param movieDirector
 	 * @param releaseDate
 	 * @param leadActor
 	 * @param supportActor
 	 * 영화 이름 , 영화 감독 , 개봉 날짜 , 주연배우 - list , 조연 배우 - list를 받는다.
 	 */
-	public static void insertMovie(String movieName, int movieGenre, String movieDirecter, String releaseDate, List<String> leadActor,
+	public static void insertMovie(String movieName, int movieGenre, String movieDirector, String releaseDate, List<String> leadActor,
 			List<String> supportActor) {
 		
 		try {
-			int result =service.insertMovie(movieName,movieGenre, movieDirecter, releaseDate, leadActor, supportActor);
+			int result =service.insertMovie(movieName,movieGenre, movieDirector, releaseDate, leadActor, supportActor);
 			if(result ==1) {
 			SuccessView.successMessage("등록에 성공했습니다.");}
 			else{
@@ -50,6 +50,7 @@ public class MovieController {
 			MovieDTO movie =  service.selectMovieByName(movieName);
 			if(movie == null) throw new SQLException("찾는 영화가 없습니다");
 			SuccessView.successMovie(movie);
+			
 		}catch (SQLException e) {
 		//	e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
@@ -61,12 +62,13 @@ public class MovieController {
 	 * 
 	 * */
 	
-	public static void selectMovieByDirecter(String movieDirecter) {
+	public static void selectMovieByDirector(String movieDirector) {
 		
 		try {
-			List<MovieDTO> moviedirecter = service.selectMovieByDirecter(movieDirecter);
-			if(moviedirecter.isEmpty()) throw new SQLException("찾는 감독이 없습니다");
-			SuccessView.successMessage(moviedirecter);
+			List<MovieDTO> moviedirector = service.selectMovieByDirector(movieDirector);
+			if(moviedirector.isEmpty()) throw new SQLException("찾는 감독이 없습니다");
+			SuccessView.successMessage(moviedirector);
+			
 		}catch(SQLException e) {
 			FailView.errorMessage(e.getMessage());
 		}

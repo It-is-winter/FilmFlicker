@@ -6,9 +6,9 @@ public class MovieDTO {
 	private int movieSeq;
 	private String movieGenre;
 	private String movieName ;
-	private String movieDirecter ;
+	private String movieDirector ;
 	private String releaseDate ;
-	
+	private double avgScore;
 	
 	private List<ActorDTO> supportActorList;
 	private List<ActorDTO> leadAcotrList;
@@ -16,19 +16,22 @@ public class MovieDTO {
 	public MovieDTO() {};
 		
 
-	public MovieDTO(int movieSeq,String movieName, String movieGenre,  String movieDirecter, String releaseDate,
-			List<ActorDTO> supportActorList, List<ActorDTO> leadAcotrList) {
+	
+	public MovieDTO(int movieSeq,  String movieName,String movieGenre, String movieDirector, String releaseDate,
+			double avgScore, List<ActorDTO> supportActorList, List<ActorDTO> leadAcotrList) {
 		super();
 		this.movieSeq = movieSeq;
 		this.movieGenre = movieGenre;
 		this.movieName = movieName;
-		this.movieDirecter = movieDirecter;
+		this.movieDirector = movieDirector;
 		this.releaseDate = releaseDate;
+		this.avgScore = avgScore;
 		this.supportActorList = supportActorList;
 		this.leadAcotrList = leadAcotrList;
 	}
 
-	
+
+
 	public int getMovieSeq() {
 		return movieSeq;
 	}
@@ -54,11 +57,11 @@ public class MovieDTO {
 	public void setMovieName(String movieName) {
 		this.movieName = movieName;
 	}
-	public String getMovieDirecter() {
-		return movieDirecter;
+	public String getMovieDirector() {
+		return movieDirector;
 	}
-	public void setMovieDirecter(String movieDirecter) {
-		this.movieDirecter = movieDirecter;
+	public void setMovieDirector(String movieDirector) {
+		this.movieDirector = movieDirector;
 	}
 	public String getReleaseDate() {
 		return releaseDate;
@@ -79,11 +82,20 @@ public class MovieDTO {
 		this.leadAcotrList = leadAcotrList;
 	}
 	
+	public double getAvgScore() {
+		return avgScore;
+	}
+
+	public void setAvgScore(int score) {
+		this.avgScore = avgScore;
+	}
+
+
 
 	@Override
 	public String toString() {
-		return  "영화 제목 = " + movieName +", 영화 장르 = "+movieGenre +", 감독 =" + movieDirecter
+		return  "영화 번호 = "+movieSeq + ", 영화 제목 = " + movieName +", 영화 장르 = "+movieGenre +", 감독 =" + movieDirector
 				+ ", 개봉일 =" + releaseDate + ", 주연배우 = " +leadAcotrList  + ", 조연배우 = "
-				+ supportActorList;
+				+ supportActorList + ", 평점 = " + avgScore;
 	}
 }

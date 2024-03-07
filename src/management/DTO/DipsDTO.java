@@ -6,7 +6,7 @@ public class DipsDTO {
 	
 
 	private String movieName;
-	private String movieDirecter;
+	private String movieDirector;
 	private String movieGenre;
 	private int userSeq;
 	
@@ -14,10 +14,10 @@ public class DipsDTO {
 	public DipsDTO() {}
 	
 
-	public DipsDTO(String movieName, String movieDirecter, String movieGenre, int userSeq) {
+	public DipsDTO(String movieName, String movieDirector, String movieGenre, int userSeq) {
 		super();
 		this.movieName = movieName;
-		this.movieDirecter = movieDirecter;
+		this.movieDirector = movieDirector;
 		this.movieGenre = movieGenre;
 		this.userSeq = userSeq;
 	}
@@ -29,11 +29,11 @@ public class DipsDTO {
 	public void setMovieName(String movieName) {
 		this.movieName = movieName;
 	}
-	public String getMovieDirecter() {
-		return movieDirecter;
+	public String getMovieDirector() {
+		return movieDirector;
 	}
-	public void setMovieDirecter(String movieDirecter) {
-		this.movieDirecter = movieDirecter;
+	public void setMovieDirector(String movieDirector) {
+		this.movieDirector = movieDirector;
 	}
 	public String getMovieGenre() {
 		return movieGenre;
@@ -53,8 +53,8 @@ public class DipsDTO {
 		StringBuilder builder = new StringBuilder();
 		builder.append(" [movieName= ");
 		builder.append(movieName);
-		builder.append(", movieDirecter= ");
-		builder.append(movieDirecter);
+		builder.append(", movieDirector= ");
+		builder.append(movieDirector);
 		builder.append(", movieGenre= ");
 		builder.append(movieGenre);
 		builder.append("]");

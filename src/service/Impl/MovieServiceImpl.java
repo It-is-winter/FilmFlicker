@@ -13,10 +13,10 @@ public class MovieServiceImpl implements MovieService {
 	MovieDAO moviedao = new MovieDAOImpl();
 
 	@Override
-	public int insertMovie(String movieName,int movieGenre, String movieDirecter, String releaseDate, List<String> leadActor,
+	public int insertMovie(String movieName,int movieGenre, String movieDirector, String releaseDate, List<String> leadActor,
 			List<String> supportActor) throws InsertException {
 		
-		int result = moviedao.insertMovie( movieName,movieGenre,  movieDirecter,  releaseDate, leadActor, supportActor);
+		int result = moviedao.insertMovie( movieName,movieGenre,  movieDirector,  releaseDate, leadActor, supportActor);
 		return result;
 	
 	}
@@ -28,9 +28,9 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public List<MovieDTO> selectMovieByDirecter(String movieDirecter) throws SQLException {
+	public List<MovieDTO> selectMovieByDirector(String movieDirector) throws SQLException {
 		
-		List<MovieDTO> moviedto = moviedao.selectMovieByDirecter(movieDirecter);
+		List<MovieDTO> moviedto = moviedao.selectMovieByDirector(movieDirector);
 		
 		
 		//if(moviedto ==null) throw new SQLException("찾는 감독이 없습니다");
