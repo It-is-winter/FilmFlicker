@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 import controller.DipsController;
+import controller.MyPageController;
 import controller.ReviewController;
 import controller.UserController;
 import management.DTO.UsersDTO;
@@ -62,12 +63,12 @@ public class MyPageView {
 	 */
 	private static void printDips(UsersDTO user) {
 		
-		DipsController.selectDips(user);
+		MyPageController.selectDips(user);
 		
 	}
 	
 	private static void printMyReviewMenu(UsersDTO user) {
-		ReviewController.selectReviewByUser(user);
+		MyPageController.selectReviewByUser(user);
 		System.out.println("=================================================");
 		System.out.println("1. 리뷰 수정 | 2. 리뷰 삭제");
 		try {
@@ -105,7 +106,7 @@ public class MyPageView {
 			System.out.print("수정할 리뷰 점수 => ");
 			reviewScore = Integer.parseInt(bf.readLine());
 			
-			ReviewController.updateMyReview(user, update,reviewComent,reviewScore);
+			MyPageController.updateMyReview(user, update,reviewComent,reviewScore);
 			
 		} catch (IOException e) {
 			FailView.errorMessage("잘못된 값을 입력하였습니다.");
@@ -120,7 +121,7 @@ public class MyPageView {
 		try {
 			bf = new BufferedReader(new InputStreamReader(System.in));
 			int delete = Integer.parseInt(bf.readLine());
-			ReviewController.deletMyReview(user, delete);
+			MyPageController.deletMyReview(user, delete);
 		} catch (IOException e) {
 			FailView.errorMessage("잘못된 값을 입력하였습니다.");
 		}

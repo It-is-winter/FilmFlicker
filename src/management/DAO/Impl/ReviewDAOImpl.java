@@ -118,6 +118,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		try {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
+
 			
 			ps.setInt(1, review.getMovieSeq());
 			ps.setInt(2, review.getUserSeq());
@@ -153,7 +154,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				reviewDTO = new ReviewDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
+				reviewDTO = new ReviewDTO(rs.getInt("USER_SEQ"), rs.getInt("MOVIE_SEQ"), rs.getString("REVIEW"), rs.getInt("SCORE"));
 			}
 			
 		} catch (SQLException e) {
@@ -184,7 +185,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				reviewDTO = new ReviewDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
+				reviewDTO = new ReviewDTO(rs.getInt("USER_SEQ"), rs.getInt("MOVIE_SEQ"), rs.getString("REVIEW"), rs.getInt("SCORE"));
 			}
 			
 		} catch (SQLException e) {
@@ -215,10 +216,9 @@ public class ReviewDAOImpl implements ReviewDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				review = new ReviewDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
+				review = new ReviewDTO(rs.getInt("USER_SEQ"), rs.getInt("MOVIE_SEQ"), rs.getString("REVIEW"), rs.getInt("SCORE"));
+				list.add(review);
 			}
-			
-			list.add(review);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -250,10 +250,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 				review = new ReviewDTO(rs.getInt("USER_SEQ"), rs.getInt("MOVIE_SEQ"), rs.getString("REVIEW"), rs.getInt("SCORE"));
 				list.add(review);
 			}
-			
-			
-			
-		} catch (SQLException e) {
+			} catch (SQLException e) {
 			e.printStackTrace();
 			throw new SearchException("리뷰가 존재하지 않습니다.");
 		} finally {
@@ -262,5 +259,4 @@ public class ReviewDAOImpl implements ReviewDAO {
 		
 		return list;
 	}
-
 }

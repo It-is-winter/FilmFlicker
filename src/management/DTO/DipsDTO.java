@@ -4,6 +4,7 @@ import java.util.List;
 
 public class DipsDTO {
 	
+
 	private String movieName;
 	private String movieDirecter;
 	private String movieGenre;
@@ -12,6 +13,7 @@ public class DipsDTO {
 	
 	public DipsDTO() {}
 	
+
 	public DipsDTO(String movieName, String movieDirecter, String movieGenre, int userSeq) {
 		super();
 		this.movieName = movieName;

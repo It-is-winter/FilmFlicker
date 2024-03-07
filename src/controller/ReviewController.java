@@ -1,16 +1,15 @@
 package controller;
 
-
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import exception.DeleteException;
+import exception.InsertException;
 import exception.SearchException;
 import exception.UpdateException;
 import management.DTO.ReviewDTO;
+import management.DTO.ReviewEtcDTO;
 import management.DTO.UsersDTO;
 import service.ReviewService;
 import service.Impl.ReviewServiceImpl;
@@ -23,6 +22,7 @@ public class ReviewController {
 	
 	public static ReviewService service = new ReviewServiceImpl();
 	
+//=======================Review controller===========================
 
 	/***
 	 * 
@@ -32,6 +32,7 @@ public class ReviewController {
 	 * @param user
 	 * 
 	 * user를 입력 받아 입력받은 user에 리뷰를 추가하는 거다.
+	 * @throws SearchException 
 	 */
 
 //	public static void insertReview(String movieName, String review, int movieScore,UsersDTO user) {
@@ -44,36 +45,16 @@ public class ReviewController {
 //			FailView.errorMessage(e.getMessage());
 //		}
 //	}
-	/**
-	 * 마이페이지에 리뷰 목록 가져오기
-	 */
-	public static List<ReviewDTO> selectReviewByUser(UsersDTO user) {
-		UsersSessionSet uss = UsersSessionSet.getInstance();
-		UsersSession session = uss.get(user.getIdEmail());
-		
-		Map<Integer, ReviewDTO> reviewList = (Map<Integer, ReviewDTO>)session.getAttribute("리뷰목록");
-		
-		if(reviewList == null) { 
-			reviewList = new HashMap<>(); 
-			session.setAttribute("리뷰목록", reviewList);
-		}
-		
-		List<ReviewDTO> list = null;
-		int i =0;
-				
+	
+	public static void insertReview(ReviewDTO review) throws SearchException {
+
 		try {
-			list = service.selectReviewByUser(user);
-		} catch(SearchException e) {
+			service.insertReview(review);
+			SuccessView.successMessage("리뷰 등록에 성공했습니다.");
+		} catch (InsertException e) {
+			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
 		}
-		for (ReviewDTO reviewDTO : list) {
-			i++;
-			reviewList.put(i, reviewDTO);
-		}
-		
-		SuccessView.printReviewByUser(reviewList);
-		
-		return list;
 	}
 	
 	/**
@@ -117,43 +98,38 @@ public class ReviewController {
 		}
 	}
 	
+	
 	/***
-	 * 가져온 리뷰 삭제
+	 * @param ReviewEtcDTO
+	 * 리뷰에 좋아요 또는 싫어요 입력하기
 	 */
-	public static void deletMyReview(UsersDTO user, int reviewNum) {	
-		UsersSessionSet uss = UsersSessionSet.getInstance();
-		UsersSession session = uss.get(user.getIdEmail());
-		ReviewDTO review = null;
-		
-		Map<Integer, ReviewDTO> reviewList = (Map<Integer, ReviewDTO>)session.getAttribute("리뷰목록");
-		
-		Set<Map.Entry<Integer, ReviewDTO>> entySet = reviewList.entrySet();
-		Iterator<Map.Entry<Integer, ReviewDTO>> ite = entySet.iterator();
-		
-		boolean isCheck = false;
-		
-		
-		while(ite.hasNext()) {
-			if(ite.next().getKey() == reviewNum) {
-				isCheck = true;
-				break;
-			}
-		}
-		
-		if(isCheck) {
-			review = reviewList.get(reviewNum);
-			reviewList.remove(reviewNum);
-		}else {
-			FailView.errorMessage("삭제 실패했습니다.");
-		}
-		
+	public static void updateLikeReview(ReviewEtcDTO reviewEtc) throws UpdateException {
+
 		try {
-			service.deleteReview(review);
-			SuccessView.successMessage("삭제 성공했습니다.");
-		} catch(DeleteException e) {
+			service.updateLikeReview(reviewEtc);
+			SuccessView.successMessage("좋아요/싫어요 수정에 성공했습니다.");
+		} catch (UpdateException e) {
+			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
 		}
-		
 	}
-
+	
+	/***
+	 * @param ReviewDTO
+	 * 해당 리뷰에 달린 좋아요 개수 반환
+	 */
+	public static int countLike(ReviewDTO review) throws SearchException {
+		int result = service.countLike(review);
+		return result;
+	}
+	
+	/***
+	 * @param ReviewDTO
+	 * 해당 리뷰에 달린 싫어요 개수 반환
+	 */
+	public static int countHate(ReviewDTO review) throws SearchException {
+		int result = service.countHate(review);
+		return result;
+	}
+	
 }

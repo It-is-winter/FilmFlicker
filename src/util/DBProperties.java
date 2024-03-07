@@ -1,7 +1,7 @@
 package util;
-
-// DB 설정 정보들을 상수로 관리
-
+/**
+ * DB의 설정 정보들 상수로 관리
+ * */
 public interface DBProperties {
 	public static final String driverName = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@orcl_high?TNS_ADMIN=C:/Edu/Util/Wallet_orcl";

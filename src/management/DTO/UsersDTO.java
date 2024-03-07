@@ -12,9 +12,9 @@ public class UsersDTO {
 	
 	public UsersDTO() {};
 	
-	public UsersDTO(int user_seq, String idEmail, String password, String name, String birth,
+	public UsersDTO(int userSeq, String idEmail, String password, String name, String birth,
 			String regDate) {
-		this.userSeq = user_seq;
+		this.userSeq = userSeq;
 		this.idEmail = idEmail;
 		this.password = password;
 		this.name = name;
@@ -63,7 +63,7 @@ public class UsersDTO {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("UsersDTO [user_seq=");
+		builder.append("UsersDTO [userSeq=");
 		builder.append(userSeq);
 		builder.append(", idEmail=");
 		builder.append(idEmail);

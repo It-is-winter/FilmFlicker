@@ -15,8 +15,9 @@ public class ReviewDTO {
 	
 	public ReviewDTO(int userSeq, int movieSeq, String review, int score) {
 		super();
-		this.userSeq = userSeq;
 		this.movieSeq = movieSeq;
+		this.userSeq = userSeq;
+
 		this.score = score;
 		this.review = review;
 	}
@@ -57,6 +58,7 @@ public class ReviewDTO {
 		return movieSeq;
 	}
 
+
 	public void setMovieSeq(int movieSeq) {
 		this.movieSeq = movieSeq;
 	}
@@ -79,7 +81,8 @@ public class ReviewDTO {
 
 	@Override
 	public String toString() {
-		return "Review : [movie name=" + movie.getMovieName() + ", score=" + score + ", review=" + review + "]";
+		return "리뷰 : " + review +
+				"\n평점 : " + score + "/10";
 	}
 	
 

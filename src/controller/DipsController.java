@@ -45,38 +45,6 @@ public class DipsController {
 	}
 		
 		//영화 리스트 만들기
-	/**
-	 * 마이페이지에서 찜 목록 조회
-	 */
-	public static void selectDips(UsersDTO user) {
-		try {
-			
-			List<DipsDTO> dips = service.selectDipsListAll(user);
-			
-			
-			UsersSessionSet uss = UsersSessionSet.getInstance();
-			UsersSession us = uss.get(user.getIdEmail());
-			
-			Map<Integer, DipsDTO>dipList = (Map<Integer, DipsDTO>)us.getAttribute("찜목록");
-			
-			if(dipList == null) { 
-				dipList = new HashMap<>(); 
-				us.setAttribute("찜목록", dipList);
-			}
-			
-			int i = 0;
-			
-			for (DipsDTO dipsDTO : dips) {
-				i++;
-				dipList.put(i, dipsDTO);
-			}
-			SuccessView.dipsList(dipList);
-			
-		} catch (SearchException e) {
-			FailView.errorMessage(e.getMessage());
-		} catch(SQLException e) {
-			FailView.errorMessage(e.getMessage());
-		}
-	}
+	
 
 }
