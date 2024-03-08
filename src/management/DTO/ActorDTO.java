@@ -2,10 +2,10 @@ package management.DTO;
 
 public class ActorDTO {
 
+	
+	
 	private String name;
 	private String role;
-	
-	
 	
 	public ActorDTO() {}
 

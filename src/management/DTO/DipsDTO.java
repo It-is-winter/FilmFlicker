@@ -1,7 +1,5 @@
 package management.DTO;
 
-import java.util.List;
-
 public class DipsDTO {
 	
 

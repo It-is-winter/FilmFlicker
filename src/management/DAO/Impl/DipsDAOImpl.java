@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.DeleteException;
+import exception.InsertException;
 import exception.SearchException;
 import management.DAO.interfaces.DipsDAO;
 import management.DTO.DipsDTO;
@@ -23,7 +25,7 @@ public class DipsDAOImpl implements DipsDAO {
 	 */
 	
 	@Override
-	public List<DipsDTO> selectDipsListAll(UsersDTO users) throws SQLException, SearchException {
+	public List<DipsDTO> selectDipsListAll(UsersDTO users) throws SearchException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -49,11 +51,17 @@ public class DipsDAOImpl implements DipsDAO {
 			
 			if (dips == null) {
 				con.rollback();
-				throw new SQLException("찜목록을 찾을수 없습니다.");
+				throw new SearchException("찜목록을 찾을수 없습니다.");
 			}
 			
-		}finally {
-			con.commit();
+		} catch(SQLException e) {
+			throw new SearchException("찜목록을 찾을수 없습니다.");
+		} finally {
+			try {
+				con.commit();
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
 			DbManager.close(con, ps, rs);
 		}
 		
@@ -62,7 +70,7 @@ public class DipsDAOImpl implements DipsDAO {
 
 	@Override
 
-	public int insertDips(UsersDTO user, int movieSeq) throws SQLException{
+	public int insertDips(UsersDTO user, int movieSeq) throws InsertException{
 		Connection con = null;
 		PreparedStatement ps = null;
 		
@@ -77,7 +85,9 @@ public class DipsDAOImpl implements DipsDAO {
 			result = ps.executeUpdate();
 			
 			
-		}finally {
+		} catch(SQLException e) {
+			throw new InsertException("찜목록을 추가 할 수 없습니다.");
+		} finally {
 			DbManager.close(con, ps, null);
 		}
 		
@@ -87,9 +97,30 @@ public class DipsDAOImpl implements DipsDAO {
 	}
 
 	@Override
-	public int deleteDips(UsersDTO users) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteDips(DipsDTO dips) throws DeleteException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "delete from dips where user_seq = ?";
+		
+		try {
+			con = DbManager.getConnection();
+			ps = con.prepareStatement(sql);
+
+			
+			ps.setInt(1,dips.getUserSeq());
+			
+			result = ps.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DeleteException("리뷰 삭제에 실패했습니다.");
+		} finally {
+			DbManager.close(con, ps, null);
+		}
+		
+		return result;
 	}
 
 }

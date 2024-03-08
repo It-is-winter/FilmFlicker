@@ -50,13 +50,15 @@ public class ReviewController {
 //		}
 //	}
 	
-	public static void insertReview(ReviewDTO review) throws SearchException {
+	public static void insertReview(ReviewDTO review) {
 		
 		try {
 			service.insertReview(review);
 			SuccessView.successMessage("리뷰 등록에 성공했습니다.");
 		} catch (InsertException e) {
 			//e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
+		} catch(SearchException e) {
 			FailView.errorMessage(e.getMessage());
 		}
 	}
@@ -69,6 +71,7 @@ public class ReviewController {
 		UsersSession session = uss.get(user.getIdEmail());
 		ReviewDTO review = null;
 		
+		@SuppressWarnings("unchecked")
 		Map<Integer, ReviewDTO> reviewList = (Map<Integer, ReviewDTO>)session.getAttribute("리뷰목록");
 		
 		Set<Map.Entry<Integer, ReviewDTO>> entySet = reviewList.entrySet();
@@ -106,7 +109,7 @@ public class ReviewController {
 	 * @param ReviewDTO
 	 * 리뷰 수정하기
 	 */
-	public static void deleteReview(ReviewDTO review) throws DeleteException {
+	public static void deleteReview(ReviewDTO review) {
 
 		try {
 			service.deleteReview(review);
@@ -135,14 +138,17 @@ public class ReviewController {
 	 * @param ReviewDTO
 	 * 영화로 리뷰 검색
 	 * 해당 영화에 달린 리뷰의 리스트 전체 출력하기
+	 * @return 
 	 */
-	public static void selectReviewByMovie(MovieDTO movie) {
+	public static List<ReviewDTO> selectReviewByMovie(MovieDTO movie) {
+		List<ReviewDTO> list = null;
 		try {
-			List<ReviewDTO> list = service.selectReviewByMovie(movie);
+			list = service.selectReviewByMovie(movie);
 			SuccessView.successReviewList(list);
 		} catch (SearchException e) {
 			FailView.errorMessage(e.getMessage());
 		}
+		return list;
 	}
 	
 	/***
@@ -150,14 +156,14 @@ public class ReviewController {
 	 * 사용자로 리뷰 검색
 	 * 해당 유저가 단 리뷰의 리스트 전체 출력하기
 	 */
-	public static void selectReviewByUser(UsersDTO user) {
-		try {
-			List<ReviewDTO> list = service.selectReviewByUser(user);
-			SuccessView.successReviewList(list);
-		} catch (SearchException e) {
-			FailView.errorMessage(e.getMessage());
-		}
-	}
+//	public static void selectReviewByUser(UsersDTO user) {
+//		try {
+//			List<ReviewDTO> list = service.selectReviewByUser(user);
+//			SuccessView.successReviewList(list);
+//		} catch (SearchException e) {
+//			FailView.errorMessage(e.getMessage());
+//		}
+//	}
 	
 //=======================ReviewEtc controller===========================	
 	
@@ -165,7 +171,7 @@ public class ReviewController {
 	 * @param ReviewDTO
 	 * 해당 리뷰에 대한 ReviewEtcDTO 반환
 	 */
-	public static ReviewEtcDTO selectReviewEtc(ReviewDTO review) throws SearchException {
+	public static ReviewEtcDTO selectReviewEtc(ReviewDTO review) {
 		ReviewEtcDTO reviewEtcDTO = new ReviewEtcDTO();
 		try {
 			reviewEtcDTO = etcService.selectReviewEtc(review);
@@ -179,7 +185,7 @@ public class ReviewController {
 	 * @param ReviewEtcDTO
 	 * 리뷰에 좋아요 또는 싫어요 입력하기
 	 */
-	public static void insertLike(ReviewEtcDTO reviewEtc) throws SearchException {
+	public static void insertLike(ReviewEtcDTO reviewEtc) {
 
 		try {
 			etcService.insertLike(reviewEtc);
@@ -187,16 +193,20 @@ public class ReviewController {
 			FailView.errorMessage(e.getMessage());
 		} catch (UpdateException e) {
 			FailView.errorMessage(e.getMessage());
+		} catch(SearchException e) {
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 	
-	public static void insertHate(ReviewEtcDTO reviewEtc) throws SearchException {
+	public static void insertHate(ReviewEtcDTO reviewEtc) {
 
 		try {
 			etcService.insertHate(reviewEtc);
 		} catch (InsertException e) {
 			FailView.errorMessage(e.getMessage());
 		} catch (UpdateException e) {
+			FailView.errorMessage(e.getMessage());
+		} catch(SearchException e) {
 			FailView.errorMessage(e.getMessage());
 		}
 	}
@@ -205,8 +215,13 @@ public class ReviewController {
 	 * @param ReviewDTO
 	 * 해당 리뷰에 달린 좋아요 개수 반환
 	 */
-	public static int countLike(ReviewDTO review) throws SearchException {
-		int result = etcService.countLike(review);
+	public static int countLike(ReviewDTO review) {
+		int result = 0;
+		try {
+			result = etcService.countLike(review);
+		} catch(SearchException e) {
+			FailView.errorMessage(e.getMessage());
+		}
 		return result;
 	}
 	
@@ -214,8 +229,13 @@ public class ReviewController {
 	 * @param ReviewDTO
 	 * 해당 리뷰에 달린 싫어요 개수 반환
 	 */
-	public static int countHate(ReviewDTO review) throws SearchException {
-		int result = etcService.countHate(review);
+	public static int countHate(ReviewDTO review){
+		int result = 0;
+		try {
+			result = etcService.countHate(review);
+		} catch(SearchException e) {
+			FailView.errorMessage(e.getMessage());
+		}
 		return result;
 	}
 	
