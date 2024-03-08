@@ -22,8 +22,9 @@ public class UserController {
 	 * @param userID
 	 * @param userPassword
 	 * @return UserDTO
+	 * @throws SQLException 
 	 */
-	public static UsersDTO login(String userId, String userPassword) {
+	public static UsersDTO login(String userId, String userPassword) throws SQLException {
 		UsersDTO user = null;
 		
 		try {

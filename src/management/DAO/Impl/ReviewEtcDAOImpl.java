@@ -15,6 +15,38 @@ import util.DbManager;
 
 public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 	
+	@Override //  해당 리뷰에 대한 ReviewEtcDTO 반환
+	public ReviewEtcDTO selectReviewEtc(ReviewDTO review) throws SearchException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ReviewEtcDTO reviewEtc = new ReviewEtcDTO();
+		String sql = "select * from review_etc where review_seq = ?";
+		
+		try {
+			con = DbManager.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setInt(1, review.getReviewSeq());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				reviewEtc = new ReviewEtcDTO(rs.getInt("user_seq"), 
+						rs.getInt("review_seq"), rs.getInt("like_dislike"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SearchException("리뷰가 존재하지 않습니다.");
+		} finally {
+			DbManager.close(con, ps, rs);
+		}
+		
+		return reviewEtc;
+	}
+	
+	// 해당 유저가 해당 리뷰에 좋아요/싫어요를 입력했는지 여부 판단 -> 이미 입력했으면 true, 아직 안한거면 false
 	public boolean isExist(ReviewEtcDTO reviewEtc) throws SearchException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -45,12 +77,15 @@ public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 		return false;
 	}
 	
-	@Override
+	
+	
+	@Override 
 	public int insertLike(ReviewEtcDTO reviewEtc) throws InsertException {
+		System.out.println("DAODAODOADOAODOAODODAODAO");
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = "insert review_etc(REVIEW_ETC_SEQ, USER_SEQ, REVIEW_SEQ, LIKE_DISLIKE, REG_DATE) "
-				+ "values(REVIEW_ETC_SEQ_NO.NEXTVAL, ?, ?, ?, sysdate)";
+		String sql = "insert into review_etc(REVIEW_ETC_SEQ, USER_SEQ, REVIEW_SEQ, LIKE_DISLIKE, REG_DATE) "
+				+ "values(REVIEW_ETC_SEQ_NO.NEXTVAL, ?, ?, 1, sysdate)";
 		int result = 0;
 		
 		try {
@@ -59,7 +94,34 @@ public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, reviewEtc.getUserSeq());
 			ps.setInt(2, reviewEtc.getReviewSeq());
-			ps.setInt(3, reviewEtc.getLike());
+			
+			result = ps.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new InsertException("좋아요/싫어요 입력에 실패했습니다.");
+		} finally {
+			DbManager.close(con, ps, null);
+		}
+		
+		return result;
+	}
+	
+	@Override 
+	public int insertHate(ReviewEtcDTO reviewEtc) throws InsertException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = "insert into review_etc(REVIEW_ETC_SEQ, USER_SEQ, REVIEW_SEQ, LIKE_DISLIKE, REG_DATE) "
+				+ "values(REVIEW_ETC_SEQ_NO.NEXTVAL, ?, ?, -1, sysdate)";
+		int result = 0;
+		
+		try {
+			con = DbManager.getConnection();
+			
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, reviewEtc.getUserSeq());
+			ps.setInt(2, reviewEtc.getReviewSeq());
 			
 			result = ps.executeUpdate();
 			
@@ -74,7 +136,6 @@ public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 		return result;
 	}
 
-	
 	
 
 	@Override
@@ -102,22 +163,24 @@ public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 		return result;
 	}
 
-	@Override
+	@Override // 해당 리뷰의 좋아요의 개수 (like_dislike = 1인 것의 개수)
 	public int countLike(ReviewDTO review) throws SearchException {
 		Connection con=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		int result = 0;
-		String sql = "select * from review_etc where review_seq = ? and like_dislike = 1";
+		String sql = "select count(*) from review_etc where review_seq = ? and like_dislike = 1";
 		
 		try {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
+			ps.setInt(1, review.getReviewSeq());
+			
 			rs = ps.executeQuery();
 			
-			while(rs.next()) {
-				result++;
+			if(rs.next()) {
+				result = rs.getInt(1);
 			}
 			
 		} catch (SQLException e) {
@@ -130,33 +193,33 @@ public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 		return result;
 	} // select문 같이
 
-	@Override
+	@Override // 해당 리뷰의 싫어요의 개수 (like_dislike = -1인 것의 개수)
 	public int countHate(ReviewDTO review) throws SearchException {
 		Connection con=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		int result = 0;
-		String sql = "select * from review_etc where like_dislike = -1";
+		String sql = "select count(*) from review_etc where review_seq = ? and like_dislike = -1";
 		
 		try {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
+			ps.setInt(1, review.getReviewSeq());
+			
 			rs = ps.executeQuery();
 			
-			while(rs.next()) {
-				result++;
+			if(rs.next()) {
+				result = rs.getInt(1);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new SearchException("싫어요 개수 파악에 실패했습니다.");
+			throw new SearchException("좋아요 개수 파악에 실패했습니다.");
 		} finally {
 			DbManager.close(con, ps, rs);
 		}
 		
 		return result;
 	}
-
-	
 }

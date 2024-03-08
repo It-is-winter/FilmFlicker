@@ -70,7 +70,6 @@ public class MovieController {
 			List<MovieDTO> moviedirector = service.selectMovieByDirector(movieDirector);
 			if(moviedirector.isEmpty()) throw new SQLException("찾는 감독이 없습니다");
 			SuccessView.successMessage(moviedirector);
-			
 		}catch(SQLException e) {
 			FailView.errorMessage(e.getMessage());
 		}

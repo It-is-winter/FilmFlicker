@@ -302,8 +302,7 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 		           
 		          moviedto = new MovieDTO(rs.getInt("movie_seq"), rs.getString("movie_name"), rs.getString("movie_genre"),rs.getString("movie_director"),
 		            		releaseDateStr,avgscore, leadactorlist,supportactorlist);
-		         
-		   
+		          
 		        }
 			
 			
@@ -372,13 +371,13 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 				actorDTO.setName(rs.getString("actor_name"));
 				//actorDTO.setRole(rs.getString("actor_role"));
 				leadactorlist.add(actorDTO);
-	
-			}
-}finally {
-	DbManager.close(con, ps, rs);
-}
+				}
+			}finally {
+				DbManager.close(con, ps, rs);
+				}
 		return leadactorlist;
-}//메서드 끝
+		}//메서드 끝
+	
 	//조연 배우 리스트 찾기
 	public List<ActorDTO> selectSupportActor(int movieSeq) throws SQLException{
 		
@@ -400,11 +399,10 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 				ActorDTO actorDTO = new ActorDTO();
 				actorDTO.setName(rs.getString("actor_name"));
 				supportactorlist.add(actorDTO);
-	
-			}
-}finally {
-	DbManager.close(con, ps, rs);
-}
+				}
+			}finally {
+				DbManager.close(con, ps, rs);
+				}
 		return supportactorlist;
-}//메서드 끝
-}
+		}//메서드 끝
+	}

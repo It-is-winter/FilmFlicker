@@ -14,9 +14,7 @@ public class MovieDTO {
 	private List<ActorDTO> leadAcotrList;
 	
 	public MovieDTO() {};
-		
 
-	
 	public MovieDTO(int movieSeq,  String movieName,String movieGenre, String movieDirector, String releaseDate,
 			double avgScore, List<ActorDTO> supportActorList, List<ActorDTO> leadAcotrList) {
 		super();
@@ -29,8 +27,6 @@ public class MovieDTO {
 		this.supportActorList = supportActorList;
 		this.leadAcotrList = leadAcotrList;
 	}
-
-
 
 	public int getMovieSeq() {
 		return movieSeq;

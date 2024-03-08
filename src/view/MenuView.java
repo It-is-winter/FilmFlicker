@@ -14,11 +14,16 @@ import controller.MovieController;
 import controller.ReviewController;
 import controller.UserController;
 import exception.SearchException;
+import exception.UpdateException;
 import management.DTO.MovieDTO;
 import management.DTO.ReviewDTO;
+import management.DTO.ReviewEtcDTO;
 import management.DTO.UsersDTO;
 import service.MovieService;
+import service.ReviewService;
 import service.Impl.MovieServiceImpl;
+import service.Impl.ReviewServiceImpl;
+import session.*;
 import session.UsersSession;
 import session.UsersSessionSet;
 
@@ -42,9 +47,10 @@ public class MenuView {
 	/**
 	 * 첫 화면 띄우기
 	 * 1)회원 2)비회원 3)회원가입 4)비밀번호 찾기 9)종료
+	 * @throws SQLException 
 	 */
 
-	public static void menu() {
+	public static void menu() throws SQLException {
 		
 		while(true) {
 			UsersSessionSet userSessionSet = UsersSessionSet.getInstance();
@@ -189,8 +195,9 @@ public class MenuView {
 	
 	/**
 	 * 로그인 화면
+	 * @throws SQLException 
 	 */
-	private static void printMember() {
+	private static void printMember() throws SQLException {
 		
 		String id = null;
 		String password = null;
@@ -204,8 +211,7 @@ public class MenuView {
 			password = bf.readLine();
 			System.out.println("");
 		} catch (IOException e) {
-			e.printStackTrace();
-			FailView.errorMessage("잘못된 값을 입력하였습니다.");
+			FailView.errorMessage("잘못된 값을 입력하였습니다.!");
 		}
 
 		UsersDTO user = UserController.login(id, password);
@@ -271,12 +277,10 @@ public class MenuView {
 			default :
 				FailView.errorMessage("Consol 이외의 값을 입력하였습니다.");
 			}
-			
 		}
-		
-		
 	}
 
+	// UserSessionSet 에서 userSession를 제거하여 로그아웃 진행
 
 	/**
 	 * 로그 아웃
@@ -307,13 +311,21 @@ public class MenuView {
 		try{
 			bf = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("=== 실마리 리뷰 등록 ===");
-			System.out.print("영화 이름 => ");
+			
+			System.out.print("영화 이름	=>	");
 			movieName = bf.readLine();
-			System.out.print("리뷰 내용 => ");
-			review = bf.readLine();
-			System.out.print("영화 평점(10점 만점)	=>	");
-			movieScore = Integer.parseInt(bf.readLine());
 			MovieDTO movie = movieService.selectMovieByName(movieName);
+			System.out.print("리뷰 내용	=>	");
+			review = bf.readLine();
+			
+			while(true) {
+				System.out.print("영화 평점(10점 만점)	=>	");
+				movieScore = Integer.parseInt(bf.readLine());
+				if(movieScore<1 || movieScore>10) {
+					System.out.println("평점은 1~10 사이의 정수로 입력해주세요");
+				} else break;
+			}
+			
 			ReviewDTO reviewDTO = new ReviewDTO(user.getUserSeq(), movie.getMovieSeq(), review, movieScore);
 			ReviewController.insertReview(reviewDTO);
 			
@@ -324,14 +336,13 @@ public class MenuView {
 		
 	}
 	
-
-
+	
 	/**
 	 * 영화 검색 화면
 	 * @throws SQLException 
 	 * @throws SearchException 
 	 */
-	private static void printSelectMovie(UsersDTO user) throws SearchException, SQLException {
+	private static void printSelectMovie(UsersDTO user) throws SQLException, SearchException {
 
 		
 		while(true) {
@@ -364,11 +375,9 @@ public class MenuView {
 				break;
 			case 5 :
 				MenuView.printUserMenu(user);
-
 			case 6 :
 				 MenuView.printLogOut(user);
 				 break;// 로그아웃하기
-
 			case 9 :
 				System.exit(0);
 			
@@ -381,14 +390,14 @@ public class MenuView {
 		
 	}
 
-
-
+	
+	// 영화 이름으로 검색하기 + 해당 영화의 리뷰 목록 + 리뷰마다 좋아요 & 싫어요 개수 -> 좋아요/싫어요 입력하는 뷰로 넘어가기
 	private static void selectMovieName(UsersDTO user) throws  SearchException, SQLException {
 
 	/**
 	 * 영화 등록 화면
 	 */
-
+		
 		MovieService movieService = new MovieServiceImpl();
 		
 		String movieName = null;
@@ -398,11 +407,13 @@ public class MenuView {
 				System.out.println("=== 영화 검색 ===");
 				System.out.print("검색할 영화 이름	=>	");
 				movieName = bf.readLine();
-				//----영화에 달린 리뷰들 호출----
+				
+				//----영화에 달린 리뷰들과 리뷰에 달린 좋아요 싫어요 개수 출력----
 				MovieController.selectMovieByName(movieName);
 				MovieDTO movie = movieService.selectMovieByName(movieName);
 				ReviewController.selectReviewByMovie(movie);
-				System.out.println("영화를 찜목록에 추가하시겠습니까? 추가 1 이전 메뉴 2");
+
+				System.out.println("영화를 찜목록에 추가하시겠습니까? 추가 1 | 아니오 2");
 		
 				while(true) {
 					
@@ -411,21 +422,44 @@ public class MenuView {
 					int movieSeq =movie.getMovieSeq();
 					switch(Integer.parseInt(insertdips)) {
 					case 1 :
-						System.out.println("1번");
+						//System.out.println("1번");
 						//찜에저장메서드호출
 						DipsController.insertDips(user,movieSeq);
-						MenuView.printSelectMovie(user);
+						//MenuView.printSelectMovie(user); // 리뷰 입력으로 넘어갈거라 꺼뒀음
+						break;
 					case 2 :
-						System.out.println("2번");
+						//System.out.println("2번");
 						//이전 메뉴 호출
-						MenuView.printSelectMovie(user);
+						//MenuView.printSelectMovie(user); // 리뷰 입력으로 넘어갈거라 꺼뒀음
+						break;
 					default :
-						System.out.println("잘못입력하였습니다! 추가 1 이전메뉴 2");
+						System.out.println("잘못입력하였습니다! 추가 1 | 아니오 2");
 					}
-			
+					break;
 				}
 				
+				//----좋아요 싫어요 누르는 뷰로 넘어가기----
+				System.out.println("\n1. 리뷰에 좋아요/싫어요 누르기   |   2. 나가기");
 				
+				try {
+					bf = new BufferedReader(new InputStreamReader(System.in));
+					menu = Integer.parseInt(bf.readLine());
+				} catch (NumberFormatException | IOException e) {
+					e.printStackTrace();
+					FailView.errorMessage("잘못된 값을 입력하였습니다.!");
+				}
+				
+				switch (menu) {
+				
+				case 1 :
+					MenuView.selectLikeOrHate(user, movie);
+					break;
+				case 2 :
+					MenuView.printSelectMovie(user);
+					break;
+				default :
+					FailView.errorMessage("Consol 이외의 값을 입력하였습니다.!");
+				}
 				
 			}catch (IOException e) {
 				e.printStackTrace();
@@ -435,8 +469,56 @@ public class MenuView {
 			
 			
 		}
-
-			
+	
+	// 좋아요/싫어요 입력하는 뷰
+	private static void selectLikeOrHate(UsersDTO user, MovieDTO movie) throws SearchException, SQLException {
+		ReviewService reviewService = new ReviewServiceImpl();
+		
+		//----좋아요/싫어요를 누를 리뷰를 선택----
+		System.out.print("\n좋아요 또는 싫어요를 누를 리뷰의 번호를 골라주세요 > ");
+		
+		try {
+			bf = new BufferedReader(new InputStreamReader(System.in));
+			menu = Integer.parseInt(bf.readLine());
+		} catch (NumberFormatException | IOException e) {
+			e.printStackTrace();
+			FailView.errorMessage("잘못된 값을 입력하였습니다.!");
+		}
+		
+		List<ReviewDTO> list = reviewService.selectReviewByMovie(movie);
+		ReviewDTO review = list.get(menu-1);
+		
+		//----선택한 리뷰에 좋아요 또는 싫어요 누르기----
+		ReviewEtcDTO reviewEtcDTO = new ReviewEtcDTO();
+		
+		System.out.println("1. 좋아요   |   2. 싫어요   |   3. 나가기 ");
+		
+		try {
+			bf = new BufferedReader(new InputStreamReader(System.in));
+			menu = Integer.parseInt(bf.readLine());
+		} catch (NumberFormatException | IOException e) {
+			FailView.errorMessage("잘못된 값을 입력하였습니다.!");
+		}
+		
+		switch (menu) {
+		
+		case 1 : // 좋아요
+			reviewEtcDTO = new ReviewEtcDTO(user.getUserSeq(), review.getReviewSeq(),1);
+			ReviewController.insertLike(reviewEtcDTO);
+			break;
+		case 2 : // 싫어요
+			reviewEtcDTO = new ReviewEtcDTO(user.getUserSeq(), review.getReviewSeq(),-1);
+			ReviewController.insertHate(reviewEtcDTO);
+			break;
+		case 3 :
+			MenuView.printSelectMovie(user);
+			break;
+		default :
+			FailView.errorMessage("Consol 이외의 값을 입력하였습니다.!");
+		}
+		
+		
+	}
 		
 
 	private static void selectMovieDirector() {
@@ -448,15 +530,13 @@ public class MenuView {
 			System.out.println("=== 영화 검색 ===");
 			System.out.print("검색할 감독 이름	=>	");
 			movieDirector = bf.readLine();
-			
 		}catch(IOException e) {
 			FailView.errorMessage("잘못된 값을 입력하였습니다");
 		}
 		
 		MovieController.selectMovieByDirector(movieDirector);
 		
-}
-
+	}
 	
 	private static void selectMovieGenre() throws SearchException {
 		String movieGenre = null;
@@ -476,11 +556,6 @@ public class MenuView {
 		
 		//List<MovieDTO> movie = MovieService.selectMovieByGenre(movieGenre);
 				//MovieService.selectMovieByGenre(movieGenre);
-		
-		
-		
-		
-		
 		
 	}
 	
@@ -536,7 +611,6 @@ public class MenuView {
 
 		        System.out.print("영화 감독    =>  ");
 		        movieDirector = bf.readLine();
-
 		        
 		        System.out.print("개봉 날짜 => ");
 		        releaseDate = bf.readLine();
