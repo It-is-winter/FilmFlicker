@@ -16,30 +16,33 @@ public interface MovieService {
 	 * 영화 등록
 	 * 
 	 */
-	public int insertMovie(String movieName, int movieGenre, String movieDirecter, String releaseDate, List<String> leadActor,
+	public int insertMovie(String movieName, int movieGenre, String movieDirector, String releaseDate, List<String> leadActor,
 			List<String> supportActor) throws InsertException;
 	
 	/**
 	 * 장르로 영화 검색
+	 * @throws SQLException 
 	 */
-	public List<MovieDTO> selectMovieByGenre(String movieGenre) throws SearchException;
+	public List<MovieDTO> selectMovieByGenre(String movieGenre) throws SearchException, SQLException;
 	
 	/**
 	 * 감독으로 영화 검색
 	 * @throws SQLException 
 	 */
-	public List<MovieDTO> selectMovieByDirecter(String movieDirecter) throws SearchException ;
+	public List<MovieDTO> selectMovieByDirector(String movieDirector) throws SQLException ;
+
 	
 	/**
 	 * 개봉연도로 영화 검색
+	 * @throws SQLException 
 	 */
-	public List<MovieDTO> selectMovieByReleaseDate(String movieReleaseDate) throws SearchException;
+	public List<MovieDTO> selectMovieByReleaseDate(String movieReleaseDate) throws SearchException, SQLException;
 	
 	/**
 	 * 이름으로 영화 검색
 	 * @throws SQLException 
 	 */
-	public MovieDTO selectMovieByName(String movieName) throws SearchException;
+	public MovieDTO selectMovieByName(String movieName) throws SearchException, SQLException;
 
 
 

@@ -3,6 +3,7 @@ package service;
 import java.sql.SQLException;
 import java.util.List;
 
+import exception.InsertException;
 import exception.SearchException;
 import management.DTO.DipsDTO;
 import management.DTO.MovieDTO;
@@ -22,8 +23,10 @@ public interface DipsService {
 	
 	/**
 	 * 찜 목록 등록
+	 * @throws InsertException 
+	 * @throws SQLException 
 	 */
-	public int insertDips(UsersDTO users) /*throws InsertException*/;
+	public int insertDips(UsersDTO user, int movieSeq) throws InsertException, InsertException, SQLException;
 	
 	/**
 	 * 찜 목록 삭제

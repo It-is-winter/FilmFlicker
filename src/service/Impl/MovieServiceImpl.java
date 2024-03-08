@@ -14,16 +14,16 @@ public class MovieServiceImpl implements MovieService {
 	MovieDAO moviedao = new MovieDAOImpl();
 
 	@Override
-	public int insertMovie(String movieName,int movieGenre, String movieDirecter, String releaseDate, List<String> leadActor,
+	public int insertMovie(String movieName,int movieGenre, String movieDirector, String releaseDate, List<String> leadActor,
 			List<String> supportActor) throws InsertException {
 		
-		int result = moviedao.insertMovie( movieName,movieGenre,  movieDirecter,  releaseDate, leadActor, supportActor);
+		int result = moviedao.insertMovie( movieName,movieGenre,  movieDirector,  releaseDate, leadActor, supportActor);
 		return result;
 	
 	}
 
 	@Override
-	public List<MovieDTO> selectMovieByGenre(String movieGenre) throws SearchException{
+	public List<MovieDTO> selectMovieByGenre(String movieGenre) throws SearchException, SQLException{
 		List<MovieDTO> moviedto = moviedao.selectMovieByGenre(movieGenre);
 		
 		if(moviedto.isEmpty()) {
@@ -32,10 +32,11 @@ public class MovieServiceImpl implements MovieService {
 		return moviedto;
 	}
 
-	@Override
-	public List<MovieDTO> selectMovieByDirecter(String movieDirecter) throws SearchException {
+
+	public List<MovieDTO> selectMovieByDirector(String movieDirector) throws SQLException {
+
 		
-		List<MovieDTO> moviedto = moviedao.selectMovieByDirecter(movieDirecter);
+		List<MovieDTO> moviedto = moviedao.selectMovieByDirector(movieDirector);
 		
 		
 		//if(moviedto ==null) throw new SQLException("찾는 감독이 없습니다");
@@ -44,7 +45,7 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public List<MovieDTO> selectMovieByReleaseDate(String movieReleaseDate) throws SearchException {
+	public List<MovieDTO> selectMovieByReleaseDate(String movieReleaseDate) throws SearchException, SQLException {
 		List<MovieDTO> moviedto = moviedao.selectMovieByReleaseDate(movieReleaseDate);
 		
 		
@@ -52,7 +53,7 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public MovieDTO selectMovieByName(String movieName) throws SearchException{
+	public MovieDTO selectMovieByName(String movieName) throws SearchException, SQLException{
 		
 		MovieDTO moviedto = moviedao.selectMovieByName(movieName);
 	
