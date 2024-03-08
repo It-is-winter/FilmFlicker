@@ -414,7 +414,7 @@ public class MenuView {
 				MovieDTO movie = movieService.selectMovieByName(movieName);
 				ReviewController.selectReviewByMovie(movie);
 
-				System.out.println("영화를 찜목록에 추가하시겠습니까? 추가 1 이전 메뉴 2");
+				System.out.println("영화를 찜목록에 추가하시겠습니까? 추가 1 | 아니오 2");
 		
 				while(true) {
 					
@@ -423,16 +423,18 @@ public class MenuView {
 					int movieSeq =movie.getMovieSeq();
 					switch(Integer.parseInt(insertdips)) {
 					case 1 :
-						System.out.println("1번");
+						//System.out.println("1번");
 						//찜에저장메서드호출
 						DipsController.insertDips(user,movieSeq);
-						MenuView.printSelectMovie(user);
+						//MenuView.printSelectMovie(user); // 리뷰 입력으로 넘어갈거라 꺼뒀음
+						break;
 					case 2 :
-						System.out.println("2번");
+						//System.out.println("2번");
 						//이전 메뉴 호출
-						MenuView.printSelectMovie(user);
+						//MenuView.printSelectMovie(user); // 리뷰 입력으로 넘어갈거라 꺼뒀음
+						break;
 					default :
-						System.out.println("잘못입력하였습니다! 추가 1 이전메뉴 2");
+						System.out.println("잘못입력하였습니다! 추가 1 | 아니오 2");
 					}
 					break;
 				}
@@ -459,7 +461,6 @@ public class MenuView {
 				default :
 					FailView.errorMessage("Consol 이외의 값을 입력하였습니다.!");
 				}
-//>>>>>>> main
 				
 			}catch (IOException e) {
 				e.printStackTrace();
@@ -497,7 +498,6 @@ public class MenuView {
 			bf = new BufferedReader(new InputStreamReader(System.in));
 			menu = Integer.parseInt(bf.readLine());
 		} catch (NumberFormatException | IOException e) {
-			e.printStackTrace();
 			FailView.errorMessage("잘못된 값을 입력하였습니다.!");
 		}
 		

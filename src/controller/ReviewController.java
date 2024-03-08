@@ -194,7 +194,6 @@ public class ReviewController {
 
 		try {
 			etcService.insertHate(reviewEtc);
-			SuccessView.successMessage("싫어요 등록에 성공했습니다.");
 		} catch (InsertException e) {
 			FailView.errorMessage(e.getMessage());
 		} catch (UpdateException e) {
