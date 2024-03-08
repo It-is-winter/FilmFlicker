@@ -1,6 +1,9 @@
 package service.Impl;
 
-import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,12 +14,15 @@ import management.DAO.Impl.UsersDAOImpl;
 import management.DAO.interfaces.UsersDAO;
 import management.DTO.UsersDTO;
 import service.UsersService;
-import session.*;
+import session.UsersSession;
+import session.UsersSessionSet;
 
 
 public class UserServiceImpl implements UsersService {
 
 	UsersDAO userdao  = new UsersDAOImpl();
+	private int adultAge = 19;
+	LocalDate now = LocalDate.now();
 	
 	@Override
 	public UsersDTO login(String userID, String userPassword) throws SearchException {
@@ -49,10 +55,14 @@ public class UserServiceImpl implements UsersService {
 
 	@Override
 	public void register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SearchException {
-			
+		
+		
 		try {
 			userdao.searchByUserID(userID);
 		} catch (SearchException e) {
+			if( now.getYear() - Integer.parseInt(this.replaceBirth(userBirth))  < adultAge ) {
+				throw new InsertException("미성년자는 회원가입에 제한됩니다.");
+			}
 			
 			int result = userdao.register(userID, userPassword, userName, userBirth);
 			
@@ -93,6 +103,18 @@ public class UserServiceImpl implements UsersService {
 		}
 		
 		return user;
+	}
+	
+	public String replaceBirth(String userBirth) throws InsertException {
+		String userYear = null;
+		try {
+			SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy");
+			Date Year = dtFormat.parse(userBirth);
+			userYear = dtFormat.format(Year);
+		} catch (ParseException  e) {
+			throw new InsertException("생년월일의 형식이 맞지 않습니다.");
+		}
+		return userYear;
 	}
 
 }
