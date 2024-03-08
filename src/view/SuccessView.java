@@ -32,7 +32,7 @@ public class SuccessView {
 	public static void successMessage(List<MovieDTO> movie) {
 		for (MovieDTO movieDTO : movie) {
 			System.out.println(movieDTO);
-			ReviewController.selectReviewByMovie(movieDTO);
+//			ReviewController.selectReviewByMovie(movieDTO);
 //			MenuView.printReviewCount(user, movieDTO);
 //			MenuView.printReviewValue(user, movieDTO);
 			System.out.println();
@@ -46,14 +46,14 @@ public class SuccessView {
 	 */
 	public static void successMessage(Set<MovieDTO> moviedirector) {
 
-		UsersSessionSet uss = UsersSessionSet.getInstance();
-		UsersSession user = uss.get(null);
+//		UsersSessionSet uss = UsersSessionSet.getInstance();
+//		UsersSession user = uss.get(null);
 		
 		Iterator<MovieDTO> ite =  moviedirector.iterator();
 		
 		while(ite.hasNext()) {
 			System.out.println(ite.next());
-			ReviewController.selectReviewByMovie(ite.next());
+//			ReviewController.selectReviewByMovie(ite.next());
 //			MenuView.printReviewCount(null, ite.next());
 //			MenuView.printReviewValue(user, ite.next());
 			System.out.println();
