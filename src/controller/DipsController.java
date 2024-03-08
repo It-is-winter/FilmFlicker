@@ -9,16 +9,8 @@ import session.UsersSession;
 import session.UsersSessionSet;
 import view.FailView;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import exception.SearchException;
-import management.DTO.DipsDTO;
-import management.DTO.UsersDTO;
 import service.DipsService;
 import service.Impl.DipsServiceImpl;
-import view.SuccessView;
 
 public class DipsController {
 	private static MovieService movieService = new MovieServiceImpl();

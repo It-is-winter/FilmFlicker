@@ -1,21 +1,13 @@
 package controller;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
-import exception.DeleteException;
 import exception.InsertException;
 import exception.SearchException;
 import exception.UpdateException;
 import management.DTO.MovieDTO;
 import management.DTO.ReviewDTO;
 import management.DTO.ReviewEtcDTO;
-import management.DTO.UsersDTO;
 import service.ReviewService;
 import service.Impl.ReviewServiceImpl;
-import session.UsersSession;
-import session.UsersSessionSet;
 import view.FailView;
 import view.SuccessView;
 

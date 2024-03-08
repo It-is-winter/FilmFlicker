@@ -15,11 +15,12 @@ import util.DbManager;
 public class UsersDAOImpl implements UsersDAO {
 
 	/***
+	 * 회원 로그인
 	 * select * from users where user_ID = ? and USER_password ?
-	 * @throws SQLException 
+	 * @throws UpdateException
 	 */
 	@Override
-	public UsersDTO login(String userID, String userPassword) throws SearchException, SQLException{
+	public UsersDTO login(String userID, String userPassword) throws SearchException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -40,12 +41,18 @@ public class UsersDAOImpl implements UsersDAO {
 						rs.getString("user_name"),rs.getString("user_birth"),rs.getString("reg_date"));
 			}else {
 				con.rollback();
-			    throw new SQLException("DAO 실패...");
+//			    throw new SearchException("DAO 실패...");
 			}
 			
 			con.commit();
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
 		}finally {
-			con.commit();
+			try {
+				con.commit();
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
 			DbManager.close(con, ps, rs);
 		}
 		
@@ -53,13 +60,12 @@ public class UsersDAOImpl implements UsersDAO {
 	}
 
 	/***
+	 * 회원가입
 	 * insert into users values(user_seq_NO.NEXTVAL,?,?,?,?,sysdate)
-	 * @throws SQLException 
-	 * @throws SearchException 
-	 * @throws  
+	 * @throws SearchException
 	 */
 	@Override
-	public int register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SQLException, SearchException {
+	public int register(String userID, String userPassword, String userName, String userBirth) throws InsertException {
 		int result = 0;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -79,12 +85,18 @@ public class UsersDAOImpl implements UsersDAO {
 			
 			if(result == 0) {
 				con.rollback();
-			   throw new SQLException("등록 실패...");
+//			   throw new InsertException("등록 실패...");
 			}
 
 			con.commit();
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
 		} finally {
-			con.commit();
+			try {
+				con.commit();
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
 			DbManager.close(con, ps, null);
 		}
 		
@@ -92,11 +104,12 @@ public class UsersDAOImpl implements UsersDAO {
 	}
 
 	/***
+	 * 회원 비밀번호 수정
 	 * update users set USER_password = ? where user_ID = ?
-	 * @throws SQLException 
+	 * @throws UpdateException 
 	 */
 	@Override
-	public int userUpdate(String userID,String userPassword) throws UpdateException,SQLException {
+	public int userUpdate(String userID,String userPassword) throws UpdateException {
 		
 		int result = 0;
 		Connection con = null;
@@ -114,12 +127,18 @@ public class UsersDAOImpl implements UsersDAO {
 			
 			if(result == 0) {
 				con.rollback();
-				throw new SQLException("DAO 실패...");
+//				throw new UpdateException("DAO 실패...");
 			}
 			con.commit();
 			
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
 		} finally {
-			con.commit();
+			try {
+				con.commit();
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
 			DbManager.close(con, ps, null);
 		}
 
@@ -127,11 +146,12 @@ public class UsersDAOImpl implements UsersDAO {
 	}
 
 	/***
+	 * 회원 찾기
 	 * select * from users where user_ID = ?
-	 * @throws SQLException 
+	 * @throws SearchException
 	 */
 	@Override
-	public UsersDTO searchByUserID(String userID)throws SearchException, SQLException {
+	public UsersDTO searchByUserID(String userID) throws SearchException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -152,12 +172,18 @@ public class UsersDAOImpl implements UsersDAO {
 						rs.getString("user_name"),rs.getString("user_birth"),rs.getString("reg_date"));
 			}else {
 				con.rollback();
-				throw new SQLException("아이디가 없습니다...");
+//				throw new SearchException("아이디가 없습니다...");
 			}
 			
 			con.commit();
-		}finally {
-			con.commit();
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				con.commit();
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
 			DbManager.close(con, ps, rs);
 		}
 		

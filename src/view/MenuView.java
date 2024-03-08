@@ -3,21 +3,17 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.StringTokenizer;
+//import java.util.StringTokenizer;
 
 import controller.MovieController;
 import controller.ReviewController;
 import controller.UserController;
-import exception.SearchException;
 import management.DTO.MovieDTO;
 import management.DTO.ReviewDTO;
 import management.DTO.UsersDTO;
-import service.MovieService;
-import service.Impl.MovieServiceImpl;
 import session.*;
 
 
@@ -34,8 +30,9 @@ public class MenuView {
 	 */
 	
 	private static BufferedReader bf = null;
-	private static StringTokenizer st = null;
+//	private static StringTokenizer st = null;
 	private static int menu;
+	private static boolean isLogOut = false;
 	
 	/**
 	 * 첫 화면 띄우기
@@ -45,7 +42,7 @@ public class MenuView {
 	public static void menu() {
 		
 		while(true) {
-			UsersSessionSet userSessionSet = UsersSessionSet.getInstance();
+			UsersSessionSet.getInstance();
 //			System.out.println("현재 접속중인 회원 " +userSessionSet.getSet());
 			
 			MenuView.printMenu();
@@ -75,7 +72,8 @@ public class MenuView {
 				MenuView.printFindPassword(); // 비밀번호 찾기 화면 나오기
 				System.out.println();
 				break;
-			case 9 : 
+			case 9 :
+				System.out.println("다음에 또 이용해주세요. 실마리 찾기 종료");
 				System.exit(0);
 				break;
 			default :
@@ -185,7 +183,7 @@ public class MenuView {
 	 * 비회원 접속 화면
 	 */
 	private static void printNotMember() {
-		//MenuView.printSelectMovie();
+		MenuView.printSelectMovie();
 	}
 	
 	/**
@@ -229,15 +227,17 @@ public class MenuView {
 	 * @param user
 	 */
 	public static void printUserMenu(UsersDTO user){
-
 		
 		while(true) {
+			
+			if(MenuView.isLogOut) {
+				return;
+			}
 			
 			System.out.println("=== 실마리 " + user.getName() + " 회원님 " +" ===");
 			System.out.println("1. 영화등록 | 2. 리뷰등록 | 3. 영화검색 | 4. 마이페이지 "
 					+ "| 5. 뒤로가기 | 6. 로그아웃 | 9. 종료");
 			
-
 			try{
 				bf = new BufferedReader(new InputStreamReader(System.in));
 				menu = Integer.parseInt(bf.readLine());
@@ -272,8 +272,10 @@ public class MenuView {
 				 return; // 뒤로가기
 			case 6 :
 				MenuView.printLogOut(user);
+				System.out.println("로그아웃 되었습니다.");
 				return; // 로그아웃하기
-			case 9 : 
+			case 9 :
+				System.out.println("다음에 또 이용해주세요. 실마리 찾기 종료");
 				System.exit(0);
 			default :
 				FailView.errorMessage("Consol 이외의 값을 입력하였습니다.");
@@ -294,6 +296,7 @@ public class MenuView {
 		
 		UsersSessionSet userSessionSet = UsersSessionSet.getInstance();
 		userSessionSet.remove(userSession);
+		
 	}
 
 	
@@ -329,13 +332,68 @@ public class MenuView {
 		
 	}
 	
-
-
+	
 	/**
-	 * 영화 검색 화면
+	 * 영화 검색 화면(비회원 전용)
+	 */
+	private static void printSelectMovie() {
+
+		
+		while(true) {
+			System.out.println("==== 영화 검색 방법 ====");
+			System.out.println("1. 영화 이름 | 2. 감독 이름 | 3. 영화 장르 | 4. 개봉 연도 | "
+					+ "5. 뒤로가기 | 9. 종료");
+			
+			try {
+				bf = new BufferedReader(new InputStreamReader(System.in));
+				menu = Integer.parseInt(bf.readLine());
+			} catch (NumberFormatException | IOException e) {
+				e.printStackTrace();
+				FailView.errorMessage("잘못된 값을 입력하였습니다.");
+			}
+			
+			switch (menu) {
+			
+			case 1 :
+				System.out.println();
+				MenuView.selectMovieName(); //영화 이름으로 영화 검색하는 화면 나오기
+				System.out.println();
+				break;
+			case 2 :
+				System.out.println();
+				MenuView.selectMovieDirecter(); //감독 이름으로 영화 검색하는 화면 나오기
+				System.out.println();
+				break;
+				
+			case 3 :
+				System.out.println();
+				MenuView.selectMovieGenre(); //장르로 영화 검색하는 화면 나오기
+				System.out.println();
+				break;
+			case 4 :
+				System.out.println();
+				MenuView.selectMovieReleaseDate(); //개봉연도로 영화 검색하는 화면 나오기
+				System.out.println();
+				break;
+			case 5 :
+				return; //뒤로 가기
+			case 9 :
+				System.out.println("다음에 또 이용해주세요. 실마리 찾기 종료");
+				System.exit(0);
+			
+			default :
+				FailView.errorMessage("Consol 이외의 값을 입력하였습니다.");
+			}
+			
+		}
+		
+	}
+	
+	
+	/**
+	 * 영화 검색 화면(회원 전용)
 	 */
 	private static void printSelectMovie(UsersDTO user) {
-
 		
 		while(true) {
 			System.out.println("==== 영화 검색 방법 ====");
@@ -377,8 +435,11 @@ public class MenuView {
 				return; //뒤로 가기
 			case 6 :
 				MenuView.printLogOut(user);
+				System.out.println("로그아웃 되었습니다.");
+				MenuView.isLogOut= true;
 				return;
 			case 9 :
+				System.out.println("다음에 또 이용해주세요. 실마리 찾기 종료");
 				System.exit(0);
 			
 			default :

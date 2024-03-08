@@ -1,7 +1,6 @@
 package management.DTO;
 
 import java.util.List;
-import java.util.Objects;
 
 public class MovieDTO {
 	private int movieSeq;

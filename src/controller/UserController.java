@@ -32,15 +32,13 @@ public class UserController {
 		}catch (SearchException e) {
 			FailView.errorMessage(e.getMessage());
 			
-		}catch (SQLException e) {
-			FailView.errorMessage(e.getMessage());
 		}
 		
 		return user;
 	}
 	
 	/***
-	 * 
+	 * 회원 등록
 	 * @param idEmail
 	 * @param password
 	 * @param name
@@ -53,11 +51,7 @@ public class UserController {
 		try {
 			userService.register(idEmail,password,name,birth);
 			SuccessView.successMessage("회원 가입이 완료 되었습니다.");
-		}catch (InsertException e) {
-			FailView.errorMessage(e.getMessage());
-		}catch (SearchException e) {
-			FailView.errorMessage(e.getMessage());
-		} catch (SQLException e) {	
+		} catch (InsertException e) {
 			FailView.errorMessage(e.getMessage());
 		}
 	}
@@ -73,8 +67,6 @@ public class UserController {
 			userService.userUpdate(userID, userPassword);
 			SuccessView.successMessage("회원 수정이 완료되었습니다.");
 		} catch (UpdateException e) {
-			FailView.errorMessage(e.getMessage());
-		}catch (SQLException e) {
 			FailView.errorMessage(e.getMessage());
 		}
 		
@@ -94,15 +86,11 @@ public class UserController {
 			SuccessView.printPassword(user);
 		} catch (SearchException e) {
 			FailView.errorMessage(e.getMessage());
-		}catch (SQLException e) {
-			FailView.errorMessage(e.getMessage());
 		}
 		
 	}
 	
-	
-	
-	
+
 	
 	
 }

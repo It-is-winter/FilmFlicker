@@ -1,5 +1,6 @@
 package management.DAO.interfaces;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
@@ -28,7 +29,7 @@ public interface MovieDAO {
 	public List<MovieDTO> selectMovieByDirecter(String movieDirecter) throws SearchException;
 	
 	/**
-	 * 개봉연도로 영화 검색
+	 * 개봉연도로 영화 검색(배우 있는 경우)
 	 */
 	public Set<MovieDTO> selectMovieByReleaseDate(String releaseDate) throws SearchException;
 	
@@ -36,5 +37,10 @@ public interface MovieDAO {
 	 * 이름으로 영화 검색
 	 */
 	public MovieDTO selectMovieByName(String movieName) throws SearchException;
+
+	/**
+	 * 개봉 연도로 영화찾기(배우 없는 경우)
+	 */
+	public Set<MovieDTO> selectMovieByReleaseDate(Connection con, String releaseDate) throws SearchException;
 
 }

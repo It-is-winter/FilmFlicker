@@ -88,7 +88,6 @@ public class SuccessView {
 		System.out.println("===== 회원님의 리뷰 목록 =======");
 		Set<Map.Entry<Integer, ReviewDTO>> entrySet = reviewList.entrySet();
 		
-		int i =0;
 		for (Entry<Integer, ReviewDTO> element : entrySet) {
 			int key = element.getKey();
 			ReviewDTO dd = element.getValue();
@@ -106,7 +105,6 @@ public class SuccessView {
 		System.out.println("===== 회원님의 찜목록 =======");
 		Set<Map.Entry<Integer, DipsDTO>> entrySet = list.entrySet();
 		
-		int i =0;
 		for (Entry<Integer, DipsDTO> element : entrySet) {
 			int key = element.getKey();
 			DipsDTO dd = element.getValue();

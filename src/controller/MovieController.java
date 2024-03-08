@@ -1,6 +1,5 @@
 package controller;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
@@ -30,7 +29,7 @@ public class MovieController {
 			List<String> supportActor) {
 		
 		try {
-			int result =service.insertMovie(movieName,movieGenre, movieDirecter, releaseDate, leadActor, supportActor);
+			service.insertMovie(movieName,movieGenre, movieDirecter, releaseDate, leadActor, supportActor);
 			SuccessView.successMessage("등록에 성공했습니다.");
 		}catch (InsertException e) {
 			FailView.errorMessage(e.getMessage());

@@ -3,18 +3,15 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+//import java.util.StringTokenizer;
 
-import controller.DipsController;
 import controller.MyPageController;
-import controller.ReviewController;
-import controller.UserController;
 import management.DTO.UsersDTO;
 
 public class MyPageView {
 
 	private static BufferedReader bf = null;
-	private static StringTokenizer st = null;
+//	private static StringTokenizer st = null;
 	private static int menu;
 	
 	/*

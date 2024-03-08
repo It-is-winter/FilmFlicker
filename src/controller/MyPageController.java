@@ -35,6 +35,7 @@ public class MyPageController {
 		UsersSessionSet uss = UsersSessionSet.getInstance();
 		UsersSession session = uss.get(user.getIdEmail());
 		
+		@SuppressWarnings("unchecked")
 		Map<Integer, ReviewDTO> reviewList = (Map<Integer, ReviewDTO>)session.getAttribute("리뷰목록");
 		
 		if(reviewList == null) { 
@@ -69,6 +70,7 @@ public class MyPageController {
 		UsersSession session = uss.get(user.getIdEmail());
 		ReviewDTO review = null;
 		
+		@SuppressWarnings("unchecked")
 		Map<Integer, ReviewDTO> reviewList = (Map<Integer, ReviewDTO>)session.getAttribute("리뷰목록");
 		
 		Set<Map.Entry<Integer, ReviewDTO>> entySet = reviewList.entrySet();
@@ -109,6 +111,7 @@ public class MyPageController {
 		UsersSession session = uss.get(user.getIdEmail());
 		ReviewDTO review = null;
 			
+		@SuppressWarnings("unchecked")
 		Map<Integer, ReviewDTO> reviewList = (Map<Integer, ReviewDTO>)session.getAttribute("리뷰목록");
 			
 		Set<Map.Entry<Integer, ReviewDTO>> entySet = reviewList.entrySet();
@@ -150,6 +153,7 @@ public class MyPageController {
 			UsersSessionSet uss = UsersSessionSet.getInstance();
 			UsersSession us = uss.get(user.getIdEmail());
 				
+			@SuppressWarnings("unchecked")
 			Map<Integer, DipsDTO>dipList = (Map<Integer, DipsDTO>)us.getAttribute("찜목록");
 				
 			if(dipList == null) { 
@@ -179,6 +183,7 @@ public class MyPageController {
 		UsersSession session = uss.get(user.getIdEmail());
 		DipsDTO dips = null;
 		
+		@SuppressWarnings("unchecked")
 		Map<Integer, DipsDTO> dipsList = (Map<Integer, DipsDTO>)session.getAttribute("찜목록");
 		
 		Set<Map.Entry<Integer, DipsDTO>> entySet = dipsList.entrySet();

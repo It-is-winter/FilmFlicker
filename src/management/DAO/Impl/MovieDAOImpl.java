@@ -11,8 +11,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 import exception.InsertException;
 import exception.SearchException;
 import management.DAO.interfaces.MovieDAO;
@@ -65,16 +63,15 @@ public class MovieDAOImpl implements MovieDAO {
 			
 			int result1 = this.insertleadActor(con,movieSeq,leadActor);
 			
-			if(result1==0) { 
-				System.out.println("주연배우 에러");
-				throw new SQLException("주연배우 입력 오류");
-				}
+			if(result1==0) {
+				throw new InsertException("주연 배우 등록 실패");
+			}
 			
 			result1 = this.insertSupportActor(con, movieSeq, supportActor);
 			
 			if(result1 ==0) {
-				throw new SQLException("조연배우 입력 오류");
-				}
+				throw new InsertException("조연 배우 등록 실패");
+			}
 			
 			con.commit();
 		} catch(SQLException e) {
@@ -82,9 +79,8 @@ public class MovieDAOImpl implements MovieDAO {
 				if (con != null) {
 					con.rollback(); // 롤백
 				}
-				
 			} catch (SQLException ex) {
-				
+				System.out.println("프로그램 오류");
 			}
 			
 			
@@ -106,7 +102,7 @@ public class MovieDAOImpl implements MovieDAO {
 	 * @param leadActor
 	 * @return
 	 */
-	public int insertleadActor(Connection con,int movieSeq, List<String> leadActor ) {
+	public int insertleadActor(Connection con,int movieSeq, List<String> leadActor ) throws InsertException {
 		
 		PreparedStatement ps = null;
 		String sql ="insert into movie_actor (movie_actor_seq,movie_seq,actor_name, actor_role) "
@@ -129,7 +125,7 @@ public class MovieDAOImpl implements MovieDAO {
 			//result = ps.executeUpdate();
 			
 		}catch(SQLException e) {
-			
+			System.out.println("프로그램 오류");
 		}finally {
 			DbManager.close(null, ps, null);
 		}
@@ -145,7 +141,7 @@ public class MovieDAOImpl implements MovieDAO {
 	 * @param supportActor
 	 * @return
 	 */
-	public int insertSupportActor(Connection con,int movieSeq, List<String> supportActor ) {
+	public int insertSupportActor(Connection con,int movieSeq, List<String> supportActor ) throws InsertException {
 		
 		PreparedStatement ps = null;
 		String sql ="insert into movie_actor (movie_actor_seq,movie_seq,actor_name, actor_role) "
@@ -162,7 +158,7 @@ public class MovieDAOImpl implements MovieDAO {
 				ps.close();
 			}
 		}catch(SQLException e) {
-			
+			System.out.println("프로그램 오류");
 		}finally {
 			DbManager.close(null, ps, null);
 		}
@@ -203,7 +199,7 @@ public class MovieDAOImpl implements MovieDAO {
 				}
 				
 			} catch(SQLException e) {
-				
+				System.out.println("프로그램 오류");
 			} finally {
 				DbManager.close(con, ps, rs);
 			}
@@ -241,7 +237,7 @@ public class MovieDAOImpl implements MovieDAO {
 			}
 			
 		} catch(SQLException e) {
-			
+			System.out.println("프로그램 오류");
 		} finally {
 			DbManager.close(con, ps, rs);
 		}
@@ -250,7 +246,7 @@ public class MovieDAOImpl implements MovieDAO {
 		
 		
 	/**
-	 * 개봉 연도로 영화찾기
+	 * 개봉 연도로 영화찾기(배우 있는 경우)
 	 */
 	@Override
 	public Set<MovieDTO> selectMovieByReleaseDate(String releaseDate) throws SearchException {
@@ -264,8 +260,6 @@ public class MovieDAOImpl implements MovieDAO {
 		MovieDTO moviedto = null;
 		
 		String sql = "SELECT * FROM view_movie_ACTOR_GENRE WHERE TO_CHAR(RELEASE_DATE,'YYYY') = ?";
-
-		
 		
 		try {
 			con = DbManager.getConnection();
@@ -284,19 +278,63 @@ public class MovieDAOImpl implements MovieDAO {
 				moviedto.setLeadAcotrList(leadList);
 				moviedto.setSupportActorList(supportList);
 				list.add(moviedto);
-		
+			}
+			
+			if(list.isEmpty()) {
+				selectMovieByReleaseDate(con, releaseDate);
 			}
 
 		} catch(SQLException e) {
-			
+			System.out.println("프로그램 오류");
 		} finally {
 			DbManager.close(con, ps, rs);
 		}
 		
 		return list;
 	}
-
 	
+	
+	/**
+	 * 개봉 연도로 영화찾기(배우 없는 경우)
+	 */
+	@Override
+	public Set<MovieDTO> selectMovieByReleaseDate(Connection con, String releaseDate) throws SearchException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Set<MovieDTO> list = new HashSet<MovieDTO>();
+		List<ActorDTO> leadList = null;
+		List<ActorDTO> supportList = null;
+		MovieDTO moviedto = null;
+		
+		String sql = "SELECT * FROM VIEW_MOVIE_GENRE_INFO WHERE TO_CHAR(RELEASE_DATE,'YYYY') = ?";
+		
+		try {
+			con = DbManager.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, releaseDate);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				moviedto = new MovieDTO();
+				moviedto.setMovieName(rs.getString("movie_name"));
+				moviedto.setMovieGenre(rs.getString("movie_genre"));
+				moviedto.setMovieDirecter(rs.getString("movie_director"));
+				moviedto.setReleaseDate(releaseDate);
+				leadList = this.selectLeadActor(moviedto);
+				supportList = this.selectSupportActor(moviedto);
+				moviedto.setLeadAcotrList(leadList);
+				moviedto.setSupportActorList(supportList);
+				list.add(moviedto);
+			}
+
+		} catch(SQLException e) {
+			System.out.println("프로그램 오류");
+		} finally {
+			DbManager.close(null, ps, rs);
+		}
+		
+		return list;
+	}
 	
 	
 	/**
@@ -318,8 +356,6 @@ public class MovieDAOImpl implements MovieDAO {
 			ps.setString(1, movieName);
 			rs= ps.executeQuery();
 			if(rs.next()) {
-				int movieSeq = rs.getInt("movie_seq");
-				 
 				//날짜에 년월일 패턴을 입힘
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		        String releaseDateStr = dateFormat.format(rs.getDate(5));
@@ -338,7 +374,7 @@ public class MovieDAOImpl implements MovieDAO {
 		        }
 			
 		} catch(SQLException e) {
-			
+			System.out.println("프로그램 오류");
 		} finally {
 			DbManager.close(con, ps, rs);
 		}
@@ -348,14 +384,13 @@ public class MovieDAOImpl implements MovieDAO {
 	//메서드끝
 
 
-
 	/**
 	 * 주연 배우 리스트 찾기
 	 * @param movieSeq
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<ActorDTO> selectLeadActor(MovieDTO moviedto) throws SearchException {
+	private List<ActorDTO> selectLeadActor(MovieDTO moviedto) {
 		
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -379,7 +414,7 @@ public class MovieDAOImpl implements MovieDAO {
 	
 			}
 		} catch(SQLException e) {
-			
+			System.out.println("프로그램 오류");
 		} finally {
 			DbManager.close(con, ps, rs);
 		}
@@ -394,7 +429,7 @@ public class MovieDAOImpl implements MovieDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<ActorDTO> selectSupportActor(MovieDTO moviedto) throws SearchException {
+	private List<ActorDTO> selectSupportActor(MovieDTO moviedto) {
 		
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -417,7 +452,7 @@ public class MovieDAOImpl implements MovieDAO {
 	
 			}
 		} catch(SQLException e) {
-			
+			System.out.println("프로그램 오류");
 		} finally {
 			DbManager.close(con, ps, rs);
 		}

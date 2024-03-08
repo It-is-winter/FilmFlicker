@@ -1,7 +1,5 @@
 package service;
 
-import java.sql.SQLException;
-
 import exception.InsertException;
 import exception.SearchException;
 import exception.UpdateException;
@@ -15,29 +13,27 @@ public interface UsersService {
 	/**
 	 * 로그인
 	 * @return UsersDTO
-	 * @throws SQLException 
+	 * @throws SearchException 
 	 */
-	public UsersDTO login(String userID, String userPassword) throws SearchException, SQLException;
+	public UsersDTO login(String userID, String userPassword) throws SearchException;
 	
 	/**
 	 * 회원가입
-	 * @throws SQLException 
-	 * @throws SearchException 
+	 * @throws InsertException 
 	 */
-	public void register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SQLException, SearchException;
+	public void register(String userID, String userPassword, String userName, String userBirth) throws InsertException;
 	
 	/**
 	 * 회원 정보 수정
-	 * @throws SQLException 
+	 * @throws UpdateException 
 	 */
-	public void userUpdate(String userID,String userPassword) throws UpdateException, SQLException;
+	public void userUpdate(String userID,String userPassword) throws UpdateException;
 	
 	/**
 	 * userID 기준으로 회원 정보 찾기
-	 * @return 
-	 * @throws SQLException 
+	 * @return UsersDTO
 	 * @throws SearchException 
 	 */
-	public UsersDTO searchByUserID(String userID) throws SearchException, SQLException ;
+	public UsersDTO searchByUserID(String userID) throws SearchException;
 
 }
