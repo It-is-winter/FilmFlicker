@@ -47,9 +47,10 @@ public class MenuView {
 	/**
 	 * 첫 화면 띄우기
 	 * 1)회원 2)비회원 3)회원가입 4)비밀번호 찾기 9)종료
+	 * @throws SQLException 
 	 */
 
-	public static void menu() {
+	public static void menu() throws SQLException {
 		
 		while(true) {
 			UsersSessionSet userSessionSet = UsersSessionSet.getInstance();
@@ -194,8 +195,9 @@ public class MenuView {
 	
 	/**
 	 * 로그인 화면
+	 * @throws SQLException 
 	 */
-	private static void printMember() {
+	private static void printMember() throws SQLException {
 		
 		String id = null;
 		String password = null;
@@ -231,10 +233,11 @@ public class MenuView {
 	/**
 	 * 회원 접속 화면
 	 * @param user
+	 * @throws SQLException 
+	 * @throws SearchException 
 	 */
 	public static void printUserMenu(UsersDTO user) throws SearchException, SQLException {
 
-		
 		while(true) {
 			
 			System.out.println("=== 실마리 " + user.getName() + " 회원님 " +" ===");
@@ -295,12 +298,10 @@ public class MenuView {
 	/**
 	 * 리뷰 등록 화면
 	 * @param user
+	 * @throws SQLException 
+	 * @throws SearchException 
 	 */
-
-
-
-
-	private static void printInsertReview(UsersDTO user) throws SearchException, SQLException {
+	private static void printInsertReview(UsersDTO user) throws SearchException, SQLException{
 		MovieService movieService = new MovieServiceImpl();
 
 		String movieName = null;
@@ -310,11 +311,6 @@ public class MenuView {
 		try{
 			bf = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("=== 실마리 리뷰 등록 ===");
-			System.out.print("영화 이름 => ");
-			movieName = bf.readLine();
-			System.out.print("리뷰 내용 => ");
-			review = bf.readLine();
-			System.out.print("영화 평점 => ");
 			
 			System.out.print("영화 이름	=>	");
 			movieName = bf.readLine();
@@ -343,8 +339,11 @@ public class MenuView {
 	
 	/**
 	 * 영화 검색 화면
+	 * @throws SQLException 
+	 * @throws SearchException 
 	 */
 	private static void printSelectMovie(UsersDTO user) throws SQLException, SearchException {
+
 		
 		while(true) {
 			System.out.println("==== 영화 검색 방법 ====");
@@ -539,7 +538,7 @@ public class MenuView {
 		
 	}
 	
-	private static void selectMovieGenre() {
+	private static void selectMovieGenre() throws SearchException {
 		String movieGenre = null;
 		try {
 			bf = new BufferedReader(new InputStreamReader(System.in));
@@ -565,7 +564,7 @@ public class MenuView {
 	
 
 
-	private static void selectMovieReleaseDate(){
+	private static void selectMovieReleaseDate() throws SearchException{
 
 		 String movieReleaseDate = null;
 		 

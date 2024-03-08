@@ -19,7 +19,7 @@ public class UserServiceImpl implements UsersService {
 	UsersDAO userdao  = new UsersDAOImpl();
 	
 	@Override
-	public UsersDTO login(String userID, String userPassword) throws SearchException, SQLException {
+	public UsersDTO login(String userID, String userPassword) throws SearchException {
 		UsersDTO user = userdao.login(userID, userPassword);
 		
 		if(user == null) {
@@ -39,11 +39,11 @@ public class UserServiceImpl implements UsersService {
 	}
 
 	@Override
-	public void register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SQLException, SearchException {
+	public void register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SearchException {
 			
 		try {
 			userdao.searchByUserID(userID);
-		} catch (SQLException e) {
+		} catch (SearchException e) {
 			
 			int result = userdao.register(userID, userPassword, userName, userBirth);
 			
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UsersService {
 	}
 
 	@Override
-	public void userUpdate(String userID,String userPassword)throws UpdateException, SQLException{
+	public void userUpdate(String userID,String userPassword)throws UpdateException{
 		int result = userdao.userUpdate(userID, userPassword);
 		
 		if(result == 0 ) {
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UsersService {
 	}
 
 	@Override
-	public UsersDTO searchByUserID(String userID) throws SearchException, SQLException {
+	public UsersDTO searchByUserID(String userID) throws SearchException{
 		UsersDTO user = userdao.searchByUserID(userID);
 		
 		if(user == null) {

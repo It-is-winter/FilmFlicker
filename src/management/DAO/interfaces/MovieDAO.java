@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import exception.InsertException;
+import exception.SearchException;
 import management.DTO.MovieDTO;
 
 public interface MovieDAO {
@@ -17,8 +18,9 @@ public interface MovieDAO {
 	
 	/**
 	 * 장르로 영화 검색
+	 * @throws SearchException 
 	 */
-	public List<MovieDTO> selectMovieByGenre(String movieGenre) throws SQLException;
+	public List<MovieDTO> selectMovieByGenre(String movieGenre) throws SQLException, SearchException;
 	
 	/**
 	 * 감독으로 영화 검색

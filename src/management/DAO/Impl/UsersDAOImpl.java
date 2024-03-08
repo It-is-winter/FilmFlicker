@@ -19,7 +19,7 @@ public class UsersDAOImpl implements UsersDAO {
 	 * @throws SQLException 
 	 */
 	@Override
-	public UsersDTO login(String userID, String userPassword) throws SearchException, SQLException{
+	public UsersDTO login(String userID, String userPassword) throws SearchException{
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -40,13 +40,30 @@ public class UsersDAOImpl implements UsersDAO {
 						rs.getString("user_name"),rs.getString("user_birth"),rs.getString("reg_date"));
 			}else {
 				con.rollback();
-			    throw new SQLException("로그인 실패...");
+			    throw new SearchException("로그인 실패...");
 			}
 			
 			con.commit();
-		}finally {
-			con.commit();
-			DbManager.close(con, ps, rs);
+		}catch (SQLException e) {
+			try {
+				if(con != null) {
+					con.rollback();
+				}
+			} catch (SQLException e2) {
+				throw new SearchException("로그인 실패...");
+			} 
+		}
+		finally {
+			try {
+				if(con != null) {
+					con.commit();
+				}
+				DbManager.close(con, ps, rs);
+			} catch (SQLException e) {
+				DbManager.close(con, ps, rs);
+				throw new SearchException("저장 실패...");
+			}
+			
 		}
 		
 		return user;
@@ -59,7 +76,7 @@ public class UsersDAOImpl implements UsersDAO {
 	 * @throws  
 	 */
 	@Override
-	public int register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SQLException, SearchException {
+	public int register(String userID, String userPassword, String userName, String userBirth) throws InsertException,SearchException {
 		int result = 0;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -79,13 +96,28 @@ public class UsersDAOImpl implements UsersDAO {
 			
 			if(result == 0) {
 				con.rollback();
-			   throw new SQLException("등록 실패...");
+			   throw new InsertException("회원 가입 실패...");
 			}
-
 			con.commit();
-		} finally {
-			con.commit();
-			DbManager.close(con, ps, null);
+		}catch (SQLException e) {
+			try {
+				if(con != null) {
+					con.rollback();
+				}
+			} catch (SQLException e2) {
+				throw new InsertException("회원 가입 실패...");
+			} 
+		}finally {
+			try {
+				if(con != null) {
+					con.commit();
+				}
+				DbManager.close(con, ps, null);
+			} catch (SQLException e) {
+				DbManager.close(con, ps, null);
+				throw new InsertException("저장 실패...");
+			}
+			
 		}
 		
 		return result;
@@ -96,7 +128,7 @@ public class UsersDAOImpl implements UsersDAO {
 	 * @throws SQLException 
 	 */
 	@Override
-	public int userUpdate(String userID,String userPassword) throws UpdateException,SQLException {
+	public int userUpdate(String userID,String userPassword) throws UpdateException{
 		
 		int result = 0;
 		Connection con = null;
@@ -114,13 +146,29 @@ public class UsersDAOImpl implements UsersDAO {
 			
 			if(result == 0) {
 				con.rollback();
-				throw new SQLException("DAO 실패...");
+				throw new UpdateException("정보 수정 실패...");
 			}
 			con.commit();
 			
-		} finally {
-			con.commit();
-			DbManager.close(con, ps, null);
+		}catch (SQLException e) {
+			try {
+				if(con != null) {
+					con.rollback();
+				}
+			} catch (SQLException e2) {
+				throw new UpdateException("정보 수정 실패...");
+			} 
+		} 
+		finally {
+			try {
+				if(con != null) {
+					con.commit();
+				}
+				DbManager.close(con, ps, null);
+			} catch (SQLException e) {
+				DbManager.close(con, ps, null);
+				throw new UpdateException("정보 수정 실패...");
+			}
 		}
 
 		return result;
@@ -131,7 +179,7 @@ public class UsersDAOImpl implements UsersDAO {
 	 * @throws SQLException 
 	 */
 	@Override
-	public UsersDTO searchByUserID(String userID)throws SearchException, SQLException {
+	public UsersDTO searchByUserID(String userID)throws SearchException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -152,15 +200,30 @@ public class UsersDAOImpl implements UsersDAO {
 						rs.getString("user_name"),rs.getString("user_birth"),rs.getString("reg_date"));
 			}else {
 				con.rollback();
-				throw new SQLException("아이디가 없습니다...");
+				throw new SearchException("아이디가 없습니다...");
 			}
 			
 			con.commit();
-		}finally {
-			con.commit();
-			DbManager.close(con, ps, rs);
+		}catch (SQLException e) {
+			try {
+				if(con != null) {
+					con.rollback();
+				}
+			} catch (SQLException e2) {
+				throw new SearchException("아이디가 없습니다...");
+			} 
 		}
-		
+		finally {
+			try {
+				if(con != null) {
+					con.commit();
+				}
+				DbManager.close(con, ps, rs);
+			} catch (SQLException e) {
+				DbManager.close(con, ps, rs);
+				throw new SearchException("저장 실패...");
+			}
+		}
 		return user;
 	}
 

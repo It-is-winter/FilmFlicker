@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exception.InsertException;
+import exception.SearchException;
 import management.DAO.interfaces.MovieDAO;
 import management.DTO.ActorDTO;
 import management.DTO.MovieDTO;
@@ -143,7 +144,7 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 	
 	//장르로 영화 찾기
 		@Override
-	public List<MovieDTO> selectMovieByGenre(String movieGenre) throws SQLException {
+	public List<MovieDTO> selectMovieByGenre(String movieGenre) throws SearchException, SQLException {
 
 			Connection con = null;
 			PreparedStatement ps = null;

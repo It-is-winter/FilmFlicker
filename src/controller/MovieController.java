@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import exception.InsertException;
+import exception.SearchException;
 import management.DTO.MovieDTO;
 import service.MovieService;
 import service.Impl.MovieServiceImpl;
@@ -43,8 +44,9 @@ public class MovieController {
 	 * 
 	 * @param movieName
 	 * 영화 이름으로 영화 검색
+	 * @throws SearchException 
 	 */
-	public static void selectMovieByName(String movieName) {
+	public static void selectMovieByName(String movieName) throws SearchException {
 		
 		try {
 			MovieDTO movie =  service.selectMovieByName(movieName);
@@ -76,7 +78,7 @@ public class MovieController {
 	/*
 	 * 장르로 영화 검색
 	 * */
-	public static void selectMovieByGenre(String movieGenre) {
+	public static void selectMovieByGenre(String movieGenre) throws SearchException {
 
 		try {
 			List<MovieDTO> moviegenre = service.selectMovieByGenre(movieGenre);
@@ -90,7 +92,7 @@ public class MovieController {
 	/*
 	 * 개봉 날짜로 영화 검색
 	 */
-	public static void selectMovieByReleaseDate(String movieReleaseDate) {
+	public static void selectMovieByReleaseDate(String movieReleaseDate) throws SearchException {
 		try {
 			List<MovieDTO> moviereleaseDate = service.selectMovieByReleaseDate(movieReleaseDate);
 			if(moviereleaseDate.isEmpty()) throw new SQLException("날짜에 개봉된 영화가 없습니다");
