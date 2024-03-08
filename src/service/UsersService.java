@@ -40,4 +40,13 @@ public interface UsersService {
 	 */
 	public UsersDTO searchByUserID(String userID) throws SearchException ;
 
+	
+	/**
+	 * userPassword 기준으로 회원 정보 찾기
+	 * @return 
+	 * @throws SQLException 
+	 * @throws SearchException 
+	 */
+	public UsersDTO searchByUserPassword(String userPassword) throws SearchException;
+
 }

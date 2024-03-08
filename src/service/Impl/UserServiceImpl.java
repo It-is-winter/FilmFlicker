@@ -20,12 +20,21 @@ public class UserServiceImpl implements UsersService {
 	
 	@Override
 	public UsersDTO login(String userID, String userPassword) throws SearchException {
+		
+		
+		if(this.searchByUserID(userID) == null) {
+			throw new SearchException("아이디가 올바르지 않습니다.");
+		}
+		
+		if(this.searchByUserPassword(userPassword) == null) {
+			throw new SearchException("비밀번호가 올바르지 않습니다.");
+		}
+		
 		UsersDTO user = userdao.login(userID, userPassword);
 		
 		if(user == null) {
 			throw new SearchException("등록된 아이디가 없습니다.");
 		}
-		
 		// user를 찾고 예외가 아니면 userSessionSet에 넣어서 관리
 		UsersSession userSession = new UsersSession(userID);
 		
@@ -68,11 +77,22 @@ public class UserServiceImpl implements UsersService {
 		UsersDTO user = userdao.searchByUserID(userID);
 		
 		if(user == null) {
-			throw new SearchException("등록된 아이디가 없습니다.");
+			throw new SearchException("잘못된 아이디 입니다..");
 		}
 		
 		return user;
 
+	}
+	
+	@Override
+	public UsersDTO searchByUserPassword(String userPassword) throws SearchException {
+		UsersDTO user = userdao.searchByUserPassword(userPassword);
+		
+		if(user == null) {
+			throw new SearchException("패스워드가 다릅니다..");
+		}
+		
+		return user;
 	}
 
 }
