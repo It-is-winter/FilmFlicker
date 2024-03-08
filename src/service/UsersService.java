@@ -17,20 +17,20 @@ public interface UsersService {
 	 * @return UsersDTO
 	 * @throws SQLException 
 	 */
-	public UsersDTO login(String userID, String userPassword) throws SearchException, SQLException;
+	public UsersDTO login(String userID, String userPassword) throws SearchException;
 	
 	/**
 	 * 회원가입
 	 * @throws SQLException 
 	 * @throws SearchException 
 	 */
-	public void register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SQLException, SearchException;
+	public void register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SearchException;
 	
 	/**
 	 * 회원 정보 수정
 	 * @throws SQLException 
 	 */
-	public void userUpdate(String userID,String userPassword) throws UpdateException, SQLException;
+	public void userUpdate(String userID,String userPassword) throws UpdateException;
 	
 	/**
 	 * userID 기준으로 회원 정보 찾기
@@ -38,6 +38,6 @@ public interface UsersService {
 	 * @throws SQLException 
 	 * @throws SearchException 
 	 */
-	public UsersDTO searchByUserID(String userID) throws SearchException, SQLException ;
+	public UsersDTO searchByUserID(String userID) throws SearchException ;
 
 }

@@ -15,7 +15,7 @@ public interface UsersDAO {
 	 * select * from users where user_ID = ? and USER_password ?
 	 * @throws SQLException 
 	 */
-	public UsersDTO login(String userID, String userPassword) throws SearchException, SQLException;
+	public UsersDTO login(String userID, String userPassword) throws SearchException;
 	
 	/**
 	 * 회원가입
@@ -23,20 +23,20 @@ public interface UsersDAO {
 	 * @throws SQLException 
 	 * @throws SearchException 
 	 */
-	public int register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SQLException, SearchException;
+	public int register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SearchException;
 	
 	/**
 	 * 회원 정보 수정
 	 * update users set USER_password = ? where user_ID = ?
 	 * @throws SQLException 
 	 */
-	public int userUpdate(String userID,String userPassword)throws UpdateException, SQLException ;
+	public int userUpdate(String userID,String userPassword)throws UpdateException;
 	
 	/**
 	 * userID 기준으로 회원 정보 찾기
 	 * select * from users where user_ID = ?
 	 * @throws SQLException 
 	 */
-	public UsersDTO searchByUserID(String userID)throws SearchException, SQLException;
+	public UsersDTO searchByUserID(String userID)throws SearchException;
 
 }

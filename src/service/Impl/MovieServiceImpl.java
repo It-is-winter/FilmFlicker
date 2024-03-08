@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import exception.InsertException;
+import exception.SearchException;
 import management.DAO.Impl.MovieDAOImpl;
 import management.DAO.interfaces.MovieDAO;
 import management.DTO.MovieDTO;
@@ -22,13 +23,17 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public List<MovieDTO> selectMovieByGenre(String movieGenre) throws SQLException{
+	public List<MovieDTO> selectMovieByGenre(String movieGenre) throws SearchException{
 		List<MovieDTO> moviedto = moviedao.selectMovieByGenre(movieGenre);
+		
+		if(moviedto.isEmpty()) {
+			throw new SearchException("찾는 영화가 없습니다.");
+		}
 		return moviedto;
 	}
 
 	@Override
-	public List<MovieDTO> selectMovieByDirecter(String movieDirecter) throws SQLException {
+	public List<MovieDTO> selectMovieByDirecter(String movieDirecter) throws SearchException {
 		
 		List<MovieDTO> moviedto = moviedao.selectMovieByDirecter(movieDirecter);
 		
@@ -39,7 +44,7 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public List<MovieDTO> selectMovieByReleaseDate(String movieReleaseDate) throws SQLException {
+	public List<MovieDTO> selectMovieByReleaseDate(String movieReleaseDate) throws SearchException {
 		List<MovieDTO> moviedto = moviedao.selectMovieByReleaseDate(movieReleaseDate);
 		
 		
@@ -47,7 +52,7 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public MovieDTO selectMovieByName(String movieName) throws SQLException{
+	public MovieDTO selectMovieByName(String movieName) throws SearchException{
 		
 		MovieDTO moviedto = moviedao.selectMovieByName(movieName);
 	

@@ -31,11 +31,7 @@ public class UserController {
 			MenuView.printUserMenu(user);
 		}catch (SearchException e) {
 			FailView.errorMessage(e.getMessage());
-			
-		}catch (SQLException e) {
-			FailView.errorMessage(e.getMessage());
 		}
-		
 		return user;
 	}
 	
@@ -57,9 +53,7 @@ public class UserController {
 			FailView.errorMessage(e.getMessage());
 		}catch (SearchException e) {
 			FailView.errorMessage(e.getMessage());
-		} catch (SQLException e) {	
-			FailView.errorMessage(e.getMessage());
-		}
+		} 
 	}
 	
 	/**
@@ -73,8 +67,6 @@ public class UserController {
 			userService.userUpdate(userID, userPassword);
 			SuccessView.successMessage("회원 수정이 완료되었습니다.");
 		} catch (UpdateException e) {
-			FailView.errorMessage(e.getMessage());
-		}catch (SQLException e) {
 			FailView.errorMessage(e.getMessage());
 		}
 		
@@ -93,8 +85,6 @@ public class UserController {
 			UsersDTO user = userService.searchByUserID(userID);
 			SuccessView.printPassword(user);
 		} catch (SearchException e) {
-			FailView.errorMessage(e.getMessage());
-		}catch (SQLException e) {
 			FailView.errorMessage(e.getMessage());
 		}
 		

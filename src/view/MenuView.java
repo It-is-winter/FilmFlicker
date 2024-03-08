@@ -226,7 +226,7 @@ public class MenuView {
 	 * 회원 접속 화면
 	 * @param user
 	 */
-	public static void printUserMenu(UsersDTO user) throws SearchException, SQLException {
+	public static void printUserMenu(UsersDTO user) {
 
 		
 		while(true) {
@@ -296,7 +296,7 @@ public class MenuView {
 
 
 
-	private static void printInsertReview(UsersDTO user) throws SearchException, SQLException {
+	private static void printInsertReview(UsersDTO user){
 		MovieService movieService = new MovieServiceImpl();
 
 		String movieName = null;
@@ -310,16 +310,9 @@ public class MenuView {
 			movieName = bf.readLine();
 			System.out.print("리뷰 내용 => ");
 			review = bf.readLine();
-			System.out.print("영화 평점 => ");
-			
-			System.out.print("영화 이름	=>	");
-			movieName = bf.readLine();
-			MovieDTO movie = movieService.selectMovieByName(movieName);
-			System.out.print("리뷰 내용	=>	");
-			review = bf.readLine();
 			System.out.print("영화 평점(10점 만점)	=>	");
 			movieScore = Integer.parseInt(bf.readLine());
-			
+			MovieDTO movie = movieService.selectMovieByName(movieName);
 			ReviewDTO reviewDTO = new ReviewDTO(user.getUserSeq(), movie.getMovieSeq(), review, movieScore);
 			ReviewController.insertReview(reviewDTO);
 			
@@ -335,7 +328,7 @@ public class MenuView {
 	/**
 	 * 영화 검색 화면
 	 */
-	private static void printSelectMovie(UsersDTO user) throws SQLException, SearchException {
+	private static void printSelectMovie(UsersDTO user) {
 
 		
 		while(true) {
