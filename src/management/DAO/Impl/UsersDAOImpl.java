@@ -15,12 +15,11 @@ import util.DbManager;
 public class UsersDAOImpl implements UsersDAO {
 
 	/***
-	 * 회원 로그인
 	 * select * from users where user_ID = ? and USER_password ?
-	 * @throws UpdateException
+	 * @throws SQLException 
 	 */
 	@Override
-	public UsersDTO login(String userID, String userPassword) throws SearchException {
+	public UsersDTO login(String userID, String userPassword) throws SearchException{
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -29,6 +28,7 @@ public class UsersDAOImpl implements UsersDAO {
 		UsersDTO user = null;
 		
 		try {
+			
 			con = DbManager.getConnection();
 			con.setAutoCommit(false);
 			
@@ -41,31 +41,43 @@ public class UsersDAOImpl implements UsersDAO {
 						rs.getString("user_name"),rs.getString("user_birth"),rs.getString("reg_date"));
 			}else {
 				con.rollback();
-//			    throw new SearchException("DAO 실패...");
+			    throw new SearchException("로그인 실패...");
 			}
 			
 			con.commit();
-		} catch(SQLException e) {
-			System.out.println(e.getMessage());
-		}finally {
+		}catch (SQLException e) {
 			try {
-				con.commit();
-			} catch(SQLException se) {
-				se.printStackTrace();
+				if(con != null) {
+					con.rollback();
+				}
+			} catch (SQLException e2) {
+				throw new SearchException("로그인 실패...");
+			} 
+		}
+		finally {
+			try {
+				if(con != null) {
+					con.commit();
+				}
+				DbManager.close(con, ps, rs);
+			} catch (SQLException e) {
+				DbManager.close(con, ps, rs);
+				throw new SearchException("저장 실패...");
 			}
-			DbManager.close(con, ps, rs);
+			
 		}
 		
 		return user;
 	}
 
 	/***
-	 * 회원가입
 	 * insert into users values(user_seq_NO.NEXTVAL,?,?,?,?,sysdate)
-	 * @throws SearchException
+	 * @throws SQLException 
+	 * @throws SearchException 
+	 * @throws  
 	 */
 	@Override
-	public int register(String userID, String userPassword, String userName, String userBirth) throws InsertException {
+	public int register(String userID, String userPassword, String userName, String userBirth) throws InsertException,SearchException {
 		int result = 0;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -85,31 +97,39 @@ public class UsersDAOImpl implements UsersDAO {
 			
 			if(result == 0) {
 				con.rollback();
-//			   throw new InsertException("등록 실패...");
+			   throw new InsertException("회원 가입 실패...");
 			}
-
 			con.commit();
-		} catch(SQLException e) {
-			System.out.println(e.getMessage());
-		} finally {
+		}catch (SQLException e) {
 			try {
-				con.commit();
-			} catch(SQLException se) {
-				se.printStackTrace();
+				if(con != null) {
+					con.rollback();
+				}
+			} catch (SQLException e2) {
+				throw new InsertException("회원 가입 실패...");
+			} 
+		}finally {
+			try {
+				if(con != null) {
+					con.commit();
+				}
+				DbManager.close(con, ps, null);
+			} catch (SQLException e) {
+				DbManager.close(con, ps, null);
+				throw new InsertException("저장 실패...");
 			}
-			DbManager.close(con, ps, null);
+			
 		}
 		
 		return result;
 	}
 
 	/***
-	 * 회원 비밀번호 수정
 	 * update users set USER_password = ? where user_ID = ?
-	 * @throws UpdateException 
+	 * @throws SQLException 
 	 */
 	@Override
-	public int userUpdate(String userID,String userPassword) throws UpdateException {
+	public int userUpdate(String userID,String userPassword) throws UpdateException{
 		
 		int result = 0;
 		Connection con = null;
@@ -127,28 +147,37 @@ public class UsersDAOImpl implements UsersDAO {
 			
 			if(result == 0) {
 				con.rollback();
-//				throw new UpdateException("DAO 실패...");
+				throw new UpdateException("정보 수정 실패...");
 			}
 			con.commit();
 			
-		} catch(SQLException e) {
-			System.out.println(e.getMessage());
-		} finally {
+		}catch (SQLException e) {
 			try {
-				con.commit();
-			} catch(SQLException se) {
-				se.printStackTrace();
+				if(con != null) {
+					con.rollback();
+				}
+			} catch (SQLException e2) {
+				throw new UpdateException("정보 수정 실패...");
+			} 
+		} 
+		finally {
+			try {
+				if(con != null) {
+					con.commit();
+				}
+				DbManager.close(con, ps, null);
+			} catch (SQLException e) {
+				DbManager.close(con, ps, null);
+				throw new UpdateException("정보 수정 실패...");
 			}
-			DbManager.close(con, ps, null);
 		}
 
 		return result;
 	}
 
 	/***
-	 * 회원 찾기
 	 * select * from users where user_ID = ?
-	 * @throws SearchException
+	 * @throws SearchException 
 	 */
 	@Override
 	public UsersDTO searchByUserID(String userID) throws SearchException {
@@ -161,7 +190,6 @@ public class UsersDAOImpl implements UsersDAO {
 		
 		try {
 			con = DbManager.getConnection();
-			con.setAutoCommit(false);
 			
 			ps = con.prepareStatement(sql);
 			ps.setString(1, userID);
@@ -170,24 +198,74 @@ public class UsersDAOImpl implements UsersDAO {
 			if(rs.next()) {
 				user = new UsersDTO(rs.getInt("user_seq"),rs.getString("user_id"),rs.getString("user_password"),
 						rs.getString("user_name"),rs.getString("user_birth"),rs.getString("reg_date"));
-			}else {
-				con.rollback();
-//				throw new SearchException("아이디가 없습니다...");
 			}
 			
 			con.commit();
-		} catch(SQLException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			try {
-				con.commit();
-			} catch(SQLException se) {
-				se.printStackTrace();
-			}
-			DbManager.close(con, ps, rs);
+		}catch (SQLException e) {
+			throw new SearchException("아이디가 올바르지 않습니다...");
+			
 		}
-		
+		finally{
+				DbManager.close(con, ps, rs);
+		} 
 		return user;
 	}
+
+	
+	/**
+	 * select * from users where user_password = ?
+	 * @throws SearchException 
+	 */
+	@Override
+	public UsersDTO searchByUserPassword(String userPassword) throws SearchException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "select * from users where user_password = ?";
+		
+		UsersDTO user = null;
+		
+		try {
+			con = DbManager.getConnection();
+			con.setAutoCommit(false);
+			
+			ps = con.prepareStatement(sql);
+			ps.setString(1, userPassword);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				user = new UsersDTO(rs.getInt("user_seq"),rs.getString("user_id"),rs.getString("user_password"),
+						rs.getString("user_name"),rs.getString("user_birth"),rs.getString("reg_date"));
+			}else {
+				con.rollback();
+				throw new SearchException("비밀번호가 올바르지 않습니다...");
+			}
+			
+			con.commit();
+		}catch (SQLException e) {
+			try {
+				if(con != null) {
+					con.rollback();
+				}
+			} catch (SQLException e2) {
+				throw new SearchException("비밀번호가 올바르지 않습니다...");
+			} 
+		}
+		finally {
+			try {
+				if(con != null) {
+					con.commit();
+				}
+				DbManager.close(con, ps, rs);
+			} catch (SQLException e) {
+				DbManager.close(con, ps, rs);
+				throw new SearchException("저장 실패...");
+			}
+		}
+		return user;
+	}
+	
+	
+	
 
 }

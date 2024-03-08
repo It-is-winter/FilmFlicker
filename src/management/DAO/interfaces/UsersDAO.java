@@ -18,9 +18,10 @@ public interface UsersDAO {
 	/**
 	 * 회원가입
 	 * insert into users values(user_seq_NO.NEXTVAL,?,?,?,?,sysdate)
-	 * @throws InsertException
+	 * @throws InsertException 
+	 * @throws SearchException 
 	 */
-	public int register(String userID, String userPassword, String userName, String userBirth) throws InsertException;
+	public int register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SearchException;
 	
 	/**
 	 * 회원 정보 수정
@@ -35,5 +36,12 @@ public interface UsersDAO {
 	 * @throws SearchException 
 	 */
 	public UsersDTO searchByUserID(String userID)throws SearchException;
+	
+	/**
+	 * userPassword 기준으로 회원 정보 찾기
+	 * select * from users where user_password = ?
+	 * @throws SearchException 
+	 */
+	public UsersDTO searchByUserPassword(String userPassword)throws SearchException;
 
 }

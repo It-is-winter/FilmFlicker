@@ -53,6 +53,8 @@ public class UserController {
 			SuccessView.successMessage("회원 가입이 완료 되었습니다.");
 		} catch (InsertException e) {
 			FailView.errorMessage(e.getMessage());
+		}catch (SearchException e) {
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 	
