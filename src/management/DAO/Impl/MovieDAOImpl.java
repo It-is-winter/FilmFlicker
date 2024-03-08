@@ -9,8 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 import exception.InsertException;
 import management.DAO.interfaces.MovieDAO;
 import management.DTO.ActorDTO;
@@ -23,7 +21,7 @@ public class MovieDAOImpl implements MovieDAO {
 	
 	//영화 등록
 	@Override
-	public int insertMovie( String movieName,int movieGenre, String movieDerector, String releaseDate, List<String> leadActor,
+	public int insertMovie( String movieName,int movieGenre, String movieDirector, String releaseDate, List<String> leadActor,
 			List<String> supportActor) throws InsertException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -40,7 +38,7 @@ public class MovieDAOImpl implements MovieDAO {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, movieName);
 			ps.setInt(2, movieGenre);
-			ps.setString(3, movieDerector);
+			ps.setString(3, movieDirector);
 			ps.setString(4, releaseDate);
 			result = ps.executeUpdate();
 			con.commit();
@@ -275,8 +273,7 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		MovieDTO moviedto = null;
-		//String sql = "select movie_name,movie_genre,movie_director,release_date from movie a inner join movie_genre b on a.movie_genre_seq = b.movie_genre_seq "
-		//		+ "where movie_name =?";
+		double avgscore =0;
 		String sql ="select movie_seq,movie_name,movie_genre,movie_director,release_date "
 				+ "from movie a inner join movie_genre b on a.movie_genre_seq = b.movie_genre_seq	"
 				+ "where movie_name =?";
@@ -293,6 +290,9 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 				  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		          String releaseDateStr = dateFormat.format(rs.getDate(5));
 
+		        //리뷰 리스트에서 해당 영화 평균평점가지고오기 
+		          avgscore =selectAvgScore(movieSeq);
+		          
 				// 배우 리스트를 불러오는 메서드 호출
 		      
 		          List<ActorDTO> leadactorlist = selectLeadActor(movieSeq);
@@ -300,9 +300,8 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 		          
 		           
 		          moviedto = new MovieDTO(rs.getInt("movie_seq"), rs.getString("movie_name"), rs.getString("movie_genre"),rs.getString("movie_director"),
-		            		releaseDateStr, leadactorlist,supportactorlist);
-		         
-		         
+		            		releaseDateStr,avgscore, leadactorlist,supportactorlist);
+		          
 		        }
 			
 			
@@ -320,6 +319,34 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 	//메서드끝
 
 
+	//리뷰 테이블에서 평점 가져오는 메서드
+	public double selectAvgScore(int movieSeq) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql ="select round(avg(score),1) from review where movie_seq=?";
+		double avgscore =0;
+		try {
+			con=DbManager.getConnection();
+			ps= con.prepareStatement(sql);
+			ps.setInt(1, movieSeq);
+			rs=ps.executeQuery();
+			if(rs.next())
+			avgscore = rs.getDouble(1);
+		
+			
+		}catch(SQLException e){
+			
+		}
+		finally {
+			DbManager.close(con, ps, rs);
+		}
+		
+		return avgscore;
+		
+		
+	}//메서드 끝
+	
 
 	//주연 배우 리스트 찾기
 	public List<ActorDTO> selectLeadActor(int movieSeq) throws SQLException{
@@ -343,13 +370,13 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 				actorDTO.setName(rs.getString("actor_name"));
 				//actorDTO.setRole(rs.getString("actor_role"));
 				leadactorlist.add(actorDTO);
-	
-			}
-}finally {
-	DbManager.close(con, ps, rs);
-}
+				}
+			}finally {
+				DbManager.close(con, ps, rs);
+				}
 		return leadactorlist;
-}//메서드 끝
+		}//메서드 끝
+	
 	//조연 배우 리스트 찾기
 	public List<ActorDTO> selectSupportActor(int movieSeq) throws SQLException{
 		
@@ -371,11 +398,10 @@ public int insertSupportActor(Connection con,int movieSeq, List<String> supportA
 				ActorDTO actorDTO = new ActorDTO();
 				actorDTO.setName(rs.getString("actor_name"));
 				supportactorlist.add(actorDTO);
-	
-			}
-}finally {
-	DbManager.close(con, ps, rs);
-}
+				}
+			}finally {
+				DbManager.close(con, ps, rs);
+				}
 		return supportactorlist;
-}//메서드 끝
-}
+		}//메서드 끝
+	}

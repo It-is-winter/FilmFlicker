@@ -95,7 +95,6 @@ public class ReviewDAOImpl implements ReviewDAO {
 			
 			result = ps.executeUpdate();
 			
-			SuccessView.successMessage("수정되었습니다.");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -112,19 +111,17 @@ public class ReviewDAOImpl implements ReviewDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "delete from review where movie_seq =? and user_seq = ?";
+		String sql = "delete from review where movie_seq = ? and user_seq = ?";
 		
 		try {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 
-			
 			ps.setInt(1, review.getMovieSeq());
 			ps.setInt(2, review.getUserSeq());
 			
 			result = ps.executeUpdate();
 			
-			SuccessView.successMessage("삭제되었습니다.");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -241,17 +238,14 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(2, user.getUserSeq());
+			ps.setInt(1, user.getUserSeq());
 			
 			rs = ps.executeQuery();
-			
 			while(rs.next()) {
 				review = new ReviewDTO(rs.getInt("REVIEW_SEQ"), rs.getInt("USER_SEQ"), rs.getInt("MOVIE_SEQ"), rs.getString("REVIEW"), rs.getInt("SCORE"));
 				list.add(review);
 			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
+			} catch (SQLException e) {
 			throw new SearchException("리뷰가 존재하지 않습니다.");
 		} finally {
 			DbManager.close(con, ps, rs);
@@ -259,5 +253,4 @@ public class ReviewDAOImpl implements ReviewDAO {
 		
 		return list;
 	}
-
 }

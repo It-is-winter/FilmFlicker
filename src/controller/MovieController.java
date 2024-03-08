@@ -50,6 +50,7 @@ public class MovieController {
 			MovieDTO movie =  service.selectMovieByName(movieName);
 			if(movie == null) throw new SQLException("찾는 영화가 없습니다");
 			SuccessView.successMovie(movie);
+			
 		}catch (SQLException e) {
 		//	e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
