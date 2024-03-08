@@ -8,7 +8,6 @@ import exception.SearchException;
 import exception.UpdateException;
 import management.DTO.MovieDTO;
 import management.DTO.ReviewDTO;
-import management.DTO.ReviewEtcDTO;
 import management.DTO.UsersDTO;
 
 public interface ReviewService {

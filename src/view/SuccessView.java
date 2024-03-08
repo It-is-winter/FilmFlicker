@@ -11,8 +11,6 @@ import management.DTO.DipsDTO;
 import management.DTO.MovieDTO;
 import management.DTO.ReviewDTO;
 import management.DTO.UsersDTO;
-import session.UsersSession;
-import session.UsersSessionSet;
 
 public class SuccessView {
 

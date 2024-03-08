@@ -6,12 +6,9 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 //import java.util.StringTokenizer;
-import java.util.Set;
 
-import controller.DipsController;
 import controller.MovieController;
 import controller.ReviewController;
 import controller.UserController;
@@ -213,7 +210,7 @@ public class MenuView {
 			FailView.errorMessage("잘못된 값을 입력하였습니다.");
 		}
 
-		UsersDTO user = UserController.login(id, password);
+		/*UsersDTO user = */UserController.login(id, password);
 		System.out.println();
 	}
 	

@@ -1,12 +1,10 @@
 package management.DAO.interfaces;
 
-import exception.DeleteException;
 import exception.InsertException;
 import exception.SearchException;
 import exception.UpdateException;
 import management.DTO.ReviewDTO;
 import management.DTO.ReviewEtcDTO;
-import management.DTO.UsersDTO;
 
 public interface ReviewEtcDAO {
 	

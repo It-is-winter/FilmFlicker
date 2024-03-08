@@ -44,7 +44,7 @@ public class UsersDAOImpl implements UsersDAO {
 			    throw new SearchException("로그인 실패...");
 			}
 			
-			con.commit();
+
 		}catch (SQLException e) {
 			try {
 				if(con != null) {
