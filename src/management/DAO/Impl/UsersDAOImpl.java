@@ -180,7 +180,7 @@ public class UsersDAOImpl implements UsersDAO {
 	 * @throws SearchException 
 	 */
 	@Override
-	public UsersDTO searchByUserID(String userID)throws SearchException {
+	public UsersDTO searchByUserID(String userID) throws SearchException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -190,7 +190,6 @@ public class UsersDAOImpl implements UsersDAO {
 		
 		try {
 			con = DbManager.getConnection();
-			con.setAutoCommit(false);
 			
 			ps = con.prepareStatement(sql);
 			ps.setString(1, userID);
@@ -199,32 +198,16 @@ public class UsersDAOImpl implements UsersDAO {
 			if(rs.next()) {
 				user = new UsersDTO(rs.getInt("user_seq"),rs.getString("user_id"),rs.getString("user_password"),
 						rs.getString("user_name"),rs.getString("user_birth"),rs.getString("reg_date"));
-			}else {
-				con.rollback();
-				throw new SearchException("아이디가 올바르지 않습니다...");
 			}
 			
 			con.commit();
 		}catch (SQLException e) {
-			try {
-				if(con != null) {
-					con.rollback();
-				}
-			} catch (SQLException e2) {
-				throw new SearchException("아이디가 올바르지 않습니다...");
-			} 
+			throw new SearchException("아이디가 올바르지 않습니다...");
+			
 		}
-		finally {
-			try {
-				if(con != null) {
-					con.commit();
-				}
+		finally{
 				DbManager.close(con, ps, rs);
-			} catch (SQLException e) {
-				DbManager.close(con, ps, rs);
-				throw new SearchException("저장 실패...");
-			}
-		}
+		} 
 		return user;
 	}
 

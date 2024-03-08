@@ -1,20 +1,21 @@
 package view;
 
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import controller.ReviewController;
-import exception.SearchException;
 import management.DTO.DipsDTO;
 import management.DTO.MovieDTO;
 import management.DTO.ReviewDTO;
 import management.DTO.UsersDTO;
+import session.UsersSession;
+import session.UsersSessionSet;
 
 public class SuccessView {
+
 	
 	/***
 	 * 
@@ -25,14 +26,37 @@ public class SuccessView {
 		System.out.println(message);
 	}
 	/*
-	 * 감독 이름으로 검색 성공했을때 띄움
+	 * 영화 리스트로 받을때 출력 
 	 */
 	
-	public static void successMessage(List<MovieDTO> moviedirector) {
+	public static void successMessage(List<MovieDTO> movie) {
+		for (MovieDTO movieDTO : movie) {
+			System.out.println(movieDTO);
+			ReviewController.selectReviewByMovie(movieDTO);
+//			MenuView.printReviewCount(user, movieDTO);
+//			MenuView.printReviewValue(user, movieDTO);
+			System.out.println();
+		}
 
-		for (MovieDTO movie : moviedirector) {
-			System.out.println(movie);
+	}
+	
+	/***
+	 * 연도로 검색 했을 때  Set출력 
+	 * @param moviedirecter
+	 */
+	public static void successMessage(Set<MovieDTO> moviedirector) {
 
+		UsersSessionSet uss = UsersSessionSet.getInstance();
+		UsersSession user = uss.get(null);
+		
+		Iterator<MovieDTO> ite =  moviedirector.iterator();
+		
+		while(ite.hasNext()) {
+			System.out.println(ite.next());
+			ReviewController.selectReviewByMovie(ite.next());
+//			MenuView.printReviewCount(null, ite.next());
+//			MenuView.printReviewValue(user, ite.next());
+			System.out.println();
 		}
 
 	}
@@ -45,6 +69,8 @@ public class SuccessView {
 	 */
 	public static void successMovie(MovieDTO movie){
 		System.out.println(movie);
+		ReviewController.selectReviewByMovie(movie);
+		
 	}
 	
 	/***
@@ -58,28 +84,11 @@ public class SuccessView {
 	 * @param review
 	 * selectReviewByMovie() 또는 selectReviewByUser() 호출에 성공했을때 
 	 * 리턴한 List<ReviewDTO>안의 값들을 출력
-	 * @throws SearchException 
 	 */
-	public static void successReviewList(List<ReviewDTO> list) throws SearchException{
+	public static void successReviewList(List<ReviewDTO> list){
 		int cnt = 1;
-		
-	    Collections.sort(list, new Comparator<ReviewDTO>() {
-	        @Override
-	        public int compare(ReviewDTO review1, ReviewDTO review2) {
-	            // Compare reviewSeq of review1 and review2
-	            return Integer.compare(review1.getReviewSeq(), review2.getReviewSeq());
-	        }
-	    });
-		
 		for(ReviewDTO review : list) {
 			System.out.println("● 리뷰 " + cnt++ + " : " + review);
-			
-			int like = ReviewController.countLike(review);
-			int hate = ReviewController.countHate(review);
-			
-			System.out.print("  -> 이 리뷰가 도움이 됐나요?   ");
-			System.out.println("좋아요 " + like + "   싫어요 " + hate);
-			System.out.println("=====================================================");
 		}
 	}
 
@@ -100,13 +109,13 @@ public class SuccessView {
 		System.out.println("===== 회원님의 리뷰 목록 =======");
 		Set<Map.Entry<Integer, ReviewDTO>> entrySet = reviewList.entrySet();
 		
-		int i =0;
 		for (Entry<Integer, ReviewDTO> element : entrySet) {
 			int key = element.getKey();
 			ReviewDTO dd = element.getValue();
 			
 			System.out.println(key +" "+ dd);
 		}
+		
 	}
 	
 	/**
@@ -117,7 +126,6 @@ public class SuccessView {
 		System.out.println("===== 회원님의 찜목록 =======");
 		Set<Map.Entry<Integer, DipsDTO>> entrySet = list.entrySet();
 		
-		int i =0;
 		for (Entry<Integer, DipsDTO> element : entrySet) {
 			int key = element.getKey();
 			DipsDTO dd = element.getValue();

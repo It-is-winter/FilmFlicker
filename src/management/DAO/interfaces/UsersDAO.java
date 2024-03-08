@@ -1,7 +1,5 @@
 package management.DAO.interfaces;
 
-import java.sql.SQLException;
-
 import exception.InsertException;
 import exception.SearchException;
 import exception.UpdateException;

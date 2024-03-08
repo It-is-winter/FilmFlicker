@@ -22,9 +22,8 @@ public class UserController {
 	 * @param userID
 	 * @param userPassword
 	 * @return UserDTO
-	 * @throws SQLException 
 	 */
-	public static UsersDTO login(String userId, String userPassword) throws SQLException {
+	public static UsersDTO login(String userId, String userPassword) {
 		UsersDTO user = null;
 		
 		try {
@@ -32,12 +31,14 @@ public class UserController {
 			MenuView.printUserMenu(user);
 		}catch (SearchException e) {
 			FailView.errorMessage(e.getMessage());
+			
 		}
+		
 		return user;
 	}
 	
 	/***
-	 * 
+	 * 회원 등록
 	 * @param idEmail
 	 * @param password
 	 * @param name
@@ -50,11 +51,11 @@ public class UserController {
 		try {
 			userService.register(idEmail,password,name,birth);
 			SuccessView.successMessage("회원 가입이 완료 되었습니다.");
-		}catch (InsertException e) {
+		} catch (InsertException e) {
 			FailView.errorMessage(e.getMessage());
 		}catch (SearchException e) {
 			FailView.errorMessage(e.getMessage());
-		} 
+		}
 	}
 	
 	/**
@@ -91,9 +92,7 @@ public class UserController {
 		
 	}
 	
-	
-	
-	
+
 	
 	
 }

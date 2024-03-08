@@ -25,7 +25,7 @@ import view.SuccessView;
 public class MyPageController {
 	
 	public static ReviewService reviewService = new ReviewServiceImpl();
-	public static DipsService service = new DipsServiceImpl();
+	public static DipsService dipsService = new DipsServiceImpl();
 	
 	
 	/**
@@ -35,9 +35,13 @@ public class MyPageController {
 		UsersSessionSet uss = UsersSessionSet.getInstance();
 		UsersSession session = uss.get(user.getIdEmail());
 		
+		@SuppressWarnings("unchecked")
 		Map<Integer, ReviewDTO> reviewList = (Map<Integer, ReviewDTO>)session.getAttribute("리뷰목록");
 		
-		
+		if(reviewList == null) { 
+			reviewList = new HashMap<>(); 
+			session.setAttribute("리뷰목록", reviewList);
+		}
 		
 		List<ReviewDTO> list = null;
 		int i =0;
@@ -47,17 +51,11 @@ public class MyPageController {
 		} catch(SearchException e) {
 			FailView.errorMessage(e.getMessage());
 		}
-		
-		if(reviewList == null) { 
-			reviewList = new HashMap<>(); 
-			session.setAttribute("리뷰목록", reviewList);
-			
-			for (ReviewDTO reviewDTO : list) {
-				i++;
-				reviewList.put(i, reviewDTO);
-			}
+		for (ReviewDTO reviewDTO : list) {
+			i++;
+			reviewList.put(i, reviewDTO);
 		}
-
+		
 		SuccessView.printReviewByUser(reviewList);
 		
 		return list;
@@ -72,6 +70,7 @@ public class MyPageController {
 		UsersSession session = uss.get(user.getIdEmail());
 		ReviewDTO review = null;
 		
+		@SuppressWarnings("unchecked")
 		Map<Integer, ReviewDTO> reviewList = (Map<Integer, ReviewDTO>)session.getAttribute("리뷰목록");
 		
 		Set<Map.Entry<Integer, ReviewDTO>> entySet = reviewList.entrySet();
@@ -104,79 +103,112 @@ public class MyPageController {
 			FailView.errorMessage(e.getMessage());
 		}
 	}
+	/***
+	 * 선택한 리뷰 삭제
+	 *  */
+	public static void deletMyReview(UsersDTO user, int reviewNum) {	
+		UsersSessionSet uss = UsersSessionSet.getInstance();
+		UsersSession session = uss.get(user.getIdEmail());
+		ReviewDTO review = null;
+			
+		@SuppressWarnings("unchecked")
+		Map<Integer, ReviewDTO> reviewList = (Map<Integer, ReviewDTO>)session.getAttribute("리뷰목록");
+			
+		Set<Map.Entry<Integer, ReviewDTO>> entySet = reviewList.entrySet();
+		Iterator<Map.Entry<Integer, ReviewDTO>> ite = entySet.iterator();
+			
+		boolean isCheck = false;
+			
 		
-		/***
-		 * 가져온 리뷰 삭제
-		 */
-		public static void deletMyReview(UsersDTO user, int reviewNum) {	
+		while(ite.hasNext()) {
+			if(ite.next().getKey() == reviewNum) {
+				isCheck = true;
+				break;
+			}
+		}
+			
+		if(isCheck) {
+			review = reviewList.get(reviewNum);
+			reviewList.remove(reviewNum);
+		} else {
+			FailView.errorMessage("삭제 실패했습니다.");
+		}
+			
+		try {
+			reviewService.deleteReview(review);
+			SuccessView.successMessage("삭제 성공했습니다.");
+		} catch(DeleteException e) {
+			FailView.errorMessage(e.getMessage());
+		}
+			
+	}
+	/**
+	 * 마이페이지에서 찜 목록 조회
+	 * */
+	public static void selectDips(UsersDTO user) {
+		try {
+			List<DipsDTO> dips = dipsService.selectDipsListAll(user);
+				
+				
 			UsersSessionSet uss = UsersSessionSet.getInstance();
-			UsersSession session = uss.get(user.getIdEmail());
-			ReviewDTO review = null;
-			
-			Map<Integer, ReviewDTO> reviewList = (Map<Integer, ReviewDTO>)session.getAttribute("리뷰목록");
-			
-			Set<Map.Entry<Integer, ReviewDTO>> entySet = reviewList.entrySet();
-			Iterator<Map.Entry<Integer, ReviewDTO>> ite = entySet.iterator();
-			
-			boolean isCheck = false;
+			UsersSession us = uss.get(user.getIdEmail());
+				
+			@SuppressWarnings("unchecked")
+			Map<Integer, DipsDTO>dipList = (Map<Integer, DipsDTO>)us.getAttribute("찜목록");
+				
+			if(dipList == null) { 
+				dipList = new HashMap<>(); 
+				us.setAttribute("찜목록", dipList);
+			}
+				
+			int i = 0;
+				
+			for (DipsDTO dipsDTO : dips) {
+				i++;
+				dipList.put(i, dipsDTO);
+			}
+			SuccessView.dipsList(dipList);
+				
+		} catch (SearchException e) {
+				FailView.errorMessage(e.getMessage());
+		}
+	}
+	/**
+	 * 선택한 찜 목록 삭제
+	 * */
+	public static void deleteMyDips(UsersDTO user, int dipsNum) {
+		UsersSessionSet uss = UsersSessionSet.getInstance();
+		UsersSession session = uss.get(user.getIdEmail());
+		DipsDTO dips = null;
+		
+		@SuppressWarnings("unchecked")
+		Map<Integer, DipsDTO> dipsList = (Map<Integer, DipsDTO>)session.getAttribute("찜목록");
+		
+		Set<Map.Entry<Integer, DipsDTO>> entySet = dipsList.entrySet();
+		Iterator<Map.Entry<Integer, DipsDTO>> ite = entySet.iterator();
+		
+		boolean isCheck = false;
+		
+		while(ite.hasNext()) {
+			if(ite.next().getKey() == dipsNum) {
+				isCheck = true;
+				break;
+			}
+		}
+		
+		if(isCheck) {
+			dips = dipsList.get(dipsNum);
+			dipsList.remove(dipsNum);
+		} else {
+			FailView.errorMessage("삭제 실패했습니다.");
+		}
+		
+		try {
+			dipsService.deleteDips(dips);
+			SuccessView.successMessage("삭제 성공했습니다.");
+		} catch(DeleteException e) {
+			FailView.errorMessage(e.getMessage());
+		}
+	}
 
-			while(ite.hasNext()) {
-				if(ite.next().getKey() == reviewNum) {
-					isCheck = true;
-					break;
-				}
-			}
-			
-			if(isCheck) {
-				review = reviewList.get(reviewNum);
-				reviewList.remove(reviewNum);
-				
-			}else {
-				FailView.errorMessage("삭제 실패했습니다.");
-			}
-			
-			try {
-				reviewService.deleteReview(review);
-				SuccessView.successMessage("삭제 성공했습니다.");
-			} catch(DeleteException e) {
-				FailView.errorMessage(e.getMessage());
-			}
-			
-		}
-		
-		/**
-		 * 마이페이지에서 찜 목록 조회
-		 */
-		public static void selectDips(UsersDTO user) {
-			try {
-				
-				List<DipsDTO> dips = service.selectDipsListAll(user);
-				
-				
-				UsersSessionSet uss = UsersSessionSet.getInstance();
-				UsersSession us = uss.get(user.getIdEmail());
-				
-				Map<Integer, DipsDTO>dipList = (Map<Integer, DipsDTO>)us.getAttribute("찜목록");
-				
-				if(dipList == null) { 
-					dipList = new HashMap<>(); 
-					us.setAttribute("찜목록", dipList);
-				}
-				
-				int i = 0;
-				
-				for (DipsDTO dipsDTO : dips) {
-					i++;
-					dipList.put(i, dipsDTO);
-				}
-				SuccessView.dipsList(dipList);
-				System.out.println("");
-				
-			} catch (SearchException e) {
-				FailView.errorMessage(e.getMessage());
-			} catch(SQLException e) {
-				FailView.errorMessage(e.getMessage());
-			}
-		}
-		
 }

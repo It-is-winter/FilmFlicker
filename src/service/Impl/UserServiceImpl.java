@@ -55,12 +55,11 @@ public class UserServiceImpl implements UsersService {
 
 	@Override
 	public void register(String userID, String userPassword, String userName, String userBirth) throws InsertException, SearchException {
-		
 		try {
 			userdao.searchByUserID(userID);
 		} catch (SearchException e) {
-			System.out.println("아이디가 없다");
 			if( now.getYear() - Integer.parseInt(this.replaceBirth(userBirth))  < adultAge ) {
+				System.out.println(now.getYear());
 				System.out.println(now.getYear() - Integer.parseInt(this.replaceBirth(userBirth)));
 				throw new InsertException("미성년자는 회원가입에 제한됩니다.");
 			}
@@ -109,13 +108,14 @@ public class UserServiceImpl implements UsersService {
 	public String replaceBirth(String userBirth) throws InsertException {
 		String userYear = null;
 		try {
-			SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy");
+			SimpleDateFormat dtFormat = new SimpleDateFormat("yyMMdd");
+			SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd");
 			Date Year = dtFormat.parse(userBirth);
-			userYear = dtFormat.format(Year);
+			userYear = (String)newFormat.format(Year).subSequence(0, 4);
 		} catch (ParseException  e) {
 			throw new InsertException("생년월일의 형식이 맞지 않습니다.");
 		}
-		System.out.println(userYear);
+		
 		return userYear;
 	}
 

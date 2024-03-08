@@ -8,31 +8,32 @@ public class MovieDTO {
 	private String movieName ;
 	private String movieDirector ;
 	private String releaseDate ;
-	private double avgScore;
+	
 	
 	private List<ActorDTO> supportActorList;
 	private List<ActorDTO> leadAcotrList;
 	
 	public MovieDTO() {};
+		
 
-	public MovieDTO(int movieSeq,  String movieName,String movieGenre, String movieDirector, String releaseDate,
-			double avgScore, List<ActorDTO> supportActorList, List<ActorDTO> leadAcotrList) {
+	public MovieDTO(int movieSeq,String movieName, String movieGenre,  String movieDirector, String releaseDate,
+			List<ActorDTO> supportActorList, List<ActorDTO> leadAcotrList) {
+		
 		super();
 		this.movieSeq = movieSeq;
 		this.movieGenre = movieGenre;
 		this.movieName = movieName;
 		this.movieDirector = movieDirector;
 		this.releaseDate = releaseDate;
-		this.avgScore = avgScore;
 		this.supportActorList = supportActorList;
 		this.leadAcotrList = leadAcotrList;
 	}
 
+	
 	public int getMovieSeq() {
 		return movieSeq;
 	}
-
-
+	
 	public void setMovieSeq(int movieSeq) {
 
 
@@ -56,8 +57,8 @@ public class MovieDTO {
 	public String getMovieDirector() {
 		return movieDirector;
 	}
-	public void setMovieDirector(String movieDirector) {
-		this.movieDirector = movieDirector;
+	public void setMovieDirector(String movieDirecter) {
+		this.movieDirector = movieDirecter;
 	}
 	public String getReleaseDate() {
 		return releaseDate;
@@ -78,20 +79,32 @@ public class MovieDTO {
 		this.leadAcotrList = leadAcotrList;
 	}
 	
-	public double getAvgScore() {
-		return avgScore;
+	
+	
+	
+	
+
+	@Override
+	public int hashCode() {
+		return movieName.hashCode();
 	}
 
-	public void setAvgScore(int score) {
-		this.avgScore = avgScore;
+	@Override
+	public boolean equals(Object obj) {
+		MovieDTO other = (MovieDTO) obj;
+		
+		if(movieDirector.equals(other.getMovieDirector()))  {
+			return true;
+		}
+		
+		return false;
 	}
-
 
 
 	@Override
 	public String toString() {
-		return  "영화 번호 = "+movieSeq + ", 영화 제목 = " + movieName +", 영화 장르 = "+movieGenre +", 감독 =" + movieDirector
+		return  "영화 제목 = " + movieName +", 영화 장르 = "+movieGenre +", 감독 =" + movieDirector
 				+ ", 개봉일 =" + releaseDate + ", 주연배우 = " +leadAcotrList  + ", 조연배우 = "
-				+ supportActorList + ", 평점 = " + avgScore;
+				+ supportActorList;
 	}
 }
