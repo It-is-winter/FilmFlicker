@@ -281,7 +281,10 @@ public class MovieDAOImpl implements MovieDAO {
 			}
 			
 			if(list.isEmpty()) {
-				selectMovieByReleaseDate(con, releaseDate);
+				list = selectMovieByReleaseDate(con, releaseDate);
+				if(list.isEmpty()) {
+					throw new SearchException("찾는 영화가 없습니다.");
+				}
 			}
 
 		} catch(SQLException e) {

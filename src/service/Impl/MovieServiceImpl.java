@@ -50,9 +50,9 @@ public class MovieServiceImpl implements MovieService {
 	public Set<MovieDTO> selectMovieByReleaseDate(String movieReleaseDate) throws SearchException {
 		Set<MovieDTO> moviedto = moviedao.selectMovieByReleaseDate(movieReleaseDate);
 		
-		if(moviedto.isEmpty()) {
-			throw new SearchException("찾는 영화가 없습니다.");
-		}
+//		if(moviedto.isEmpty()) {
+//			throw new SearchException("찾는 영화가 없습니다.");
+//		}
 		
 		return moviedto;
 	}
