@@ -413,7 +413,6 @@ public class MenuView {
 				MovieController.selectMovieByName(movieName);
 				MovieDTO movie = movieService.selectMovieByName(movieName);
 				ReviewController.selectReviewByMovie(movie);
-//<<<<<<< HEAD
 
 				System.out.println("영화를 찜목록에 추가하시겠습니까? 추가 1 이전 메뉴 2");
 		
