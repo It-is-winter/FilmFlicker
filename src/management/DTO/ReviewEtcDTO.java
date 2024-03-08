@@ -3,7 +3,6 @@ package management.DTO;
 public class ReviewEtcDTO {
 	private int like; // 1 이면 좋아요 -1 이면 싫어요 0 이면 default
 	private int countLike;
-	private int countHate;
 	private int reviewEtcSeq;
 	
 	ReviewDTO review = new ReviewDTO();
@@ -17,14 +16,10 @@ public class ReviewEtcDTO {
 	
 	public ReviewEtcDTO() {}
 	
-	public ReviewEtcDTO(int reviewEtcSeq, ReviewDTO review, int reviewSeq,
-			UsersDTO user, int UserSeq, int like) {
+	public ReviewEtcDTO(int UserSeq, int reviewSeq, int like) {
 		super();
 		this.like = like;
-		this.reviewEtcSeq = reviewEtcSeq;
-		this.review = review;
 		this.reviewSeq = reviewSeq;
-		this.user = user;
 		this.UserSeq = UserSeq;
 	}
 	public int getLike() {
@@ -38,12 +33,6 @@ public class ReviewEtcDTO {
 	}
 	public void setCountLike(int countLike) {
 		this.countLike = countLike;
-	}
-	public int getCountHate() {
-		return countHate;
-	}
-	public void setCountHate(int countHate) {
-		this.countHate = countHate;
 	}
 	
 	public ReviewDTO getReview() {
@@ -80,7 +69,7 @@ public class ReviewEtcDTO {
 
 	@Override
 	public String toString() {
-		return "ReviewEtcDTO [like=" + like + ", countLike=" + countLike + ", countHate=" + countHate + "]";
+		return "ReviewEtcDTO [like=" + like + ", countLike=" + countLike + "]";
 	}
 
 

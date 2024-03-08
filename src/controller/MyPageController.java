@@ -171,8 +171,6 @@ public class MyPageController {
 				
 		} catch (SearchException e) {
 				FailView.errorMessage(e.getMessage());
-		} catch(SQLException e) {
-				FailView.errorMessage(e.getMessage());
 		}
 	}
 	/**

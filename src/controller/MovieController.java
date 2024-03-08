@@ -46,7 +46,6 @@ public class MovieController {
 			movie = service.selectMovieByName(movieName);
 			SuccessView.successMovie(movie);
 		} catch (SearchException e) {
-		//	e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
 		}
 		return movie;
@@ -55,15 +54,15 @@ public class MovieController {
 	/*
 	 * 감독 이름으로 영화 검색
 	 * */
-	public static List<MovieDTO> selectMovieByDirecter(String movieDirecter) {
-		List<MovieDTO> moviedirecter = null;
+	public static List<MovieDTO> selectMovieByDirector(String movieDirector) {
+		List<MovieDTO> moviedirector = null;
 		try {
-			moviedirecter = service.selectMovieByDirecter(movieDirecter);
-			SuccessView.successMessage(moviedirecter);
+			moviedirector = service.selectMovieByDirector(movieDirector);
+			SuccessView.successMessage(moviedirector);
 		}catch(SearchException e) {
 			FailView.errorMessage(e.getMessage());
 		}
-		return moviedirecter;
+		return moviedirector;
 	}
 	
 	/*

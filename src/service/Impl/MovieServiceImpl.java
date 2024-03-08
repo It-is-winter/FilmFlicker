@@ -36,8 +36,8 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public List<MovieDTO> selectMovieByDirecter(String movieDirecter) throws SearchException {
-		List<MovieDTO> moviedto = moviedao.selectMovieByDirecter(movieDirecter);
+	public List<MovieDTO> selectMovieByDirector(String movieDirector) throws SearchException {
+		List<MovieDTO> moviedto = moviedao.selectMovieByDirector(movieDirector);
 		
 		if(moviedto.isEmpty()) {
 			throw new SearchException("찾는 영화가 없습니다.");

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exception.DeleteException;
+import exception.InsertException;
 import exception.SearchException;
 import management.DAO.interfaces.DipsDAO;
 import management.DTO.DipsDTO;
@@ -19,18 +20,18 @@ public class DipsDAOImpl implements DipsDAO {
 	/***
 	 * 찜목록 조회
 	 * view에서 user에 해당하는 것만 뽑는다.
-	 * select * from view_dips_info where user_seq = ?
+	 * select * from view_dips where user_seq = ?
 	 * @throws SearchException 
 	 */
 	
 	@Override
-	public List<DipsDTO> selectDipsListAll(UsersDTO users) throws SQLException, SearchException {
+	public List<DipsDTO> selectDipsListAll(UsersDTO users) throws SearchException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		DipsDTO dips = null;
 		List<DipsDTO> list = new ArrayList<DipsDTO>();
-		String sql = "select * from view_dips_info where user_seq = ?";
+		String sql = "select * from view_dips where user_seq = ?";
 		
 		try {
 			con = DbManager.getConnection();
@@ -50,11 +51,17 @@ public class DipsDAOImpl implements DipsDAO {
 			
 			if (dips == null) {
 				con.rollback();
-				throw new SQLException("찜목록을 찾을수 없습니다.");
+				throw new SearchException("찜목록을 찾을수 없습니다.");
 			}
 			
-		}finally {
-			con.commit();
+		} catch(SQLException e) {
+			throw new SearchException("찜목록을 찾을수 없습니다.");
+		} finally {
+			try {
+				con.commit();
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
 			DbManager.close(con, ps, rs);
 		}
 		
@@ -62,9 +69,31 @@ public class DipsDAOImpl implements DipsDAO {
 	}
 
 	@Override
-	public int insertDips(UsersDTO users) {
-		// TODO Auto-generated method stub
-		return 0;
+
+	public int insertDips(UsersDTO user, int movieSeq) throws InsertException{
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = "insert into dips (dips_seq,user_seq,movie_seq) values (dips_seq_no.nextval,?,?)";
+		int result = 0;
+		try {
+			con =DbManager.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, user.getUserSeq());
+			ps.setInt(2, movieSeq);
+			
+			result = ps.executeUpdate();
+			
+			
+		} catch(SQLException e) {
+			throw new InsertException("찜목록을 추가 할 수 없습니다.");
+		} finally {
+			DbManager.close(con, ps, null);
+		}
+		
+		
+		return result;
+
 	}
 
 	@Override

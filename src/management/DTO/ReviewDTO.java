@@ -14,10 +14,19 @@ public class ReviewDTO {
 	
 	public ReviewDTO() {}
 	
-	public ReviewDTO(int userSeq, int movieSeq, String review, int score) {
+	public ReviewDTO( int userSeq, int movieSeq, String review, int score) {
 		super();
 		this.movieSeq = movieSeq;
 		this.userSeq = userSeq;
+		this.score = score;
+		this.review = review;
+	}
+	
+	public ReviewDTO(int reviewSeq, int userSeq, int movieSeq, String review, int score) {
+		super();
+		this.movieSeq = movieSeq;
+		this.userSeq = userSeq;
+		this.reviewSeq = reviewSeq;
 		this.score = score;
 		this.review = review;
 	}
@@ -91,6 +100,23 @@ public class ReviewDTO {
 	public String toString() {
 		return review + "\n  평점 : " + score + "/10";
 	}
+
+	@Override
+	public int hashCode() {
+		return reviewSeq;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		ReviewDTO other = (ReviewDTO)obj;
+		if(review.equals(other.getReview())) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	
 	
 
 }

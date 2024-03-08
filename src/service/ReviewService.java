@@ -35,6 +35,8 @@ public interface ReviewService {
 	 * 리뷰 검색
 	 */
 	public ReviewDTO selectReview(ReviewDTO review) throws SearchException; //선택된 리뷰를 movieDAO에 전달
+	
+	public ReviewDTO selectReview(MovieDTO movie, UsersDTO user) throws SearchException;
 	/**
 	 * 영화 정보로 리뷰 검색
 	 */
@@ -43,26 +45,5 @@ public interface ReviewService {
 	 * 유저 정보로 리뷰 검색
 	 */
 	public List<ReviewDTO> selectReviewByUser(UsersDTO user) throws SearchException;
-	
-	/**
-	 * 해당 리뷰에 좋아요 또는 싫어요 누르기 -> 1은 좋아요 -1은 싫어요 default값은 0
-	 */
-	public void insertLikeReview(ReviewEtcDTO reviewEtc) throws InsertException, SearchException;
 
-	/**
-	 * 해당 리뷰에 좋아요 또는 싫어요 수정하기
-	 */
-	public void updateLikeReview(ReviewEtcDTO reviewEtc) throws UpdateException;
-	
-	/**
-	 * 해당 리뷰에 찍힌 좋아요 개수
-	 */
-	public int countLike(ReviewDTO review) throws SearchException ;
-	
-	/**
-	 * 해당 리뷰에 찍힌 싫어요 개수
-	 */
-	public int countHate(ReviewDTO review) throws SearchException ;
-
-	
 }

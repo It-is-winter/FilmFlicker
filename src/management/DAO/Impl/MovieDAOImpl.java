@@ -211,7 +211,7 @@ public class MovieDAOImpl implements MovieDAO {
 	 * 감독이름으로 영화찾기
 	 */
 	@Override
-	public List<MovieDTO> selectMovieByDirecter(String movieDirecter) throws SearchException {
+	public List<MovieDTO> selectMovieByDirector(String movieDirector) throws SearchException {
 		Connection con = null;
 		PreparedStatement ps =null;
 		ResultSet rs = null;
@@ -224,7 +224,7 @@ public class MovieDAOImpl implements MovieDAO {
 		try {
 			con = DbManager.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, movieDirecter);
+			ps.setString(1, movieDirector);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
@@ -271,7 +271,7 @@ public class MovieDAOImpl implements MovieDAO {
 				moviedto = new MovieDTO();
 				moviedto.setMovieName(rs.getString("movie_name"));
 				moviedto.setMovieGenre(rs.getString("movie_genre"));
-				moviedto.setMovieDirecter(rs.getString("movie_director"));
+				moviedto.setMovieDirector(rs.getString("movie_director"));
 				moviedto.setReleaseDate(releaseDate);
 				leadList = this.selectLeadActor(moviedto);
 				supportList = this.selectSupportActor(moviedto);
@@ -318,7 +318,7 @@ public class MovieDAOImpl implements MovieDAO {
 				moviedto = new MovieDTO();
 				moviedto.setMovieName(rs.getString("movie_name"));
 				moviedto.setMovieGenre(rs.getString("movie_genre"));
-				moviedto.setMovieDirecter(rs.getString("movie_director"));
+				moviedto.setMovieDirector(rs.getString("movie_director"));
 				moviedto.setReleaseDate(releaseDate);
 				leadList = this.selectLeadActor(moviedto);
 				supportList = this.selectSupportActor(moviedto);

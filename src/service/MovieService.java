@@ -29,7 +29,7 @@ public interface MovieService {
 	 * 감독으로 영화 검색
 	 * @throws SQLException 
 	 */
-	public List<MovieDTO> selectMovieByDirecter(String movieDirecter) throws SearchException;
+	public List<MovieDTO> selectMovieByDirector(String movieDirector) throws SearchException;
 	
 	/**
 	 * 개봉연도로 영화 검색

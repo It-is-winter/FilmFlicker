@@ -6,12 +6,16 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import controller.ReviewController;
 import management.DTO.DipsDTO;
 import management.DTO.MovieDTO;
 import management.DTO.ReviewDTO;
 import management.DTO.UsersDTO;
+import session.UsersSession;
+import session.UsersSessionSet;
 
 public class SuccessView {
+
 	
 	/***
 	 * 
@@ -22,22 +26,37 @@ public class SuccessView {
 		System.out.println(message);
 	}
 	/*
-	 * 감독 이름으로 검색 성공했을때 띄움
+	 * 영화 리스트로 받을때 출력 
 	 */
 	
-	public static void successMessage(List<MovieDTO> moviedirecter) {
-
-		System.out.println(moviedirecter);
+	public static void successMessage(List<MovieDTO> movie) {
+		for (MovieDTO movieDTO : movie) {
+			System.out.println(movieDTO);
+			ReviewController.selectReviewByMovie(movieDTO);
+//			MenuView.printReviewCount(user, movieDTO);
+//			MenuView.printReviewValue(user, movieDTO);
+			System.out.println();
+		}
 
 	}
 	
-	public static void successMessage(Set<MovieDTO> moviedirecter) {
+	/***
+	 * 연도로 검색 했을 때  Set출력 
+	 * @param moviedirecter
+	 */
+	public static void successMessage(Set<MovieDTO> moviedirector) {
 
-
-		Iterator<MovieDTO> ite =  moviedirecter.iterator();
+		UsersSessionSet uss = UsersSessionSet.getInstance();
+		UsersSession user = uss.get(null);
+		
+		Iterator<MovieDTO> ite =  moviedirector.iterator();
 		
 		while(ite.hasNext()) {
 			System.out.println(ite.next());
+			ReviewController.selectReviewByMovie(ite.next());
+//			MenuView.printReviewCount(null, ite.next());
+//			MenuView.printReviewValue(user, ite.next());
+			System.out.println();
 		}
 
 	}
@@ -50,6 +69,8 @@ public class SuccessView {
 	 */
 	public static void successMovie(MovieDTO movie){
 		System.out.println(movie);
+		ReviewController.selectReviewByMovie(movie);
+		
 	}
 	
 	/***
