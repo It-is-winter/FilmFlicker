@@ -33,7 +33,8 @@ public class ReviewServiceImpl implements ReviewService, ReviewEtcService {
 		if(! reviewDAO.isExist(review)) {
 			int result = reviewDAO.insertReview(review);
 			if(result == 0) throw new InsertException("리뷰 입력에 실패했습니다.");
-		}
+			else SuccessView.successMessage("리뷰 등록에 성공했습니다.");
+		} else {System.out.println("이미 리뷰를 입력한 영화입니다");}
 	}
 
 	@Override
@@ -85,7 +86,7 @@ public class ReviewServiceImpl implements ReviewService, ReviewEtcService {
 	} // 인수로 받는 ReviewDTO에 대응되는 ReviewEtcDTO 객체 반환
 	
 	@Override
-	public void insertLike(ReviewEtcDTO reviewEtc) throws UpdateException, InsertException, SearchException {
+	public void insertLike(ReviewEtcDTO reviewEtc) throws UpdateException,InsertException, SearchException {
 		//먼저 등록된 좋아요가 있는지 찾는다
 		//만약 있으면 예외 발행
 		//없으면 등록 호출

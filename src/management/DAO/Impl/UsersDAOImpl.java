@@ -200,7 +200,6 @@ public class UsersDAOImpl implements UsersDAO {
 						rs.getString("user_name"),rs.getString("user_birth"),rs.getString("reg_date"));
 			}
 			
-			con.commit();
 		}catch (SQLException e) {
 			throw new SearchException("아이디가 올바르지 않습니다...");
 			

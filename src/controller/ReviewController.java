@@ -54,7 +54,6 @@ public class ReviewController {
 		
 		try {
 			service.insertReview(review);
-			SuccessView.successMessage("리뷰 등록에 성공했습니다.");
 		} catch (InsertException e) {
 			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
@@ -144,7 +143,6 @@ public class ReviewController {
 		List<ReviewDTO> list = null;
 		try {
 			list = service.selectReviewByMovie(movie);
-			SuccessView.successReviewList(list);
 		} catch (SearchException e) {
 			FailView.errorMessage(e.getMessage());
 		}
@@ -152,18 +150,13 @@ public class ReviewController {
 	}
 	
 	/***
-	 * @param ReviewDTO
-	 * 사용자로 리뷰 검색
-	 * 해당 유저가 단 리뷰의 리스트 전체 출력하기
+	 * @param List<ReviewDTO>
+	 * selectReviewByMovie에서 반환한 리스트를 인수로 successReviewList를 출력함
 	 */
-//	public static void selectReviewByUser(UsersDTO user) {
-//		try {
-//			List<ReviewDTO> list = service.selectReviewByUser(user);
-//			SuccessView.successReviewList(list);
-//		} catch (SearchException e) {
-//			FailView.errorMessage(e.getMessage());
-//		}
-//	}
+	public static void printReviewList(List<ReviewDTO> list) {
+		SuccessView.successReviewList(list);
+	}
+	
 	
 //=======================ReviewEtc controller===========================	
 	
