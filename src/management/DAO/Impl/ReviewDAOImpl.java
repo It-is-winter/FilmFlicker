@@ -16,7 +16,6 @@ import management.DTO.MovieDTO;
 import management.DTO.ReviewDTO;
 import management.DTO.UsersDTO;
 import util.DbManager;
-import view.SuccessView;
 
 public class ReviewDAOImpl implements ReviewDAO {
 

@@ -31,7 +31,7 @@ public class DipsDAOImpl implements DipsDAO {
 		ResultSet rs = null;
 		DipsDTO dips = null;
 		List<DipsDTO> list = new ArrayList<DipsDTO>();
-		String sql = "select * from view_dips_info where user_seq = ?";
+		String sql = "select * from view_dips_INFO where user_seq = ?";
 		
 		try {
 			con = DbManager.getConnection();

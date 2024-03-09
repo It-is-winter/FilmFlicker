@@ -81,7 +81,6 @@ public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 	
 	@Override 
 	public int insertLike(ReviewEtcDTO reviewEtc) throws InsertException {
-		System.out.println("DAODAODOADOAODOAODODAODAO");
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "insert into review_etc(REVIEW_ETC_SEQ, USER_SEQ, REVIEW_SEQ, LIKE_DISLIKE, REG_DATE) "

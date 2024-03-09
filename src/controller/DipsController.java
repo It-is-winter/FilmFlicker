@@ -2,9 +2,9 @@ package controller;
 
 import exception.InsertException;
 import management.DTO.UsersDTO;
-import service.MovieService;
-import service.Impl.MovieServiceImpl;
-import session.UsersSession;
+//import service.MovieService;
+//import service.Impl.MovieServiceImpl;
+//import session.UsersSession;
 import session.UsersSessionSet;
 import view.FailView;
 
@@ -12,7 +12,7 @@ import service.DipsService;
 import service.Impl.DipsServiceImpl;
 
 public class DipsController {
-	private static MovieService movieService = new MovieServiceImpl();
+//	private static MovieService movieService = new MovieServiceImpl();
 	public static DipsService service = new DipsServiceImpl();
 	
 
@@ -21,7 +21,7 @@ public class DipsController {
 	 * */
 	public static void movieList(String usersId) {
 		UsersSessionSet uss = UsersSessionSet.getInstance();
-		UsersSession session = uss.get(usersId);
+		/*UsersSession session = */uss.get(usersId);
 	}
 	
 	/**

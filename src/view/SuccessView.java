@@ -1,5 +1,7 @@
 package view;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -87,8 +89,23 @@ public class SuccessView {
 	 */
 	public static void successReviewList(List<ReviewDTO> list){
 		int cnt = 1;
+		
+		Collections.sort(list, new Comparator<ReviewDTO>() { // list 정렬
+	        @Override
+	        public int compare(ReviewDTO review1, ReviewDTO review2) {
+	            return Integer.compare(review1.getReviewSeq(), review2.getReviewSeq());
+	        }
+	    });
+		
 		for(ReviewDTO review : list) {
 			System.out.println("● 리뷰 " + cnt++ + " : " + review);
+
+			int like = ReviewController.countLike(review);
+			int hate = ReviewController.countHate(review);
+			
+			System.out.print("  -> 이 리뷰가 도움이 됐나요?   ");
+			System.out.println("좋아요 " + like + "   싫어요 " + hate);
+			System.out.println("=====================================================");
 		}
 	}
 
