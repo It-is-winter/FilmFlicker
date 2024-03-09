@@ -231,7 +231,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		ResultSet rs = null;
 		ReviewDTO review = null;
 		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
-		String sql = "select * from review where user_seq = ?";
+		String sql = "select * from view_review_info where user_seq = ?";
 		
 		try {
 			con = DbManager.getConnection();
@@ -242,6 +242,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				review = new ReviewDTO(rs.getInt("REVIEW_SEQ"), rs.getInt("USER_SEQ"), rs.getInt("MOVIE_SEQ"), rs.getString("REVIEW"), rs.getInt("SCORE"));
+				review.getMovie().setMovieName(rs.getString("MOVIE_NAME"));
 				list.add(review);
 			}
 			} catch (SQLException e) {

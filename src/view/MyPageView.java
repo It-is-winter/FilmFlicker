@@ -170,7 +170,7 @@ public class MyPageView {
 		try {
 			bf = new BufferedReader(new InputStreamReader(System.in));
 			int delete = Integer.parseInt(bf.readLine());
-			MyPageController.deleteMyDips(user, delete);
+			MyPageController.deletMyReview(user, delete);
 		} catch (IOException e) {
 			FailView.errorMessage("잘못된 값을 입력하였습니다.");
 		}

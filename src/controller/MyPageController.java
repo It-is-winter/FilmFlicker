@@ -10,11 +10,14 @@ import exception.DeleteException;
 import exception.SearchException;
 import exception.UpdateException;
 import management.DTO.DipsDTO;
+import management.DTO.MovieDTO;
 import management.DTO.ReviewDTO;
 import management.DTO.UsersDTO;
 import service.DipsService;
+import service.MovieService;
 import service.ReviewService;
 import service.Impl.DipsServiceImpl;
+import service.Impl.MovieServiceImpl;
 import service.Impl.ReviewServiceImpl;
 import session.UsersSession;
 import session.UsersSessionSet;
@@ -25,6 +28,7 @@ public class MyPageController {
 	
 	public static ReviewService reviewService = new ReviewServiceImpl();
 	public static DipsService dipsService = new DipsServiceImpl();
+	public static MovieService movieService = new MovieServiceImpl();
 	
 	
 	/**
@@ -36,23 +40,22 @@ public class MyPageController {
 		
 		@SuppressWarnings("unchecked")
 		Map<Integer, ReviewDTO> reviewList = (Map<Integer, ReviewDTO>)session.getAttribute("리뷰목록");
-		
-		if(reviewList == null) { 
-			reviewList = new HashMap<>(); 
-			session.setAttribute("리뷰목록", reviewList);
-		}
-		
-		List<ReviewDTO> list = null;
 		int i =0;
-				
+		List<ReviewDTO> list = null;
+		
 		try {
 			list = reviewService.selectReviewByUser(user);
 		} catch(SearchException e) {
 			FailView.errorMessage(e.getMessage());
 		}
-		for (ReviewDTO reviewDTO : list) {
-			i++;
-			reviewList.put(i, reviewDTO);
+		
+		if(reviewList == null) { 
+			reviewList = new HashMap<>(); 
+			session.setAttribute("리뷰목록", reviewList);
+			for (ReviewDTO reviewDTO : list) {
+				i++;
+				reviewList.put(i, reviewDTO);
+			}
 		}
 		
 		SuccessView.printReviewByUser(reviewList);
@@ -155,17 +158,16 @@ public class MyPageController {
 			@SuppressWarnings("unchecked")
 			Map<Integer, DipsDTO>dipList = (Map<Integer, DipsDTO>)us.getAttribute("찜목록");
 				
+			int i = 0;
 			if(dipList == null) { 
 				dipList = new HashMap<>(); 
 				us.setAttribute("찜목록", dipList);
+				for (DipsDTO dipsDTO : dips) {
+					i++;
+					dipList.put(i, dipsDTO);
+				}
 			}
-				
-			int i = 0;
-				
-			for (DipsDTO dipsDTO : dips) {
-				i++;
-				dipList.put(i, dipsDTO);
-			}
+
 			SuccessView.dipsList(dipList);
 				
 		} catch (SearchException e) {
