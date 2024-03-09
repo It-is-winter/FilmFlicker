@@ -129,8 +129,9 @@ public class SuccessView {
 		for (Entry<Integer, ReviewDTO> element : entrySet) {
 			int key = element.getKey();
 			ReviewDTO dd = element.getValue();
-			
-			System.out.println(key +" "+ dd);
+			MovieDTO movie = dd.getMovie();
+			System.out.println("등록한 영화 : "+movie.getMovieName());
+			System.out.println(key+" "+dd);
 		}
 		
 	}
@@ -147,7 +148,7 @@ public class SuccessView {
 			int key = element.getKey();
 			DipsDTO dd = element.getValue();
 			
-			System.out.println(key +" "+ dd);
+			System.out.println(key +" "+ "영화 이름: "+dd.getMovieName() +" 영화 감독: " +dd.getMovieDirector());
 		}
 		
 	}
