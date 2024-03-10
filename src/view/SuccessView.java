@@ -101,9 +101,10 @@ public class SuccessView {
 			int like = ReviewController.countLike(review);
 			int hate = ReviewController.countHate(review);
 			
-			System.out.print("  -> 이 리뷰가 도움이 됐나요?   ");
-			System.out.println("좋아요 " + like + "   싫어요 " + hate);
+			System.out.print("  -> 이 리뷰의 좋아요 싫어요   ");
+			System.out.println("좋아요 : " + like + "   싫어요 : " + hate);
 			System.out.println("=====================================================");
+			System.out.println();
 		}
 	}
 

@@ -5,6 +5,7 @@ import exception.SearchException;
 import exception.UpdateException;
 import management.DTO.ReviewDTO;
 import management.DTO.ReviewEtcDTO;
+import management.DTO.UsersDTO;
 
 public interface ReviewEtcService {
 	/*
@@ -14,8 +15,8 @@ public interface ReviewEtcService {
 	/**
 	 * 해당 리뷰에 좋아요 또는 싫어요 누르기 -> 1은 좋아요 -1은 싫어요 default값은 0
 	 */
-	public void insertLike(ReviewEtcDTO reviewEtc) throws UpdateException, InsertException, SearchException;
-	public void insertHate(ReviewEtcDTO reviewEtc) throws UpdateException, InsertException, SearchException;
+	public void insertLike(UsersDTO user,ReviewEtcDTO reviewEtc) throws UpdateException, InsertException, SearchException;
+	public void insertHate(UsersDTO user,ReviewEtcDTO reviewEtc) throws UpdateException, InsertException, SearchException;
 	
 	/**
 	 * 리뷰에 대한 좋아요, 싫어요
