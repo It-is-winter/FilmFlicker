@@ -178,10 +178,10 @@ public class ReviewController {
 	 * @param ReviewEtcDTO
 	 * 리뷰에 좋아요 또는 싫어요 입력하기
 	 */
-	public static void insertLike(ReviewEtcDTO reviewEtc) {
+	public static void insertLike(UsersDTO user,ReviewEtcDTO reviewEtc) {
 
 		try {
-			etcService.insertLike(reviewEtc);
+			etcService.insertLike(user,reviewEtc);
 		} catch (InsertException e) {
 			FailView.errorMessage(e.getMessage());
 		} catch (UpdateException e) {
@@ -191,10 +191,10 @@ public class ReviewController {
 		}
 	}
 	
-	public static void insertHate(ReviewEtcDTO reviewEtc) {
+	public static void insertHate(UsersDTO user,ReviewEtcDTO reviewEtc) {
 
 		try {
-			etcService.insertHate(reviewEtc);
+			etcService.insertHate(user,reviewEtc);
 		} catch (InsertException e) {
 			FailView.errorMessage(e.getMessage());
 		} catch (UpdateException e) {

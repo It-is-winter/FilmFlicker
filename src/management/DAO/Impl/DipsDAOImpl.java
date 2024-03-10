@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import exception.DeleteException;
 import exception.InsertException;
@@ -25,12 +27,12 @@ public class DipsDAOImpl implements DipsDAO {
 	 */
 	
 	@Override
-	public List<DipsDTO> selectDipsListAll(UsersDTO users) throws SearchException {
+	public Set<DipsDTO> selectDipsListAll(UsersDTO users) throws SearchException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		DipsDTO dips = null;
-		List<DipsDTO> list = new ArrayList<DipsDTO>();
+		Set<DipsDTO> list = new HashSet<DipsDTO>();
 		String sql = "select * from view_dips_INFO where user_seq = ?";
 		
 		try {

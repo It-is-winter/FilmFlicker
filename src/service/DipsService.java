@@ -2,6 +2,7 @@ package service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 import exception.DeleteException;
 import exception.InsertException;
@@ -19,7 +20,7 @@ public interface DipsService {
 	 * @throws SearchException 
 	 * @throws SQLException 
 	 */
-	public List<DipsDTO> selectDipsListAll(UsersDTO users) throws SearchException; //user 의 ID 를 받음
+	public Set<DipsDTO> selectDipsListAll(UsersDTO users) throws SearchException; //user 의 ID 를 받음
 	
 	/**
 	 * 찜 목록 등록

@@ -456,9 +456,15 @@ public class MenuView {
 			movieName = bf.readLine();
 			MovieDTO movie = MovieController.selectMovieByName(movieName);
 			List<ReviewDTO> list = ReviewController.selectReviewByMovie(movie);
-			if(list==null) MenuView.printSelectMovie(user);
-			else ReviewController.printReviewList(list);
-			printDipsInsert(user,movie);
+			if(list==null) { 
+				//MenuView.printSelectMovie(user);
+				printDipsInsert(user,movie);
+				return;
+			}
+			else {
+				ReviewController.printReviewList(list);
+				printDipsInsert(user,movie);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			FailView.errorMessage("잘못된 값을 입력하였습니다.");
@@ -548,7 +554,7 @@ public class MenuView {
 		ReviewDTO review = list.get(menu-1);
 		
 		//----선택한 리뷰에 좋아요 또는 싫어요 누르기----
-		ReviewEtcDTO reviewEtcDTO = new ReviewEtcDTO();
+		ReviewEtcDTO reviewEtcDTO = null;
 		
 		System.out.println("1. 좋아요   |   2. 싫어요   |   3. 나가기 ");
 		
@@ -563,11 +569,11 @@ public class MenuView {
 		
 		case 1 : // 좋아요
 			reviewEtcDTO = new ReviewEtcDTO(user.getUserSeq(), review.getReviewSeq(),1);
-			ReviewController.insertLike(reviewEtcDTO);
+			ReviewController.insertLike(user,reviewEtcDTO);
 			break;
 		case 2 : // 싫어요
 			reviewEtcDTO = new ReviewEtcDTO(user.getUserSeq(), review.getReviewSeq(),-1);
-			ReviewController.insertHate(reviewEtcDTO);
+			ReviewController.insertHate(user,reviewEtcDTO);
 			break;
 		case 3 :
 			MenuView.printSelectMovie(user);

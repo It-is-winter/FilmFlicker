@@ -11,6 +11,7 @@ import exception.UpdateException;
 import management.DAO.interfaces.ReviewEtcDAO;
 import management.DTO.ReviewDTO;
 import management.DTO.ReviewEtcDTO;
+import management.DTO.UsersDTO;
 import util.DbManager;
 
 public class ReviewEtcDAOImpl implements ReviewEtcDAO {
@@ -138,10 +139,12 @@ public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 	
 
 	@Override
-	public int updateLike(ReviewEtcDTO reviewEtc) throws UpdateException {
+	public int updateLike(UsersDTO user,ReviewEtcDTO reviewEtc) throws UpdateException {
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = "update review_etc set LIKE_DISLIKE = ? where review_seq =?";
+		String sql = "UPDATE /*+ NO_PARALLEL(review_etc) */ review_etc "
+				+ "SET LIKE_DISLIKE = ? "
+				+ "WHERE review_seq = ? AND user_seq = ?";
 		int result = 0;
 		
 		try {
@@ -150,6 +153,7 @@ public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 			
 			ps.setInt(1, reviewEtc.getLike());
 			ps.setInt(2, reviewEtc.getReviewSeq());
+			ps.setInt(3, user.getUserSeq());
 			
 			result = ps.executeUpdate();
 		} catch (SQLException e) {
