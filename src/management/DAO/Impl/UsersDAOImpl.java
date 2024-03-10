@@ -15,8 +15,8 @@ import util.DbManager;
 public class UsersDAOImpl implements UsersDAO {
 
 	/***
-	 * select * from users where user_ID = ? and USER_password ?
-	 * @throws SQLException 
+	 * 회원 로그인
+	 * @throws SearchException 
 	 */
 	@Override
 	public UsersDTO login(String userID, String userPassword) throws SearchException{
@@ -71,10 +71,9 @@ public class UsersDAOImpl implements UsersDAO {
 	}
 
 	/***
-	 * insert into users values(user_seq_NO.NEXTVAL,?,?,?,?,sysdate)
-	 * @throws SQLException 
+	 * 회원 가입
 	 * @throws SearchException 
-	 * @throws  
+	 * @throws InsertException
 	 */
 	@Override
 	public int register(String userID, String userPassword, String userName, String userBirth) throws InsertException,SearchException {
@@ -97,7 +96,7 @@ public class UsersDAOImpl implements UsersDAO {
 			
 			if(result == 0) {
 				con.rollback();
-			   throw new InsertException("회원 가입 실패...");
+				throw new InsertException("회원 가입 실패...");
 			}
 			con.commit();
 		}catch (SQLException e) {
@@ -126,10 +125,10 @@ public class UsersDAOImpl implements UsersDAO {
 
 	/***
 	 * update users set USER_password = ? where user_ID = ?
-	 * @throws SQLException 
+	 * @throws UpdateException 
 	 */
 	@Override
-	public int userUpdate(String userID,String userPassword) throws UpdateException{
+	public int userUpdate(String userID,String userPassword) throws UpdateException {
 		
 		int result = 0;
 		Connection con = null;

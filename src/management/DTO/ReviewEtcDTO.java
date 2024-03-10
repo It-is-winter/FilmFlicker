@@ -3,7 +3,7 @@ package management.DTO;
 public class ReviewEtcDTO {
 	private int like; // 1 이면 좋아요 -1 이면 싫어요 0 이면 default
 	private int countLike;
-	private int reviewEtcSeq;
+//	private int reviewEtcSeq;
 	
 	ReviewDTO review = new ReviewDTO();
 	private int reviewSeq = review.getReviewSeq();
@@ -11,8 +11,8 @@ public class ReviewEtcDTO {
 	UsersDTO user = new UsersDTO();
 	private int UserSeq = user.getUserSeq();
 	
-	MovieDTO movie = new MovieDTO();
-	private int MovieSeq = movie.getMovieSeq();
+//	MovieDTO movie = new MovieDTO();
+//	private int MovieSeq = movie.getMovieSeq();
 	
 	public ReviewEtcDTO() {}
 	

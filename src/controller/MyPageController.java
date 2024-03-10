@@ -10,7 +10,6 @@ import exception.DeleteException;
 import exception.SearchException;
 import exception.UpdateException;
 import management.DTO.DipsDTO;
-import management.DTO.MovieDTO;
 import management.DTO.ReviewDTO;
 import management.DTO.UsersDTO;
 import service.DipsService;
