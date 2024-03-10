@@ -69,7 +69,6 @@ public class DipsDAOImpl implements DipsDAO {
 	}
 
 	@Override
-
 	public int insertDips(UsersDTO user, int movieSeq) throws InsertException{
 		Connection con = null;
 		PreparedStatement ps = null;

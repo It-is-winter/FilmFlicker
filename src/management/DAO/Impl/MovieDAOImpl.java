@@ -102,7 +102,7 @@ public class MovieDAOImpl implements MovieDAO {
 	 * @param leadActor
 	 * @return
 	 */
-	public int insertleadActor(Connection con,int movieSeq, List<String> leadActor ) throws InsertException {
+	private int insertleadActor(Connection con,int movieSeq, List<String> leadActor ) throws InsertException {
 		
 		PreparedStatement ps = null;
 		String sql ="insert into movie_actor (movie_actor_seq,movie_seq,actor_name, actor_role) "
@@ -141,7 +141,7 @@ public class MovieDAOImpl implements MovieDAO {
 	 * @param supportActor
 	 * @return
 	 */
-	public int insertSupportActor(Connection con,int movieSeq, List<String> supportActor ) throws InsertException {
+	private int insertSupportActor(Connection con,int movieSeq, List<String> supportActor ) throws InsertException {
 		
 		PreparedStatement ps = null;
 		String sql ="insert into movie_actor (movie_actor_seq,movie_seq,actor_name, actor_role) "

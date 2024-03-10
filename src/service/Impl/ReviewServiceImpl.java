@@ -78,7 +78,7 @@ public class ReviewServiceImpl implements ReviewService, ReviewEtcService {
 	}
 	
 //========================리뷰에 좋아요/싫어요 기능======================
-	
+	@Override
 	public ReviewEtcDTO selectReviewEtc(ReviewDTO review) throws SearchException {
 		ReviewEtcDTO reviewEtcDTO = reviewEtcDAO.selectReviewEtc(review);
 		if(reviewEtcDTO==null) throw new SearchException("@@@@@");		

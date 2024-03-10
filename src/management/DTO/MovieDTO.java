@@ -11,7 +11,7 @@ public class MovieDTO {
 	
 	
 	private List<ActorDTO> supportActorList;
-	private List<ActorDTO> leadAcotrList;
+	private List<ActorDTO> leadActorList;
 	
 	public MovieDTO() {};
 		
@@ -26,7 +26,7 @@ public class MovieDTO {
 		this.movieDirector = movieDirector;
 		this.releaseDate = releaseDate;
 		this.supportActorList = supportActorList;
-		this.leadAcotrList = leadAcotrList;
+		this.leadActorList = leadAcotrList;
 	}
 
 	
@@ -73,10 +73,10 @@ public class MovieDTO {
 		this.supportActorList = supportActorList;
 	}
 	public List<ActorDTO> getLeadAcotrList() {
-		return leadAcotrList;
+		return leadActorList;
 	}
 	public void setLeadAcotrList(List<ActorDTO> leadAcotrList) {
-		this.leadAcotrList = leadAcotrList;
+		this.leadActorList = leadAcotrList;
 	}
 	
 	
@@ -104,7 +104,7 @@ public class MovieDTO {
 	@Override
 	public String toString() {
 		return  "영화 제목 = " + movieName +", 영화 장르 = "+movieGenre +", 감독 =" + movieDirector
-				+ ", 개봉일 =" + releaseDate + ", 주연배우 = " +leadAcotrList  + ", 조연배우 = "
+				+ ", 개봉일 =" + releaseDate + ", 주연배우 = " +leadActorList  + ", 조연배우 = "
 				+ supportActorList;
 	}
 }

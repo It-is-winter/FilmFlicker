@@ -18,7 +18,6 @@ public interface DipsDAO {
 		on d1.movie_seq = d2.movie_seq;
 		이 뷰에서 user_seq가 맞는거 뽑아내기.
 		select * from view_dips_info
-	 * @throws SQLException 
 	 * @throws SearchException 
 	 */
 	
@@ -26,12 +25,13 @@ public interface DipsDAO {
 	
 	/**
 	 * 찜 목록 등록
-	 * @throws SQLException 
+	 * @throws InsertException 
 	 */
 	public int insertDips(UsersDTO user, int movieSeq) throws InsertException;
 	
 	/**
 	 * 찜 목록 삭제
+	 * @throws DeleteException
 	 */
 	public int deleteDips(DipsDTO dips) throws DeleteException;
 

@@ -46,7 +46,7 @@ public class ReviewEtcDAOImpl implements ReviewEtcDAO {
 		return reviewEtc;
 	}
 	
-	// 해당 유저가 해당 리뷰에 좋아요/싫어요를 입력했는지 여부 판단 -> 이미 입력했으면 true, 아직 안한거면 false
+	@Override// 해당 유저가 해당 리뷰에 좋아요/싫어요를 입력했는지 여부 판단 -> 이미 입력했으면 true, 아직 안한거면 false
 	public boolean isExist(ReviewEtcDTO reviewEtc) throws SearchException {
 		Connection con = null;
 		PreparedStatement ps = null;

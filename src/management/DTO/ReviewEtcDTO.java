@@ -9,18 +9,18 @@ public class ReviewEtcDTO {
 	private int reviewSeq = review.getReviewSeq();
 	
 	UsersDTO user = new UsersDTO();
-	private int UserSeq = user.getUserSeq();
+	private int userSeq = user.getUserSeq();
 	
 //	MovieDTO movie = new MovieDTO();
 //	private int MovieSeq = movie.getMovieSeq();
 	
 	public ReviewEtcDTO() {}
 	
-	public ReviewEtcDTO(int UserSeq, int reviewSeq, int like) {
+	public ReviewEtcDTO(int userSeq, int reviewSeq, int like) {
 		super();
 		this.like = like;
 		this.reviewSeq = reviewSeq;
-		this.UserSeq = UserSeq;
+		this.userSeq = userSeq;
 	}
 	public int getLike() {
 		return like;
@@ -60,11 +60,11 @@ public class ReviewEtcDTO {
 	}
 
 	public int getUserSeq() {
-		return UserSeq;
+		return userSeq;
 	}
 
 	public void setUserSeq(int UserSeq) {
-		this.UserSeq = UserSeq;
+		this.userSeq = UserSeq;
 	}
 
 	@Override
