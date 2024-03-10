@@ -199,7 +199,9 @@ public class UsersDAOImpl implements UsersDAO {
 				user = new UsersDTO(rs.getInt("user_seq"),rs.getString("user_id"),rs.getString("user_password"),
 						rs.getString("user_name"),rs.getString("user_birth"),rs.getString("reg_date"));
 			}
-			
+			else {
+				throw new SearchException("아이디가 존재 하지 않습니다.");
+			}
 		}catch (SQLException e) {
 			throw new SearchException("아이디가 올바르지 않습니다...");
 			

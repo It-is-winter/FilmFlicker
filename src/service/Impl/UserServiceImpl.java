@@ -59,8 +59,6 @@ public class UserServiceImpl implements UsersService {
 			userdao.searchByUserID(userID);
 		} catch (SearchException e) {
 			if( now.getYear() - Integer.parseInt(this.replaceBirth(userBirth))  < adultAge ) {
-				System.out.println(now.getYear());
-				System.out.println(now.getYear() - Integer.parseInt(this.replaceBirth(userBirth)));
 				throw new InsertException("미성년자는 회원가입에 제한됩니다.");
 			}
 			
