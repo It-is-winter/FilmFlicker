@@ -1,6 +1,6 @@
 package service.Impl;
 
-import java.util.List;
+import java.util.Set;
 
 import exception.DeleteException;
 import exception.InsertException;
@@ -17,8 +17,8 @@ public class DipsServiceImpl implements DipsService {
 	DipsDAO dipsDAO = new DipsDAOImpl();
 	
 	@Override
-	public List<DipsDTO> selectDipsListAll(UsersDTO users) throws SearchException {
-		List<DipsDTO> list = dipsDAO.selectDipsListAll(users);
+	public Set<DipsDTO> selectDipsListAll(UsersDTO users) throws SearchException {
+		Set<DipsDTO> list = dipsDAO.selectDipsListAll(users);
 		
 		if(list.isEmpty()) {
 			throw new SearchException("찜목록이 없습니다.");

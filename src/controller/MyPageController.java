@@ -149,7 +149,7 @@ public class MyPageController {
 	 * */
 	public static void selectDips(UsersDTO user) {
 		try {
-			List<DipsDTO> dips = dipsService.selectDipsListAll(user);
+			Set<DipsDTO> dips = dipsService.selectDipsListAll(user);
 				
 				
 			UsersSessionSet uss = UsersSessionSet.getInstance();

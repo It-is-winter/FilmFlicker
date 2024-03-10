@@ -86,12 +86,13 @@ public class ReviewServiceImpl implements ReviewService, ReviewEtcService {
 	} // 인수로 받는 ReviewDTO에 대응되는 ReviewEtcDTO 객체 반환
 	
 	@Override
-	public void insertLike(ReviewEtcDTO reviewEtc) throws UpdateException,InsertException, SearchException {
+	public void insertLike(UsersDTO user,ReviewEtcDTO reviewEtc) throws UpdateException,
+	InsertException, SearchException {
 		//먼저 등록된 좋아요가 있는지 찾는다
 		//만약 있으면 예외 발행
 		//없으면 등록 호출
 		if(reviewEtcDAO.isExist(reviewEtc)) { 
-			int result = reviewEtcDAO.updateLike(reviewEtc);
+			int result = reviewEtcDAO.updateLike(user,reviewEtc);
 			if(result==0) throw new UpdateException("좋아요 등록에 실패하였습니다.");
 			else {
 				System.out.println("기존에 좋아요/싫어요 등록한 기록이 있는 리뷰입니다.");
@@ -107,12 +108,13 @@ public class ReviewServiceImpl implements ReviewService, ReviewEtcService {
 	}
 	
 	@Override
-	public void insertHate(ReviewEtcDTO reviewEtc) throws UpdateException, InsertException, SearchException {
+	public void insertHate(UsersDTO user,ReviewEtcDTO reviewEtc) throws UpdateException, 
+	InsertException, SearchException {
 		//먼저 등록된 좋아요가 있는지 찾는다
 		//만약 있으면 예외 발행
 		//없으면 등록 호출
 		if(reviewEtcDAO.isExist(reviewEtc)) {
-			int result = reviewEtcDAO.updateLike(reviewEtc);
+			int result = reviewEtcDAO.updateLike(user,reviewEtc);
 			if(result==0) throw new UpdateException("좋아요 등록에 실패하였습니다.");
 			else {
 				System.out.println("기존에 좋아요/싫어요 등록한 기록이 있는 리뷰입니다.");

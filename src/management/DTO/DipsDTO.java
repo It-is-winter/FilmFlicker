@@ -61,7 +61,21 @@ public class DipsDTO {
 	
 
 	
-	
+	@Override
+	public int hashCode() {
+		return movieName.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		DipsDTO other = (DipsDTO) obj;
+		
+		if(movieDirector.equals(other.getMovieDirector()))  {
+			return true;
+		}
+		
+		return false;
+	}
 	
 	
 	

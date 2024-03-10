@@ -5,6 +5,7 @@ import exception.SearchException;
 import exception.UpdateException;
 import management.DTO.ReviewDTO;
 import management.DTO.ReviewEtcDTO;
+import management.DTO.UsersDTO;
 
 public interface ReviewEtcDAO {
 	
@@ -23,7 +24,7 @@ public interface ReviewEtcDAO {
 	/**
 	 * 리뷰에 대한 좋아요, 싫어요 수정
 	 */
-	public int updateLike(ReviewEtcDTO reviewEtc) throws UpdateException;
+	public int updateLike(UsersDTO user,ReviewEtcDTO reviewEtc) throws UpdateException;
 	
 	/**
 	 * 좋아요,싫어요 개수
