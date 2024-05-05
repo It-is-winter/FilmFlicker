@@ -21,19 +21,20 @@
 
 <h2>개발환경/기간</h2>
 
-![image](https://github.com/It-is-winter/FilmFlicker/assets/158557360/9bec7956-aae5-4115-98e4-1b51dc0c2f44)
+![image](https://github.com/It-is-winter/FilmFlicker/assets/158557360/d0530169-d231-4772-b735-f4cd83971ecd)
 
 ![image](https://github.com/It-is-winter/FilmFlicker/assets/158557360/bb416605-fb84-46e5-8989-739be7a58c48)
 
 
 <h2>프로젝트 주제</h2>
 
-![image](https://github.com/It-is-winter/FilmFlicker/assets/158557360/13a2e3e9-8729-4d8f-85a9-b7a0081e42d0)
+![image](https://github.com/It-is-winter/FilmFlicker/assets/158557360/1e6be9dc-daba-486c-a7b6-d5d5b887c886)
 
 
 <h2>DataBase</h2>
 
-![image](https://github.com/It-is-winter/FilmFlicker/assets/158557360/b7738ce2-447e-49d9-b9aa-c5c0404fa927)
+![image](https://github.com/It-is-winter/FilmFlicker/assets/158557360/e0877df0-b8c9-40ee-b1e8-6ad0051049f6)
+
 
 <h2>기능 소개</h2>
 
