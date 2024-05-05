@@ -27,7 +27,8 @@
 
 <h2>프로젝트 주제</h2>
 
-![20240501_16332411](https://github.com/It-is-winter/FilmFlicker/assets/158557360/75e6793c-15b3-4e2a-a0a9-64debb796f00)
+![image](https://github.com/It-is-winter/FilmFlicker/assets/158557360/9b71b77f-4a3d-43fb-8ded-c5a9fb6b3f3e)
+
 
 <h2>DataBase</h2>
 
